@@ -13,12 +13,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGame;
 import com.mygdx.utils.managers.EntityManager;
 import com.mygdx.utils.managers.HudManager;
+import com.mygdx.utils.managers.ParticleManager;
 import com.mygdx.utils.managers.ScreenManager;
 
 public class GameScreen extends Screen implements GestureListener{
 
 	public static EntityManager entMan;
 	public static HudManager hudMan;
+	public static ParticleManager partMan;
 	
 	public static boolean running;
 	public static boolean pause;
@@ -28,6 +30,7 @@ public class GameScreen extends Screen implements GestureListener{
 	public void create() {
 		entMan = new EntityManager(this);
 		hudMan = new HudManager(this);
+		partMan = new ParticleManager(this);
 
 		gesture = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gesture);
@@ -41,12 +44,14 @@ public class GameScreen extends Screen implements GestureListener{
 	public void update(float delta) {
 		entMan.update(delta);
 		hudMan.update(delta);
+		partMan.update(delta);
 	}
 
 	@Override
 	public void render(ShapeRenderer sr, SpriteBatch sb) {
 		sb.begin();
 		entMan.render(sb);
+		partMan.render(sb);
 		sb.end();
 		entMan.renderLights();
 		
@@ -66,6 +71,7 @@ public class GameScreen extends Screen implements GestureListener{
 		MyGame.hideAd();
 		entMan.reset();
 		hudMan.reset();
+		partMan.reset();
 		running = true;
 		pause = false;
 	}
@@ -79,6 +85,7 @@ public class GameScreen extends Screen implements GestureListener{
 	public void dispose() {
 		entMan.dispose();
 		hudMan.dispose();
+		partMan.dispose();
 	}
 
 	@Override

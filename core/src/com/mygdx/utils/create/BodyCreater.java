@@ -32,6 +32,32 @@ public class BodyCreater {
 		shape.dispose();
 		return pBody;
 	}
+
+
+	public static Body createBox(double x, double y, double width, double height, boolean isStatic,boolean isFixed, World world, float density, float restitution){
+		Body pBody;
+
+		BodyDef def = new BodyDef();
+		if(isStatic) def.type = BodyDef.BodyType.StaticBody;
+		else def.type = BodyDef.BodyType.DynamicBody;
+		def.position.set((float)x, (float)y);
+		def.fixedRotation = isFixed;
+		pBody = world.createBody(def);
+
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox((float)(width / 2),(float) (height / 2));
+
+		FixtureDef fixDef = new FixtureDef();
+		fixDef.shape = shape;
+		fixDef.density = density;
+		fixDef.restitution = restitution;
+		fixDef.friction = 0.4f;
+
+
+		pBody.createFixture(fixDef);
+		shape.dispose();
+		return pBody;
+	}
 	
 	public static Body createCircle(float x, float y,float radius, boolean isStatic,boolean isFixed, World world){
 		Body pBody;

@@ -1,5 +1,6 @@
 package com.mygdx.utils.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -62,7 +63,6 @@ public class EntityManager implements ContactListener{
 				delta/=slowAmount;
 			}else
 				slowAmount = 1;
-
 			world.step(delta, 6, 2);
 
 
@@ -81,7 +81,7 @@ public class EntityManager implements ContactListener{
 
 				if(slowTemp!=slowTime){
 					if(slowTemp)
-						light.animateTo(light.getLightLevel()*.9f,.1f);
+						light.animateTo(light.getLightLevel()*.7f,.1f);
 					else
 						light.resetLights();
 					slowTime = slowTemp;
@@ -163,7 +163,7 @@ public class EntityManager implements ContactListener{
 		Body a = contact.getFixtureA().getBody();
 	    Body b = contact.getFixtureB().getBody();
 	    
-	    if(!player.invincible&&(a.getUserData() instanceof Player ||b.getUserData() instanceof Player)){
+	    if(!player.invincible&&(a.getUserData() instanceof Player ||b.getUserData() instanceof Player)&&(b.getUserData() instanceof Enemy||a.getUserData() instanceof Enemy)){
 	    	game.end();
 	    }else{
 			/*

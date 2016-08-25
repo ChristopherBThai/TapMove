@@ -72,7 +72,7 @@ public class MyGame extends ApplicationAdapter {
 
 		ScreenManager.render(sr, sb);
 	}
-	
+	float time;
 	public void update(){
 		float delta = Gdx.graphics.getDeltaTime();
 		ScreenManager.update(delta);

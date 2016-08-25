@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.game.MyGame;
+import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.utils.managers.ColorManager;
 import com.mygdx.utils.managers.SpriteManager;
@@ -21,6 +22,8 @@ public class Enemy extends Entity {
 
 	float speed,speedBuffer;
 	float strafe, strafeBuffer;
+
+	private float currentParticleDeployTime,maxParticleDeployTime;
 	
 	public Enemy(float x, float y, float radius, float density, float restitution, World world){
 		super(BodyCreater.createCircle(x, y, radius, density, restitution, false, true, world));
@@ -31,6 +34,8 @@ public class Enemy extends Entity {
 		strafe = 200;
 		strafeBuffer = 100;
 		color = ColorManager.NORMAL_ENEMY;
+		maxParticleDeployTime = .8f;
+		currentParticleDeployTime = maxParticleDeployTime;
 	}
 	
 	@Override
@@ -41,7 +46,15 @@ public class Enemy extends Entity {
 	
 	@Override
 	public void update(float delta){
-		
+		if(currentParticleDeployTime>0)
+			currentParticleDeployTime -= delta;
+		else{
+			currentParticleDeployTime = maxParticleDeployTime;
+			//double radians = Math.atan(body.getLinearVelocity().y/body.getLinearVelocity().x)+Math.PI;
+			//double x = Math.cos(radians)*radius;
+			//double y = Math.sin(radians)*radius;
+			//GameScreen.partMan.create(this.radius*.2f,body.getPosition().x,body.getPosition().y,this.getBody().getLinearVelocity().x*-.4f,this.getBody().getLinearVelocity().y*-.4f,(float)(Math.random()*5),this.color);
+		}
 	}
 	
 	public boolean dead(){
