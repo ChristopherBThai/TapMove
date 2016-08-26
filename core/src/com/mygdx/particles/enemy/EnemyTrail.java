@@ -30,7 +30,7 @@ public class EnemyTrail {
 
     public EnemyTrail(){
         pe = new ParticleEffect();
-        pe.load(Gdx.files.internal("particle/EnemyTrail5"),Gdx.files.internal("sprites"));
+        pe.load(Gdx.files.internal("particle/EnemyTrail6"),Gdx.files.internal("sprites"));
         pe.setPosition(0,0);
         pe.scaleEffect(((float)MyGame.WIDTH)/Gdx.graphics.getWidth());
         pool = new ParticleEffectPool(pe,0,200);
@@ -70,7 +70,6 @@ public class EnemyTrail {
 
     public void setColor(ParticleEffectPool.PooledEffect effect, Color color){
         float[] floatColor = {color.r,color.g,color.b};
-        System.out.println(floatColor[0]+","+floatColor[1]+","+floatColor[2]);
         effect.getEmitters().first().getTint().setColors(floatColor);
     }
 
@@ -83,7 +82,7 @@ public class EnemyTrail {
 
     public void reset(){
         for(ParticleEffectPool.PooledEffect effect: effects)
-            effect.free();
+            this.remove(effect);
     }
 
     public void dispose(){

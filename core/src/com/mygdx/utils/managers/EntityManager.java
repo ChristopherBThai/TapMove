@@ -55,7 +55,7 @@ public class EntityManager implements ContactListener{
 		slowAmount = 1;
 	}
 
-	public void update(float delta) {
+	public float update(float delta) {
 		if(!GameScreen.pause){
 			if(slowTime){
 				if(slowAmount<2.4)
@@ -95,6 +95,7 @@ public class EntityManager implements ContactListener{
 
 		light.update(delta);
 
+		return delta;
 	}
 
 	public void render(SpriteBatch sb) {

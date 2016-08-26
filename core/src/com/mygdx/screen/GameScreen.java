@@ -42,9 +42,9 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public void update(float delta) {
-		entMan.update(delta);
+		float changedDelta = entMan.update(delta);
 		hudMan.update(delta);
-		partMan.update(delta);
+		partMan.update(changedDelta);
 	}
 
 	@Override
