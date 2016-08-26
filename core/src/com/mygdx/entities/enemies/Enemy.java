@@ -1,7 +1,9 @@
 package com.mygdx.entities.enemies;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.game.MyGame;
@@ -23,7 +25,7 @@ public class Enemy extends Entity {
 	float speed,speedBuffer;
 	float strafe, strafeBuffer;
 
-	private float currentParticleDeployTime,maxParticleDeployTime;
+	private ParticleEffectPool.PooledEffect particle;
 	
 	public Enemy(float x, float y, float radius, float density, float restitution, World world){
 		super(BodyCreater.createCircle(x, y, radius, density, restitution, false, true, world));
@@ -34,8 +36,6 @@ public class Enemy extends Entity {
 		strafe = 200;
 		strafeBuffer = 100;
 		color = ColorManager.NORMAL_ENEMY;
-		maxParticleDeployTime = .8f;
-		currentParticleDeployTime = maxParticleDeployTime;
 	}
 	
 	@Override
@@ -46,14 +46,9 @@ public class Enemy extends Entity {
 	
 	@Override
 	public void update(float delta){
-		if(currentParticleDeployTime>0)
-			currentParticleDeployTime -= delta;
-		else{
-			currentParticleDeployTime = maxParticleDeployTime;
-			//double radians = Math.atan(body.getLinearVelocity().y/body.getLinearVelocity().x)+Math.PI;
-			//double x = Math.cos(radians)*radius;
-			//double y = Math.sin(radians)*radius;
-			//GameScreen.partMan.create(this.radius*.2f,body.getPosition().x,body.getPosition().y,this.getBody().getLinearVelocity().x*-.4f,this.getBody().getLinearVelocity().y*-.4f,(float)(Math.random()*5),this.color);
+		if(particle!=null) {
+			particle.setPosition(this.getPos().x, this.getPos().y);
+			//GameScreen.partMan.et.setAngle(particle,(float)(Math.atan(this.getBody().getLinearVelocity().y/getBody().getLinearVelocity().x)* MathUtils.radiansToDegrees));
 		}
 	}
 	
@@ -63,16 +58,27 @@ public class Enemy extends Entity {
 				this.body.getPosition().y+radius<-radius*3||
 				this.body.getPosition().y-radius> MyGame.HEIGHT+radius*3;
 	}
+
+	public void disable(){
+		this.getBody().setLinearVelocity(0, 0);
+		this.getBody().setActive(false);
+		this.setPos(-100, -100);
+		this.removeParticle();
+	}
 	
-	
-	
+	public void removeParticle(){
+		GameScreen.partMan.et.remove(particle);
+		this.particle = null;
+	}
+
 	public float getRadius(){
 		return radius;
 	}
 
 	public Enemy randomize() {
 		this.body.setActive(true);
-
+		this.particle = GameScreen.partMan.et.getEffect();
+		GameScreen.partMan.et.setColor(particle,this.color);
 		int random = (int) (Math.random()*4);
 			
 		switch(random){

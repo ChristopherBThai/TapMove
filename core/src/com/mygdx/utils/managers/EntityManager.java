@@ -120,8 +120,7 @@ public class EntityManager implements ContactListener{
 		for(int i=0;i<enemies.size();i++)
 			if(enemies.get(i).dead()){
 				Enemy enemy = enemies.remove(i);
-				enemy.getBody().setLinearVelocity(0, 0);
-				enemy.getBody().setActive(false);
+				enemy.disable();
 				enemyPool.add(enemy);
 				Score.addMoney(1);
 			}
@@ -138,8 +137,7 @@ public class EntityManager implements ContactListener{
 	
 	public void reset(){
 		for(Enemy e:enemies) {
-			e.getBody().setActive(false);
-			e.setPos(-100, -100);
+			e.disable();
 		}
 		player.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
 		player.setVelocity(0,0);

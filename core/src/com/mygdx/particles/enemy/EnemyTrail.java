@@ -1,11 +1,17 @@
 package com.mygdx.particles.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.MyGame;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.utils.managers.SpriteManager;
 
@@ -15,72 +21,72 @@ import java.util.ArrayList;
  * Created by Christopher Thai on 8/25/2016 at 7:37 AM.
  */
 public class EnemyTrail {
-    Body body;
 
-    private float length;
-    private Color color;
+    ParticleEffect pe;
+    ParticleEffectPool pool;
+    private Array<ParticleEffectPool.PooledEffect> effects;
 
-    Sprite sprite;
+    float highMax,highMin,lowMax,lowMin;
 
-    private float currentTime,maxTime;
-    private float opacity;
-
-    public EnemyTrail(float x, float y, float length, Color color, float xvel, float yvel, float rotation, World world){
-        maxTime = 2.3f;
-        currentTime = maxTime;
-        this.length = length;
-        this.color = color;
-        this.body = BodyCreater.createBox(x,y,length,length,false,false,world,0,0);
-        body.setLinearVelocity(xvel,yvel);
-        body.setAngularVelocity(rotation);
-        body.setLinearDamping(5f);
-        sprite = SpriteManager.getLine();
+    public EnemyTrail(){
+        pe = new ParticleEffect();
+        pe.load(Gdx.files.internal("particle/EnemyTrail5"),Gdx.files.internal("sprites"));
+        pe.setPosition(0,0);
+        pe.scaleEffect(((float)MyGame.WIDTH)/Gdx.graphics.getWidth());
+        pool = new ParticleEffectPool(pe,0,200);
+        effects = new Array<ParticleEffectPool.PooledEffect>();
+        ParticleEffectPool.PooledEffect effect = pool.obtain();
+        ParticleEmitter.ScaledNumericValue angle = effect.getEmitters().first().getAngle();
+        highMax = angle.getHighMax();
+        highMin = angle.getHighMin();
+        lowMax = angle.getLowMax();
+        lowMin = angle.getLowMin();
+        effect.free();
     }
 
     public void update(float delta){
-        currentTime -= delta;
-        opacity = currentTime/maxTime;
+        for(ParticleEffectPool.PooledEffect effect: effects)
+            effect.update(delta);
+        //Gdx.app.log("pool stats", "active: " + effects.size + " | free: " + pool.getFree() + "/" + pool.max + " | record: " + pool.peak);
     }
 
     public void render(SpriteBatch sb){
-        sb.setColor(color.r,color.g,color.b,opacity);
-        sb.draw(sprite,body.getPosition().x-length/2f,body.getPosition().y-length/2f,length/2f,length/2f,length,length,1f,1f,body.getAngle()*MathUtils.radiansToDegrees);
+        for(ParticleEffectPool.PooledEffect effect: effects)
+            effect.draw(sb);
     }
 
-    public void reuse(float x, float y, Color color, float xvel, float yvel, float rotation){
-        body.setActive(true);
-        body.setLinearVelocity(xvel,yvel);
-        body.setAngularVelocity(rotation);
-        body.setTransform(x,y,0);
-        this.color = color;
-        currentTime = maxTime;
+    public ParticleEffectPool.PooledEffect getEffect(){
+        ParticleEffectPool.PooledEffect effect = pool.obtain();
+        effects.add(effect);
+        return effect;
     }
 
-    public void setColor(Color color){
-        this.color = color;
+    public void setAngle(ParticleEffectPool.PooledEffect effect, float degrees){
+        degrees -= 90;
+        ParticleEmitter.ScaledNumericValue angle = effect.getEmitters().first().getAngle();
+        angle.setHigh(highMin+degrees,highMax+degrees);
+        angle.setLow(lowMin+degrees,lowMax+degrees);
     }
 
-    public boolean isDead(){
-        return currentTime<=0;
+    public void setColor(ParticleEffectPool.PooledEffect effect, Color color){
+        float[] floatColor = {color.r,color.g,color.b};
+        System.out.println(floatColor[0]+","+floatColor[1]+","+floatColor[2]);
+        effect.getEmitters().first().getTint().setColors(floatColor);
     }
 
-    public float getLength(){
-        return length;
+    public void remove(ParticleEffectPool.PooledEffect effect){
+        if(effect!=null){
+            effects.removeValue(effect, true);
+            effect.free();
+        }
     }
 
-    public Color getColor(){
-        return color;
+    public void reset(){
+        for(ParticleEffectPool.PooledEffect effect: effects)
+            effect.free();
     }
 
-    public Body getBody(){
-        return body;
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if(obj instanceof EnemyTrail)
-            if(this.length==((EnemyTrail)obj).length)
-                return true;
-        return false;
+    public void dispose(){
+        pe.dispose();
     }
 }

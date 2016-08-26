@@ -1,5 +1,6 @@
 package com.mygdx.entities;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -30,7 +31,6 @@ public class Entity {
 	
 	public void setVelocity(double x, double y){
 		this.body.applyForceToCenter((float)(x*weight), (float)(y*weight), true);
-		//System.out.println(this.body.getLinearVelocity());
 	}
 	
 	public Vector2 getPos(){

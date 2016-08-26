@@ -50,8 +50,8 @@ public class GameScreen extends Screen implements GestureListener{
 	@Override
 	public void render(ShapeRenderer sr, SpriteBatch sb) {
 		sb.begin();
-		entMan.render(sb);
 		partMan.render(sb);
+		entMan.render(sb);
 		sb.end();
 		entMan.renderLights();
 		
