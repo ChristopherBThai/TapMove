@@ -92,7 +92,7 @@ public class Background {
         if(enemyPool.size()>0)
             enemies.add(enemyPool.remove(0).randomize());
         else
-           enemies.add((new NormalEnemy(0,0, MyGame.WIDTH*.07f, world)).randomize());
+           enemies.add((new NormalEnemy(0,0, world)).randomize());
     }
 
     public void dispose(){

@@ -12,8 +12,8 @@ public class InvisibleEnemy extends Enemy{
     float opacity, opacityRate;
     float duration, durationTime;
 
-    public InvisibleEnemy(float x, float y, float radius, World world) {
-        super(x, y, radius, 1f, .7f, world);
+    public InvisibleEnemy(float x, float y, World world) {
+        super(x, y, NORMAL_RADIUS, 1f, .7f, world);
         opacity = 0f;
         opacityRate = 1/(4f*60);
         duration = 2f;

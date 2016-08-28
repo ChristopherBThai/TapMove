@@ -28,20 +28,56 @@ public class EnemyTrail {
 
     float highMax,highMin,lowMax,lowMin;
 
+    static float scaleHighMax,scaleHighMin,scaleLowMax,scaleLowMin;
+    static float velHighMax,velHighMin,velLowMax,velLowMin;
+    static float gravityHighMax,gravityHighMin,gravityLowMax,gravityLowMin;
+    static float spawnWidthHighMax,spawnWidthHighMin,spawnWidthLowMax,spawnWidthLowMin;
+    static float spawnHeightHighMax,spawnHeightHighMin,spawnHeightLowMax,spawnHeightLowMin;
+
+    float origionalScale;
+
     public EnemyTrail(){
         pe = new ParticleEffect();
         pe.load(Gdx.files.internal("particle/EnemyTrail6"),Gdx.files.internal("sprites"));
         pe.setPosition(0,0);
-        pe.scaleEffect(((float)MyGame.WIDTH)/Gdx.graphics.getWidth());
+        origionalScale = ((float)MyGame.WIDTH)/1500;
         pool = new ParticleEffectPool(pe,0,200);
         effects = new Array<ParticleEffectPool.PooledEffect>();
-        ParticleEffectPool.PooledEffect effect = pool.obtain();
-        ParticleEmitter.ScaledNumericValue angle = effect.getEmitters().first().getAngle();
-        highMax = angle.getHighMax();
-        highMin = angle.getHighMin();
-        lowMax = angle.getLowMax();
-        lowMin = angle.getLowMin();
-        effect.free();
+
+            ParticleEffectPool.PooledEffect effect = pool.obtain();
+            highMax = effect.getEmitters().first().getAngle().getHighMax();
+            highMin = effect.getEmitters().first().getAngle().getHighMin();
+            lowMax = effect.getEmitters().first().getAngle().getLowMax();
+            lowMin = effect.getEmitters().first().getAngle().getLowMin();
+
+            scaleHighMax = effect.getEmitters().first().getScale().getHighMax();
+            scaleHighMin = effect.getEmitters().first().getScale().getHighMin();
+            scaleLowMax = effect.getEmitters().first().getScale().getLowMax();
+            scaleLowMin = effect.getEmitters().first().getScale().getLowMin();
+
+            velHighMax = effect.getEmitters().first().getVelocity().getHighMax();
+            velHighMin = effect.getEmitters().first().getVelocity().getHighMin();
+            velLowMax = effect.getEmitters().first().getVelocity().getLowMax();
+            velLowMin = effect.getEmitters().first().getVelocity().getLowMin();
+
+            gravityHighMax = effect.getEmitters().first().getGravity().getHighMax();
+            gravityHighMin = effect.getEmitters().first().getGravity().getHighMin();
+            gravityLowMax = effect.getEmitters().first().getGravity().getLowMax();
+            gravityLowMin = effect.getEmitters().first().getGravity().getLowMin();
+
+            spawnWidthHighMax = effect.getEmitters().first().getSpawnWidth().getHighMax();
+            spawnWidthHighMin = effect.getEmitters().first().getSpawnWidth().getHighMin();
+            spawnWidthLowMax = effect.getEmitters().first().getSpawnWidth().getLowMax();
+            spawnWidthLowMin = effect.getEmitters().first().getSpawnWidth().getLowMin();
+
+            spawnHeightHighMax = effect.getEmitters().first().getSpawnHeight().getHighMax();
+            spawnHeightHighMin = effect.getEmitters().first().getSpawnHeight().getHighMin();
+            spawnHeightLowMax = effect.getEmitters().first().getSpawnHeight().getLowMax();
+            spawnHeightLowMin = effect.getEmitters().first().getSpawnHeight().getLowMin();
+
+            this.remove(effect);
+
+        pe.scaleEffect(origionalScale);
     }
 
     public void update(float delta){
@@ -71,6 +107,30 @@ public class EnemyTrail {
     public void setColor(ParticleEffectPool.PooledEffect effect, Color color){
         float[] floatColor = {color.r,color.g,color.b};
         effect.getEmitters().first().getTint().setColors(floatColor);
+    }
+
+    public void setScale(ParticleEffectPool.PooledEffect effect, float scale){
+        float scaleFactor = origionalScale*scale;
+        ParticleEmitter particleEmitter = effect.getEmitters().first();
+
+        //System.out.println(particleEmitter.getScale().getHighMax()+","+particleEmitter.getScale().getHighMin()+","+particleEmitter.getScale().getLowMax()+","+particleEmitter.getScale().getLowMin());
+
+        particleEmitter.getScale().setHigh(scaleHighMin * scaleFactor, scaleHighMax * scaleFactor);
+        particleEmitter.getScale().setLow(scaleLowMin * scaleFactor, scaleLowMax * scaleFactor);
+
+        particleEmitter.getVelocity().setHigh(velHighMin * scaleFactor, velHighMax * scaleFactor);
+        particleEmitter.getVelocity().setLow(velLowMin * scaleFactor, velLowMax * scaleFactor);
+
+        particleEmitter.getGravity().setHigh(gravityHighMin * scaleFactor, gravityHighMax * scaleFactor);
+        particleEmitter.getGravity().setLow(gravityLowMin * scaleFactor, gravityLowMax * scaleFactor);
+
+        particleEmitter.getSpawnWidth().setHigh(spawnWidthHighMin * scaleFactor, spawnWidthHighMax * scaleFactor);
+        particleEmitter.getSpawnWidth().setLow(spawnWidthLowMin * scaleFactor, spawnWidthLowMax * scaleFactor);
+
+        particleEmitter.getSpawnHeight().setHigh(spawnHeightHighMin * scaleFactor, spawnHeightHighMax * scaleFactor);
+        particleEmitter.getSpawnHeight().setLow(spawnHeightLowMin * scaleFactor, spawnHeightLowMax * scaleFactor);
+
+        effect.reset();
     }
 
     public void remove(ParticleEffectPool.PooledEffect effect){

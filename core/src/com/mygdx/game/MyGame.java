@@ -71,6 +71,7 @@ public class MyGame extends ApplicationAdapter {
 		sr.setProjectionMatrix(camera.combined);
 
 		ScreenManager.render(sr, sb);
+		//Gdx.app.log("FPS",""+Gdx.graphics.getFramesPerSecond());
 	}
 	float time;
 	public void update(){

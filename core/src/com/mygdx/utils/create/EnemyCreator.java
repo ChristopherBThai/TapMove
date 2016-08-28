@@ -90,7 +90,7 @@ public class EnemyCreator {
         if(loc>=0)
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
-            enemy = new InvisibleEnemy(0,0, MyGame.WIDTH*.07f,GameScreen.entMan.world);
+            enemy = new InvisibleEnemy(0,0,GameScreen.entMan.world);
         enemyRespawnTime = (float) (Math.random()*1.25f);
         return enemy;
     }
@@ -104,7 +104,7 @@ public class EnemyCreator {
         if(loc>=0)
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
-            enemy = new FastEnemy(0,0, MyGame.WIDTH*.07f,GameScreen.entMan.world);
+            enemy = new FastEnemy(0,0,GameScreen.entMan.world);
         enemyRespawnTime = (float) (Math.random()*.7f*respawnCooldown);
         return enemy;
     }
@@ -132,7 +132,7 @@ public class EnemyCreator {
         if(loc>=0)
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
-            enemy = new NormalEnemy(0,0, MyGame.WIDTH*.07f,GameScreen.entMan.world);
+            enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
         enemyRespawnTime = (float) (Math.random()*1f);
         return enemy;
     }
