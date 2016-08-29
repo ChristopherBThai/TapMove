@@ -38,7 +38,7 @@ public class EnemyTrail {
 
     public EnemyTrail(){
         pe = new ParticleEffect();
-        pe.load(Gdx.files.internal("particle/EnemyTrail6"),Gdx.files.internal("sprites"));
+        pe.load(Gdx.files.internal("particle/EnemyTrail7"),Gdx.files.internal("sprites"));
         pe.setPosition(0,0);
         origionalScale = ((float)MyGame.WIDTH)/1500;
         pool = new ParticleEffectPool(pe,0,200);
