@@ -100,6 +100,11 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean tap(float x, float y, int count, int button) {
 		if(hudMan.ability.useAbility(x,Gdx.app.getGraphics().getHeight()-y)){
 			entMan.useAbility();
 		}else if(hudMan.tap(x,Gdx.app.getGraphics().getHeight()-y)){
@@ -114,14 +119,10 @@ public class GameScreen extends Screen implements GestureListener{
 	}
 
 	@Override
-	public boolean tap(float x, float y, int count, int button) {
-		return false;
-	}
-
-	@Override
 	public boolean longPress(float x, float y) {
-		// TODO Auto-generated method stub
-		return false;
+		Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
+		entMan.longpress(pos.x,pos.y);
+		return true;
 	}
 
 	@Override

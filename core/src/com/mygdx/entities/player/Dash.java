@@ -35,4 +35,11 @@ public class Dash {
             return -1;
         }
     }
+
+    public float longpress(float x, float y){
+        if(isReady())
+            return dashStrength;
+        else
+            return -1;
+    }
 }

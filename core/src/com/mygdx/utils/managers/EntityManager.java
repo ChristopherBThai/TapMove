@@ -140,6 +140,10 @@ public class EntityManager implements ContactListener{
 	public void tap(float x, float y) {
 		player.moveTo(x,y);
 	}
+
+	public void longpress(float x, float y){
+		player.dashTo(x,y);
+	}
 	
 	public void reset(){
 		for(int i=0;i<enemies.size();i++) {

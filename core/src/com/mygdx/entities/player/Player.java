@@ -55,11 +55,14 @@ public class Player extends Entity {
 
 	public void moveTo(float x, float y) {
 		lookAtPoint(x,y);
-		float push = dash.tap(x,y);
+		push(pushStrength);
+	}
+
+	public void dashTo(float x, float y){
+		lookAtPoint(x,y);
+		float push = dash.longpress(x,y);
 		if(push>0)
 			push(push);
-		else
-			push(pushStrength);
 	}
 
 	private void push(float speed) {
