@@ -141,8 +141,8 @@ public class EntityManager implements ContactListener{
 		player.moveTo(x,y);
 	}
 
-	public void longpress(float x, float y){
-		player.dashTo(x,y);
+	public void fling(float velx, float vely){
+		player.dashTo(velx,vely);
 	}
 	
 	public void reset(){
@@ -171,6 +171,17 @@ public class EntityManager implements ContactListener{
 	    Body b = contact.getFixtureB().getBody();
 	    
 	    if(!player.invincible&&(a.getUserData() instanceof Player ||b.getUserData() instanceof Player)&&(b.getUserData() instanceof Enemy||a.getUserData() instanceof Enemy)){
+			if(a.getUserData() instanceof Player) {
+				if(((Player) a.getUserData()).isDashing()){
+					this.killEnemy(((Enemy)b.getUserData()));
+					return;
+				}
+			}else{
+				if(((Player) b.getUserData()).isDashing()){
+					this.killEnemy(((Enemy)a.getUserData()));
+					return;
+				}
+			}
 	    	game.end();
 	    }else{
 			/*

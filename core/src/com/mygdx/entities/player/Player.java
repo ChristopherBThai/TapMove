@@ -28,7 +28,7 @@ public class Player extends Entity {
 		this.radius = radius;
 		this.ability = new Explosion(this);
 		pushStrength = 400;
-		dash = new Dash(pushStrength*4);
+		dash = new Dash(this);
 	}
 
 	public Player(float x, float y, float radius, World world, boolean isStatic){
@@ -59,20 +59,17 @@ public class Player extends Entity {
 	}
 
 	public void dashTo(float x, float y){
-		lookAtPoint(x,y);
-		float push = dash.longpress(x,y);
-		if(push>0)
-			push(push);
+		dash.fling(x,y);
 	}
 
-	private void push(float speed) {
+	public void push(float speed) {
 		float rad = this.body.getAngle();
 		float xVel = (float) Math.cos(rad);
 		float yVel = (float) Math.sin(rad);
 		this.setVelocity(xVel*speed,yVel*speed);
 	}
 
-	private void lookAtPoint(float x, float y) {
+	public void lookAtPoint(float x, float y) {
 		float yDiff = y - this.body.getPosition().y;
 		float xDiff = x - this.body.getPosition().x;
 		float radians;
@@ -102,6 +99,10 @@ public class Player extends Entity {
 		boolean result1 =  isClose(e);
 		boolean result2 = ability.check(e);
 		return result1||result2;
+	}
+
+	public boolean isDashing(){
+		return dash.isDashing();
 	}
 
 	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {
