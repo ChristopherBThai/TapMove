@@ -89,10 +89,13 @@ public class Background {
     }
 
     private void spawn(){
+        Enemy enemy;
         if(enemyPool.size()>0)
-            enemies.add(enemyPool.remove(0).randomize());
+            enemy = enemyPool.remove(0).randomize();
         else
-           enemies.add((new NormalEnemy(0,0, world)).randomize());
+           enemy = (new NormalEnemy(0,0, world)).randomize();
+        enemy.removeParticle();
+        enemies.add(enemy);
     }
 
     public void dispose(){

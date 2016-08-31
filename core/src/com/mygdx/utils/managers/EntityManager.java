@@ -67,7 +67,6 @@ public class EntityManager implements ContactListener{
 
 
 			if(game.running){
-				EnemyCreator.createEnemy(delta);
 
 				player.update(delta);
 
@@ -89,7 +88,9 @@ public class EntityManager implements ContactListener{
 
 				if(player.isDead())
 					game.end();
-				checkDead();
+
+				if(EnemyCreator.createEnemy(delta))
+					checkDead();
 			}
 		}
 
@@ -118,14 +119,19 @@ public class EntityManager implements ContactListener{
 	}
 
 	private void checkDead() {
+		System.out.println(enemies.size()+"|"+enemyPool.size());
 		for(int i=0;i<enemies.size();i++)
 			if(enemies.get(i).dead()){
-				Enemy enemy = enemies.remove(i);
-				enemy.disable();
-				enemyPool.add(enemy);
-				Score.addMoney(1);
+				if(killEnemy(enemies.get(i)))
+					i--;
 			}
-		
+	}
+
+	public boolean killEnemy(Enemy enemy){
+		enemy.disable();
+		enemyPool.add(enemy);
+		Score.addMoney(1);
+		return enemies.remove(enemy);
 	}
 
 	public boolean abilityReady() {
@@ -137,11 +143,10 @@ public class EntityManager implements ContactListener{
 	}
 	
 	public void reset(){
-		for(Enemy e:enemies) {
-			e.disable();
+		for(int i=0;i<enemies.size();i++) {
+			if(killEnemy(enemies.get(i)))
+				i--;
 		}
-		player.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
-		player.setVelocity(0,0);
 		player.reset();
 	}
 

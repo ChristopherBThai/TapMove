@@ -18,7 +18,7 @@ public class EnemyCreator {
     static float newEnemy = 300;
 
 
-    public static void createEnemy(float delta) {
+    public static boolean createEnemy(float delta) {
         if(enemyRespawnTime<=0){
             Enemy enemy;
 
@@ -41,8 +41,10 @@ public class EnemyCreator {
 
             enemy.randomize();
             GameScreen.entMan.enemies.add(enemy);
+            return true;
         }else{
             enemyRespawnTime-=delta;
+            return false;
         }
     }
 

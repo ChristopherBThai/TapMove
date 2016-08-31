@@ -125,6 +125,8 @@ public class Player extends Entity{
 	}
 
 	public void reset() {
+		this.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
+		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);
 		ability.reset();
 	}
