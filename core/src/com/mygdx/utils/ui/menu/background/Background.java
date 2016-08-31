@@ -1,21 +1,14 @@
 package com.mygdx.utils.ui.menu.background;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.entities.Player;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.enemies.NormalEnemy;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.light.ConeLighting;
 import com.mygdx.particles.light.Light;
-import com.mygdx.particles.light.Lighting;
-import com.mygdx.screen.GameScreen;
-import com.mygdx.utils.create.BodyCreater;
-import com.mygdx.utils.ui.game.Score;
 
 import java.util.ArrayList;
 

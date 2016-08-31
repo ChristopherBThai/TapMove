@@ -1,6 +1,5 @@
 package com.mygdx.utils.managers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.enemies.Enemy;
-import com.mygdx.entities.Player;
+import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.light.Light;
 import com.mygdx.particles.light.Lighting;
@@ -119,7 +118,7 @@ public class EntityManager implements ContactListener{
 	}
 
 	private void checkDead() {
-		System.out.println(enemies.size()+"|"+enemyPool.size());
+		//System.out.println(enemies.size()+"|"+enemyPool.size());
 		for(int i=0;i<enemies.size();i++)
 			if(enemies.get(i).dead()){
 				if(killEnemy(enemies.get(i)))

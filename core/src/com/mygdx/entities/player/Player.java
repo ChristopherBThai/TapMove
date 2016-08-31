@@ -1,7 +1,8 @@
-package com.mygdx.entities;
+package com.mygdx.entities.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
@@ -10,11 +11,12 @@ import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.utils.managers.ColorManager;
 import com.mygdx.utils.managers.SpriteManager;
 
-public class Player extends Entity{
+public class Player extends Entity {
 	
 	float radius;
 	
 	float pushStrength;
+	Dash dash;
 
 	Ability ability;
 	public boolean invincible;
@@ -26,6 +28,7 @@ public class Player extends Entity{
 		this.radius = radius;
 		this.ability = new Explosion(this);
 		pushStrength = 400;
+		dash = new Dash(pushStrength*4);
 	}
 
 	public Player(float x, float y, float radius, World world, boolean isStatic){
@@ -47,18 +50,23 @@ public class Player extends Entity{
 	@Override
 	public void update(float delta){
 		ability.update(delta);
+		dash.update(delta);
 	}
 
 	public void moveTo(float x, float y) {
 		lookAtPoint(x,y);
-		push();
+		float push = dash.tap(x,y);
+		if(push>0)
+			push(push);
+		else
+			push(pushStrength);
 	}
 
-	private void push() {
+	private void push(float speed) {
 		float rad = this.body.getAngle();
 		float xVel = (float) Math.cos(rad);
 		float yVel = (float) Math.sin(rad);
-		this.setVelocity(xVel*pushStrength,yVel*pushStrength);
+		this.setVelocity(xVel*speed,yVel*speed);
 	}
 
 	private void lookAtPoint(float x, float y) {

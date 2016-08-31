@@ -1,6 +1,6 @@
 package com.mygdx.particles.light;
 
-import com.mygdx.entities.Player;
+import com.mygdx.entities.player.Player;
 import com.mygdx.utils.managers.ColorManager;
 import box2dLight.ConeLight;
 

@@ -1,13 +1,10 @@
 package com.mygdx.particles.light;
 
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.entities.Player;
-import com.mygdx.game.MyGame;
+import com.mygdx.entities.player.Player;
 import com.mygdx.utils.managers.ColorManager;
 
 import box2dLight.PointLight;
-import box2dLight.RayHandler;
 
 public class Lighting{
     PointLight pointLight;

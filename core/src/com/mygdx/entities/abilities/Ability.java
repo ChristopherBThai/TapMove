@@ -3,7 +3,7 @@ package com.mygdx.entities.abilities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.entities.Player;
+import com.mygdx.entities.player.Player;
 import com.mygdx.entities.enemies.Enemy;
 
 public abstract class Ability {
