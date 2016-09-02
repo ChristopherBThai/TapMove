@@ -170,35 +170,28 @@ public class EntityManager implements ContactListener{
 		Body a = contact.getFixtureA().getBody();
 	    Body b = contact.getFixtureB().getBody();
 	    
-	    if(!player.invincible&&(a.getUserData() instanceof Player ||b.getUserData() instanceof Player)&&(b.getUserData() instanceof Enemy||a.getUserData() instanceof Enemy)){
-			if(a.getUserData() instanceof Player) {
-				if(((Player) a.getUserData()).isDashing()){
-					this.killEnemy(((Enemy)b.getUserData()));
-					return;
-				}
-			}else{
-				if(((Player) b.getUserData()).isDashing()){
-					this.killEnemy(((Enemy)a.getUserData()));
-					return;
-				}
+	    if(!player.invincible){
+			Player p = null;
+			if(a.getUserData() instanceof  Player)
+				p = ((Player)a.getUserData());
+			else if(b.getUserData() instanceof Player)
+				p = ((Player)b.getUserData());
+			Enemy e = null;
+			if(a.getUserData() instanceof  Enemy)
+				e = ((Enemy)a.getUserData());
+			else if(b.getUserData() instanceof  Enemy)
+				e = ((Enemy)b.getUserData());
+
+			if(p!=null&&e!=null){
+				if(p.isDashing()) {
+					//System.out.println(enemies.indexOf(e));
+					//e.getBody().setActive(false);
+					//e.setPos(0,0);
+					//this.killEnemy(e);
+				}// else
+					game.end();
 			}
-	    	game.end();
-	    }else{
-			/*
-			Vector2 avg = new Vector2(a.getPosition());
-			avg.add(b.getPosition());
-			avg.set(avg.x/2f,avg.y/2f);
-			float dst = avg.dst(player.getPos());
-			dst = 1-dst/MyGame.HEIGHT;
-			*/
-			/*
-			Vector2 force = new Vector2(a.getLinearVelocity());
-			force.add(b.getLinearVelocity());
-			float volume = force.len2();
-			volume/=300;
-			SoundManager.playThunk(volume);
-			*/
-		}
+	    }
 	}
 
 	@Override

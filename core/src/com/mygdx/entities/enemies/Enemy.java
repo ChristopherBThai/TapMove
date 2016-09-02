@@ -65,7 +65,7 @@ public class Enemy extends Entity {
     public void disable(){
         this.getBody().setLinearVelocity(0, 0);
         this.getBody().setActive(false);
-        this.setPos(-100, -100);
+        this.setPos(-1000, -1000);
         this.removeParticle();
     }
 
