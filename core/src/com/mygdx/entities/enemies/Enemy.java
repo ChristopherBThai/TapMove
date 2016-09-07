@@ -78,6 +78,10 @@ public class Enemy extends Entity {
         return radius;
     }
 
+    public Color getColor(){
+        return color;
+    }
+
     public Enemy randomize() {
         this.body.setActive(true);
         this.particle = GameScreen.partMan.et.getEffect();

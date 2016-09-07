@@ -137,7 +137,7 @@ public class EntityManager implements ContactListener{
 	}
 
 	public boolean killEnemy(Enemy enemy){
-		//System.out.println("KilledByOutOfBOunds");
+		//System.out.println("KilledByOutOfBounds");
 		enemy.disable();
 		enemyPool.add(enemy);
 		Score.addMoney(1);
@@ -146,6 +146,8 @@ public class EntityManager implements ContactListener{
 
 	public boolean killEnemyByDash(Enemy enemy){
 		//System.out.println("KilledByDash");
+		enemies.remove(enemy);
+		GameScreen.partMan.es.create(enemy.getPos().x-enemy.getRadius(),enemy.getPos().y-enemy.getRadius(),player.getBody().getLinearVelocity().x,player.getBody().getLinearVelocity().y,enemy.getColor(),enemy.getRadius());
 		enemy.disable();
 		enemyPool.add(enemy);
 		Score.addMoney(2);
@@ -153,7 +155,6 @@ public class EntityManager implements ContactListener{
 	}
 
 	public void addToEnemiesKilledByDash(Enemy enemy){
-		enemies.remove(enemy);
 		enemiesKilled.add(enemy);
 	}
 
