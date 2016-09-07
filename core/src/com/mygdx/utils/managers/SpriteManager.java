@@ -8,7 +8,7 @@ public class SpriteManager {
 	
 	private static Sprite buttonBorder;
 	private static Sprite play;
-	private static Sprite circle;
+	private static Sprite circle,halfCircle;
 	private static Sprite explosion;
 	private static Sprite corner,line,pause;
 	
@@ -52,5 +52,11 @@ public class SpriteManager {
 		if(corner==null)
 			corner = new Sprite(new Texture(Gdx.files.internal("sprites/corner.png")));
 		return corner;
+	}
+
+	public static Sprite getHalfCircle() {
+		if(halfCircle==null)
+			halfCircle = new Sprite(new Texture(Gdx.files.internal("sprites/half_circle.png")));
+		return halfCircle;
 	}
 }

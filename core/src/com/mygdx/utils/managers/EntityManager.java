@@ -1,5 +1,6 @@
 package com.mygdx.utils.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
@@ -31,8 +33,7 @@ public class EntityManager implements ContactListener{
 	public Light light;
 	public Lighting lighting;
 
-	public ArrayList<Enemy> enemies;
-	public ArrayList<Enemy> enemyPool;
+	public ArrayList<Enemy> enemies, enemyPool, enemiesKilled;
 	
 	boolean slowTime;
 	float slowAmount;
@@ -47,6 +48,7 @@ public class EntityManager implements ContactListener{
 		player = new Player(MyGame.WIDTH/2f, MyGame.HEIGHT/2f, MyGame.WIDTH*.04f,world);
 		enemies = new ArrayList<Enemy>();
 		enemyPool = new ArrayList<Enemy>();
+		enemiesKilled = new ArrayList<Enemy>();
 
 		light = new Light(world);
 		lighting = new Lighting(player,light);
@@ -56,7 +58,7 @@ public class EntityManager implements ContactListener{
 
 	public float update(float delta) {
 		if(!GameScreen.pause){
-			if(slowTime){
+			if(!player.isDashing()&&slowTime){
 				if(slowAmount<2.4)
 					slowAmount+=.1;
 				delta/=slowAmount;
@@ -66,6 +68,10 @@ public class EntityManager implements ContactListener{
 
 
 			if(game.running){
+				//System.out.println(enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
+				checkKilledByDash();
+				if(EnemyCreator.createEnemy(delta))
+					checkDead();
 
 				player.update(delta);
 
@@ -87,9 +93,6 @@ public class EntityManager implements ContactListener{
 
 				if(player.isDead())
 					game.end();
-
-				if(EnemyCreator.createEnemy(delta))
-					checkDead();
 			}
 		}
 
@@ -126,11 +129,32 @@ public class EntityManager implements ContactListener{
 			}
 	}
 
+	private void checkKilledByDash(){
+		for(int i=0;i<enemiesKilled.size();i++){
+			killEnemyByDash(enemiesKilled.get(i));
+			i--;
+		}
+	}
+
 	public boolean killEnemy(Enemy enemy){
+		//System.out.println("KilledByOutOfBOunds");
 		enemy.disable();
 		enemyPool.add(enemy);
 		Score.addMoney(1);
 		return enemies.remove(enemy);
+	}
+
+	public boolean killEnemyByDash(Enemy enemy){
+		//System.out.println("KilledByDash");
+		enemy.disable();
+		enemyPool.add(enemy);
+		Score.addMoney(2);
+		return enemiesKilled.remove(enemy);
+	}
+
+	public void addToEnemiesKilledByDash(Enemy enemy){
+		enemies.remove(enemy);
+		enemiesKilled.add(enemy);
 	}
 
 	public boolean abilityReady() {
@@ -150,6 +174,11 @@ public class EntityManager implements ContactListener{
 			if(killEnemy(enemies.get(i)))
 				i--;
 		}
+
+		for(int i=0;i<enemiesKilled.size();i++){
+			killEnemyByDash(enemiesKilled.remove(i));
+			i--;
+		}
 		player.reset();
 	}
 
@@ -167,6 +196,7 @@ public class EntityManager implements ContactListener{
 
 	@Override
 	public void beginContact(Contact contact) {
+		//Gdx.app.log("tap","beginContact");
 		Body a = contact.getFixtureA().getBody();
 	    Body b = contact.getFixtureB().getBody();
 	    
@@ -184,11 +214,12 @@ public class EntityManager implements ContactListener{
 
 			if(p!=null&&e!=null){
 				if(p.isDashing()) {
+					//contact.setEnabled(false);
 					//System.out.println(enemies.indexOf(e));
 					//e.getBody().setActive(false);
 					//e.setPos(0,0);
 					//this.killEnemy(e);
-				}// else
+				} else
 					game.end();
 			}
 	    }
@@ -196,14 +227,41 @@ public class EntityManager implements ContactListener{
 
 	@Override
 	public void endContact(Contact contact) {
-		// TODO Auto-generated method stub
+		//Gdx.app.log("tap","endcontact");
 		
 	}
 
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {
-		// TODO Auto-generated method stub
-		
+		//Gdx.app.log("tap","presolve");
+		WorldManifold manifold = contact.getWorldManifold();
+		for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
+			//Gdx.app.log("tap",""+j);
+			if (!player.invincible) {
+
+				Body a = contact.getFixtureA().getBody();
+				Body b = contact.getFixtureB().getBody();
+
+				Player p = null;
+				if (a.getUserData() instanceof Player)
+					p = ((Player) a.getUserData());
+				else if (b.getUserData() instanceof Player)
+					p = ((Player) b.getUserData());
+				Enemy e = null;
+				if (a.getUserData() instanceof Enemy)
+					e = ((Enemy) a.getUserData());
+				else if (b.getUserData() instanceof Enemy)
+					e = ((Enemy) b.getUserData());
+
+				if (p != null && e != null) {
+					if (p.isDashing()) {
+						contact.setEnabled(false);
+						addToEnemiesKilledByDash(e);
+						//Gdx.app.log("tap","contact disabled");
+					}
+				}
+			}
+		}
 	}
 
 	@Override
