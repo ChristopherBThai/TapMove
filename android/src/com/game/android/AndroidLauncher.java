@@ -14,7 +14,7 @@ import com.mygdx.game.MyGame;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.mygdx.utils.ads.AdHandler;
+import com.mygdx.ads.AdHandler;
 
 public class AndroidLauncher extends AndroidApplication implements AdHandler{
 

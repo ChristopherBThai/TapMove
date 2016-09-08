@@ -1,7 +1,7 @@
 package com.mygdx.entities.enemies;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.utils.managers.ColorManager;
+import com.mygdx.managers.ColorManager;
 
 public class BigEnemy extends Enemy{
     public BigEnemy(float x, float y, float radius, World world) {

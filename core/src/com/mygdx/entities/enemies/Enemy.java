@@ -8,8 +8,8 @@ import com.mygdx.entities.Entity;
 import com.mygdx.game.MyGame;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
-import com.mygdx.utils.managers.ColorManager;
-import com.mygdx.utils.managers.SpriteManager;
+import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
 
 public class Enemy extends Entity {
 

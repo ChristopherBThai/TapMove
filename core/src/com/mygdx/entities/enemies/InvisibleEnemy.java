@@ -2,7 +2,7 @@ package com.mygdx.entities.enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.utils.managers.SpriteManager;
+import com.mygdx.managers.SpriteManager;
 
 /**
  * Created by Mono on 6/22/2016.

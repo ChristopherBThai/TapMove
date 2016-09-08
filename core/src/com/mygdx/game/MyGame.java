@@ -7,12 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.utils.ads.AdHandler;
+import com.mygdx.ads.AdHandler;
 import com.mygdx.utils.camera.OrthoCamera;
-import com.mygdx.utils.managers.ColorManager;
-import com.mygdx.utils.managers.EntityManager;
-import com.mygdx.utils.managers.ScreenManager;
-import com.mygdx.utils.managers.SoundManager;
+import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.ScreenManager;
+import com.mygdx.managers.SoundManager;
 
 public class MyGame extends ApplicationAdapter {
 	public static boolean DEBUG = false;

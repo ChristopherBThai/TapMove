@@ -5,11 +5,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.Explosion;
-import com.mygdx.entities.abilities.Invincible;
 import com.mygdx.game.MyGame;
 import com.mygdx.utils.create.BodyCreater;
-import com.mygdx.utils.managers.ColorManager;
-import com.mygdx.utils.managers.SpriteManager;
+import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
 
 public class Player extends Entity {
 	

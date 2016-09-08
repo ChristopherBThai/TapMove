@@ -2,7 +2,7 @@ package com.mygdx.particles.light;
 
 
 import com.mygdx.entities.player.Player;
-import com.mygdx.utils.managers.ColorManager;
+import com.mygdx.managers.ColorManager;
 
 import box2dLight.PointLight;
 

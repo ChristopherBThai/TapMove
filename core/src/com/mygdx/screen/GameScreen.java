@@ -1,8 +1,6 @@
 package com.mygdx.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,10 +9,9 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGame;
-import com.mygdx.utils.managers.EntityManager;
-import com.mygdx.utils.managers.HudManager;
-import com.mygdx.utils.managers.ParticleManager;
-import com.mygdx.utils.managers.ScreenManager;
+import com.mygdx.managers.EntityManager;
+import com.mygdx.managers.HudManager;
+import com.mygdx.managers.ParticleManager;
 
 public class GameScreen extends Screen implements GestureListener{
 

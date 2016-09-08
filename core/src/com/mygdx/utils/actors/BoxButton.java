@@ -2,12 +2,11 @@ package com.mygdx.utils.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGame;
-import com.mygdx.utils.managers.SpriteManager;
+import com.mygdx.managers.SpriteManager;
 
 public class BoxButton extends AnimatableActor {
 
