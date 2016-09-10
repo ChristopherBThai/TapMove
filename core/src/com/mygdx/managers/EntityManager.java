@@ -1,6 +1,7 @@
 package com.mygdx.managers;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -71,7 +72,7 @@ public class EntityManager implements ContactListener{
 
 
 			if(game.running){
-				//System.out.println(enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
+				Gdx.app.log("Tap",enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
 				checkKilledByDash();
 				if(EnemyCreator.createEnemy(delta))
 					checkDead();
@@ -149,7 +150,6 @@ public class EntityManager implements ContactListener{
 
 	public boolean killEnemyByDash(Enemy enemy){
 		//System.out.println("KilledByDash");
-		enemies.remove(enemy);
 		ParticleEffectPool.PooledEffect effect = GameScreen.partMan.es.getEffect();
 		effect.setPosition(enemy.getPos().x,enemy.getPos().y);
 		GameScreen.partMan.es.setAngle(effect, MathUtility.vectorToRadians(player.getBody().getLinearVelocity().x,player.getBody().getLinearVelocity().y)* MathUtils.radiansToDegrees);
@@ -162,6 +162,7 @@ public class EntityManager implements ContactListener{
 	}
 
 	public void addToEnemiesKilledByDash(Enemy enemy){
+		enemies.remove(enemy);
 		enemiesKilled.add(enemy);
 	}
 
@@ -208,7 +209,7 @@ public class EntityManager implements ContactListener{
 		Body a = contact.getFixtureA().getBody();
 	    Body b = contact.getFixtureB().getBody();
 	    
-	    if(!player.invincible){
+	    if(game.running&&!player.invincible){
 			Player p = null;
 			if(a.getUserData() instanceof  Player)
 				p = ((Player)a.getUserData());
@@ -245,7 +246,7 @@ public class EntityManager implements ContactListener{
 		WorldManifold manifold = contact.getWorldManifold();
 		for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
 			//Gdx.app.log("tap",""+j);
-			if (!player.invincible) {
+			if (game.running) {
 
 				Body a = contact.getFixtureA().getBody();
 				Body b = contact.getFixtureB().getBody();
@@ -265,7 +266,7 @@ public class EntityManager implements ContactListener{
 					if (p.isDashing()) {
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
-						//Gdx.app.log("tap","contact disabled");
+						Gdx.app.log("tap","contact disabled for "+e.getBody().getPosition());
 					}
 				}
 			}
