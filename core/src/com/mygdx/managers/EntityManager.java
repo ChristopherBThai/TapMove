@@ -72,7 +72,7 @@ public class EntityManager implements ContactListener{
 
 
 			if(game.running){
-				Gdx.app.log("Tap",enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
+				//Gdx.app.log("Tap",enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
 				checkKilledByDash();
 				if(EnemyCreator.createEnemy(delta))
 					checkDead();
@@ -266,7 +266,7 @@ public class EntityManager implements ContactListener{
 					if (p.isDashing()) {
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
-						Gdx.app.log("tap","contact disabled for "+e.getBody().getPosition());
+						//Gdx.app.log("tap","contact disabled for "+e.getBody().getPosition());
 					}
 				}
 			}

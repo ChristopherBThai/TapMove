@@ -93,7 +93,7 @@ public class Particle {
     public ParticleEffectPool.PooledEffect getEffect(){
         ParticleEffectPool.PooledEffect effect = pool.obtain();
         effects.add(effect);
-        effect.start();
+        effect.reset();
         return effect;
     }
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ads.AdHandler;
+import com.mygdx.utils.Save;
 import com.mygdx.utils.camera.OrthoCamera;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.ScreenManager;
@@ -51,6 +52,8 @@ public class MyGame extends ApplicationAdapter {
 		sr = new ShapeRenderer();
 		sr.setAutoShapeType(true);
 
+		Save.load();
+
 		menuScreen = new MenuScreen();
 		gameScreen = new GameScreen();
 		gameScreen.create();
@@ -91,15 +94,18 @@ public class MyGame extends ApplicationAdapter {
 	@Override
 	public void pause(){
 		ScreenManager.pause();
+		Save.save();
 	}
 	
 	@Override
 	public void resume(){
 		ScreenManager.resume();
+		Save.load();
 	}
 	
 	@Override
 	public void dispose(){
+		Save.save();
 		ScreenManager.dispose();
 		sb.dispose();
 		sr.dispose();
@@ -109,7 +115,7 @@ public class MyGame extends ApplicationAdapter {
 	}
 	
 	public static void showAd(){
-		if(handler!=null)
+		if(handler!=null&&Save.adsEnabled())
 			handler.showAds(true);
 	}
 	
