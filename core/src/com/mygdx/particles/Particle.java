@@ -131,7 +131,6 @@ public class Particle {
         particleEmitter.getSpawnHeight().setLow(spawnHeightLowMin * scaleFactor, spawnHeightLowMax * scaleFactor);
 
         effect.reset();
-        effect.start();
     }
     public void remove(ParticleEffectPool.PooledEffect effect){
         if(effect!=null){

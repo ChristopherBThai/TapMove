@@ -7,6 +7,6 @@ import com.mygdx.particles.Particle;
  */
 public class EnemySmoke extends Particle {
     public EnemySmoke(){
-        super("particle/enemyKilled",true);
+        super("particle/enemyKilled2",true);
     }
 }
