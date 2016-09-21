@@ -24,14 +24,14 @@ public class GameoverButtons {
         float x = Gdx.app.getGraphics().getWidth()/2f-width/2f;
         float y = Gdx.app.getGraphics().getHeight()*.5f-height/2f;
 
-        menu = new BoxButton(x,y,width,height);
+        restart = new BoxButton(x,y,width,height);
+        restart.setText("PlayAgain");
+        restart.setTextScale(.6f);
+        restart.setThickness(.12f);
+        menu = new BoxButton(x,restart.getY()-height*1.2f,width,height);
         menu.setText("Main Menu");
-        menu.setTextScale(.6f);
-        menu.setThickness(.12f);
-        restart = new BoxButton(x,menu.getY()-height*1.2f,width,height);
-        restart.setText("Play Again");
-        restart.setTextScale(menu.getTextScale());
-        restart.setThickness(menu.getThickness());
+        menu.setTextScale(restart.getTextScale());
+        menu.setThickness(restart.getThickness());
     }
 
     public void update(float delta){

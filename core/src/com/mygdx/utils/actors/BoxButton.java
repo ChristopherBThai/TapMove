@@ -10,32 +10,32 @@ import com.mygdx.managers.SpriteManager;
 
 public class BoxButton extends AnimatableActor {
 
-    float down;
-    boolean touchable;
+    private float down;
+    private boolean touchable;
 
-    Image inside;
-    float insideScale;
+    private Image inside;
+    private float insideScale;
 
-    Text text;
-    float textScale;
+    private Text text;
+    private float textScale;
 
-    boolean scaleText,scaleInside,adjustLines;
-    boolean lockText,lockInside;
+    private boolean scaleText,scaleInside,adjustLines;
+    private boolean lockText,lockInside;
 
-    Sprite line,corner;
-    float lineThickness;
+    private Sprite line,corner;
+    private float lineThickness;
 
-    float cornerSize;
-    float orginXCorner,orginYCorner;
-    float xCorner1,yCorner1;
-    float xCorner2,yCorner2;						//2	1
-    float xCorner3,yCorner3;						//3	4
-    float xCorner4,yCorner4;
+    private float cornerSize;
+    private float orginXCorner,orginYCorner;
+    private float xCorner1,yCorner1;
+    private float xCorner2,yCorner2;						//2	1
+    private float xCorner3,yCorner3;						//3	4
+    private float xCorner4,yCorner4;
 
-    float xLine1,yLine1,widthLine1,heightLine1;								//	1
-    float xLine2,yLine2,widthLine2,heightLine2;								//2	  4
-    float xLine3,yLine3,widthLine3,heightLine3;								//	3
-    float xLine4,yLine4,widthLine4,heightLine4;
+    private float xLine1,yLine1,widthLine1,heightLine1;								//	1
+    private float xLine2,yLine2,widthLine2,heightLine2;								//2	  4
+    private float xLine3,yLine3,widthLine3,heightLine3;								//	3
+    private float xLine4,yLine4,widthLine4,heightLine4;
 
     public BoxButton(float x, float y, float width, float height){
         super();

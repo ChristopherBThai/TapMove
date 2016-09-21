@@ -1,5 +1,6 @@
 package com.mygdx.ui.menu.shop.cosmetics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
@@ -12,6 +13,7 @@ public class CosmeticsMenu {
     Stage stage;
 
     BackButton back;
+    YesNoButton playerColor;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -24,7 +26,9 @@ public class CosmeticsMenu {
     public void set(boolean withReset){
         resetScreen();
         back.doAnimation();
+        playerColor.doAnimation();
         stage.addActor(back.getActor());
+        playerColor.addActor(stage);
     }
 
     public void setBounds(){
@@ -39,6 +43,8 @@ public class CosmeticsMenu {
                 MenuScreen.shop.set(false);
             }
         };
+
+        playerColor = new YesNoButton(Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
     }
 
     public void setActions(){
@@ -46,9 +52,11 @@ public class CosmeticsMenu {
 
     public void resetScreen(){
         back.resetScreen();
+        playerColor.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
+        playerColor.dispose();
     }
 }

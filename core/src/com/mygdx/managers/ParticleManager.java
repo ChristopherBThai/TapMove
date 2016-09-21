@@ -28,8 +28,10 @@ public class ParticleManager {
     }
 
     public void update(float delta){
-        et.update(delta);
-        es.update(delta);
+        if(!GameScreen.pause){
+            et.update(delta);
+            es.update(delta);
+        }
     }
 
     public void render(SpriteBatch sb){
