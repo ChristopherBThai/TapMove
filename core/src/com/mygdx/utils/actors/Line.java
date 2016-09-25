@@ -28,14 +28,23 @@ public class Line extends AnimatableActor{
 		setThickness(.1f);
 	}
 
+	public Line(){
+		super();
+		super.setBounds(0,0,0,0);
+		super.setColor(Color.WHITE);
+		line = SpriteManager.getLine();
+		adjustValues = true;
+		setThickness(.1f);
+	}
+
 	@Override
 	public void draw(Batch batch, float parentAlpha){
 		adjustSize();
 		adjustThickness();
-		batch.setColor(this.getColor().r,this.getColor().g,this.getColor().b,opacity);
-		batch.draw(line,x,y-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
-		//Gdx.app.log("Tap","angle:"+angle+" | length:"+length+" | thickness:"+thickness+" | x:"+x+" | y:"+y);
-		//Gdx.app.log("Tap","w:"+getWidth()+" | h:"+getHeight());
+		if(!(this.getWidth()==0&&this.getHeight()==0)){
+			batch.setColor(this.getColor().r,this.getColor().g,this.getColor().b,opacity);
+			batch.draw(line,x,y-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
+		}
 	}
 
 	private void adjustSize(){

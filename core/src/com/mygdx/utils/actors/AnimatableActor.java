@@ -49,8 +49,13 @@ public class AnimatableActor extends Actor {
     }
 
     public boolean setAnimation(ActorAnimator actorAnimator){
-        if(actorAnimator==null)
+        if(actorAnimator==null){
+            if(!(animate==null)){
+                animate.setActor(null);
+                animate = null;
+            }
             return false;
+        }
         animate = actorAnimator.cpy();
         animate.setActor(this);
         return true;

@@ -88,11 +88,15 @@ public class ActorAnimator {
 
         public void update(float delta){
             if(aspeed>0&&isAnimating()) {
-                float x = actor.getXWithoutBuffer() + (ax - actor.getXWithoutBuffer()) * aspeed;
-                float y = actor.getYWithoutBuffer() + (ay - actor.getYWithoutBuffer()) * aspeed;
-                float width = actor.getWidth() + (awidth - actor.getWidth()) * aspeed;
-                float height = actor.getHeight() + (aheight - actor.getHeight()) * aspeed;
-                actor.setBounds(x, y, width, height);
+                if(animationTime==1){
+                    actor.setBounds(ax,ay,awidth,aheight);
+                }else{
+                    float x = actor.getXWithoutBuffer() + (ax - actor.getXWithoutBuffer()) * aspeed;
+                    float y = actor.getYWithoutBuffer() + (ay - actor.getYWithoutBuffer()) * aspeed;
+                    float width = actor.getWidth() + (awidth - actor.getWidth()) * aspeed;
+                    float height = actor.getHeight() + (aheight - actor.getHeight()) * aspeed;
+                    actor.setBounds(x, y, width, height);
+                }
             }else if(command!=null)
                 command.command(ActorAnimator.this);
             animationTime--;
