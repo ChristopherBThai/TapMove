@@ -1,6 +1,7 @@
 package com.mygdx.utils.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 /**
  * Created by Christopher Thai on 7/27/2016 at 4:06 PM.
@@ -17,6 +18,7 @@ public class AnimatableActor extends Actor {
         aOpacity = 1f;
         opacity = 1f;
         aOpacityspeed = .1f;
+        setTouchable(Touchable.disabled);
     }
 
     @Override

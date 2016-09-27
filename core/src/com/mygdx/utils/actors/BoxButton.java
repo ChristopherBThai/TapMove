@@ -12,6 +12,7 @@ public class BoxButton extends AnimatableActor {
 
     private float down;
     private boolean touchable;
+    private boolean visible;
 
     private Image inside;
     private float insideScale;
@@ -40,6 +41,7 @@ public class BoxButton extends AnimatableActor {
     public BoxButton(float x, float y, float width, float height){
         super();
         super.setBounds(x, y, width, height);
+        visible = true;
         addTouch();
         addListener(new ClickListener() {
             public void clicked (InputEvent event, float x, float y) {
@@ -60,8 +62,9 @@ public class BoxButton extends AnimatableActor {
         adjustValues();
         if(!lockText)
             textScale();
-
-        drawButton(batch,parentAlpha);
+        if(visible){
+            drawButton(batch,parentAlpha);
+        }
     }
 
     @Override
@@ -228,6 +231,10 @@ public class BoxButton extends AnimatableActor {
             scaleInside = true;
         }else
             inside = null;
+    }
+
+    public void setVisible(boolean visible){
+        this.visible = visible;
     }
 
     public void setInsideScale(float scale){
