@@ -9,13 +9,14 @@ public class AnimatableActor extends Actor {
     float x,y;
     float bufferX,bufferY;
 
-    float opacity,aOpacity;
+    float opacity,aOpacity,aOpacityspeed;
     int animateOpacityTime;
     ActorAnimator animate;
 
     public AnimatableActor(){
         aOpacity = 1f;
         opacity = 1f;
+        aOpacityspeed = .1f;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class AnimatableActor extends Actor {
 
         if(animateOpacityTime>0){
             animateOpacityTime--;
-            opacity = opacity + (aOpacity - opacity)*.1f;
+            opacity = opacity + (aOpacity - opacity)*aOpacityspeed;
         }
     }
 
@@ -75,7 +76,13 @@ public class AnimatableActor extends Actor {
 
     public void setAnimateOpacity(float opacity){
         aOpacity = opacity;
-        animateOpacityTime = (int)(Math.log(.005f)/Math.log(1-.1f))+1;
+        animateOpacityTime = (int)(Math.log(.005f)/Math.log(1-aOpacityspeed))+1;
+    }
+
+    public void setAnimateOpacity(float opacity,float speed){
+        aOpacityspeed = speed;
+        aOpacity = opacity;
+        animateOpacityTime = (int)(Math.log(.005f)/Math.log(1-aOpacityspeed))+1;
     }
 
     @Override

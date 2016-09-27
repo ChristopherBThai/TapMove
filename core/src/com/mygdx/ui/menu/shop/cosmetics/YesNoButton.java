@@ -26,8 +26,7 @@ public class YesNoButton{
 	private boolean selected;
 	private float symbolBorder = .2f;
 
-	private ActorAnimator buttonExtend,buttonRetract,buttonA;
-	private float animationPercent;
+	private ActorAnimator buttonExtend,buttonRetract,buttonA,yesExtend,yesRetract;
 
 	public YesNoButton(float x, float y, Stage stage){
 		setBounds(x,y);
@@ -36,9 +35,6 @@ public class YesNoButton{
 	}
 
 	public void update(float delta){
-		if(animationPercent<1.5){
-			animationPercent += delta;
-		}
 	}
 
 	public void doAnimation(){
@@ -88,20 +84,23 @@ public class YesNoButton{
 	}
 
 	public void setActions(){
-		animationPercent = 1;
 		buttonA = AnimationManager.getPopUp(oX,oY,oLength,oLength,.24f);
 
 		buttonExtend = new ActorAnimator();
 		buttonExtend.addCommand(new ActorAnimator.ActionCommand(){
 			@Override
 			public void command(ActorAnimator animator){
-				animationPercent = 0;
+				split.setOpacity(1f);
+				no1.setOpacity(1f);
+				no2.setOpacity(1f);
+				yes1.setOpacity(1f);
+				yes2.setOpacity(1f);
 				question.setAnimateOpacity(1f);
 				split.moveTo(oX+oLength/2,oY,0,-oLength,.1f);
 				no1.moveTo(oX+oLength/2-(oLength*symbolBorder),oY+(oLength*symbolBorder),-(1-symbolBorder*2)*oLength,(1-symbolBorder*2)*oLength,.1f);
 				no2.moveTo(oX+oLength/2-(oLength*symbolBorder),oY+oLength-(oLength*symbolBorder),-(1-symbolBorder*2)*oLength,-(1-symbolBorder*2)*oLength,.1f);
-				yes1.moveTo(oX+oLength/2+(oLength*symbolBorder),oY+oLength/2,(oLength*(1-symbolBorder))/3,-((1-symbolBorder*2)*oLength)/2,.1f);
-				yes2.moveTo(oX+oLength/2+(oLength*symbolBorder)+(oLength*(1-symbolBorder))/3,oY+(oLength*symbolBorder),(2*oLength*(1-symbolBorder))/3-oLength*symbolBorder,((1-symbolBorder*2)*oLength),.1f);
+				yes1.setAnimation(yesExtend);
+				yes2.setAnimation(null);
 			}
 		});
 		buttonExtend.animateTo(oX-oLength/2,oY,oLength*2,oLength,.1f);
@@ -114,11 +113,34 @@ public class YesNoButton{
 				split.moveTo(oX+oLength/2,oY+oLength/2,0,0,.1f);
 				no1.moveTo(oX+oLength/2-(oLength*symbolBorder),oY+(oLength*symbolBorder),0,0,.1f);
 				no2.moveTo(oX+oLength/2-(oLength*symbolBorder),oY+oLength-(oLength*symbolBorder),0,0,.1f);
-				yes1.moveTo(oX+oLength/2+(oLength*symbolBorder),oY+oLength/2,0,0,.1f);
-				yes2.moveTo(oX+oLength/2+(oLength*symbolBorder)+(oLength*(1-symbolBorder))/3,oY+(oLength*symbolBorder),0,0,.1f);
+				yes2.setAnimation(yesRetract);
+				yes1.setAnimation(null);
 			}
 		});
 		buttonRetract.animateTo(oX,oY,oLength,oLength,.1f);
+
+		yesExtend = new ActorAnimator();
+		yesExtend.animateTo(oX+oLength/2+(oLength*symbolBorder),oY+oLength/2,(oLength*(1-symbolBorder))/3,-((1-symbolBorder*2)*oLength)/2,.33f,.05f);
+		yesExtend.addCommand(new ActorAnimator.ActionCommand(){
+			@Override
+			public void command(ActorAnimator animator){
+				yes2.moveTo(oX+oLength/2+(oLength*symbolBorder)+(oLength*(1-symbolBorder))/3,oY+(oLength*symbolBorder),(2*oLength*(1-symbolBorder))/3-oLength*symbolBorder,((1-symbolBorder*2)*oLength),.22f);
+			}
+		});
+
+		yesRetract = new ActorAnimator();
+		yesRetract.animateTo(oX+oLength/2+(oLength*symbolBorder)+(oLength*(1-symbolBorder))/3,oY+(oLength*symbolBorder),0,0,.2f,.05f);
+		yesRetract.addCommand(new ActorAnimator.ActionCommand(){
+			@Override
+			public void command(ActorAnimator animator){
+				yes1.moveTo(oX+oLength/2+(oLength*symbolBorder),oY+oLength/2,0,0,.19f);
+				split.setAnimateOpacity(0f,.2f);
+				yes1.setAnimateOpacity(0f,.2f);
+				yes2.setAnimateOpacity(0f,.2f);
+				no1.setAnimateOpacity(0f,.2f);
+				no2.setAnimateOpacity(0f,.2f);
+			}
+		});
 	}
 
 	public void addActor(Stage stage){
@@ -148,8 +170,6 @@ public class YesNoButton{
 		yes2.setAnimation(null);
 		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
 		question.setOpacity(0f);
-
-		animationPercent = 1;
 	}
 
 	public void dispose(){
