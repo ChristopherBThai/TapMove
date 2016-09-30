@@ -21,7 +21,9 @@ public class BackButton {
     }
 
     public void doAnimation(){
-        back.setAnimation(backA);
+        //back.setAnimation(backA);
+        back.setOpacity(0f);
+        back.setAnimateOpacity(1f);
     }
 
     public void moveToReset(){
@@ -44,7 +46,7 @@ public class BackButton {
     }
 
     public void setActors(){
-        back = new BoxButton(backX+backWidth/2f,backY+backHeight/2f,0,0){
+        back = new BoxButton(){
             @Override
             public void justTouched(){
                 back();
@@ -58,7 +60,8 @@ public class BackButton {
     }
 
     public void resetScreen(){
-        back.setBounds(backX+backWidth/2f,backY+backHeight/2f,0,0);
+        //back.setBounds(backX+backWidth/2f,backY+backHeight/2f,0,0);
+        back.setBounds(backX,backY,backWidth,backHeight);
     }
 
     public void dispose(){

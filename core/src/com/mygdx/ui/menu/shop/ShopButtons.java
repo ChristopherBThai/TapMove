@@ -15,7 +15,6 @@ public class ShopButtons {
     BoxButton cosmetics,abilities,other;
     com.mygdx.ui.menu.BackButton back;
     float width,height,x,y,gap;
-    ActorAnimator cosmeticsA,abilitiesA,otherA;
     ActorAnimator cosmeticsClicked,abilitiesClicked,otherClicked;
 
     public ShopButtons(MenuScreen screen){
@@ -29,8 +28,23 @@ public class ShopButtons {
     public void set(boolean withReset){
         if(withReset) {
             resetScreen();
-            cosmetics.setAnimation(cosmeticsA);
+            cosmetics.lockText(false);
+            cosmetics.setOpacity(0f);
+            cosmetics.setAnimateOpacity(1f);
+            cosmetics.setAnimateInsideOpacity(1f);
+            stage.addActor(abilities);
+            abilities.lockText(false);
+            abilities.setOpacity(0f);
+            abilities.setAnimateOpacity(1f);
+            abilities.setAnimateInsideOpacity(1f);
             stage.addActor(cosmetics);
+            other.lockText(false);
+            other.setOpacity(0f);
+            other.setAnimateOpacity(1f);
+            other.setAnimateInsideOpacity(1f);
+            stage.addActor(other);
+            back.doAnimation();
+            stage.addActor(back.getActor());
         }else{
             stage.addActor(cosmetics);
             stage.addActor(abilities);
@@ -48,7 +62,7 @@ public class ShopButtons {
     }
 
     public void setActors(){
-        cosmetics = new BoxButton(x+width/2f,y+height/2f,0,0){
+        cosmetics = new BoxButton(){
             @Override
             public void justTouched(){
                 cosmetics.setAnimation(cosmeticsClicked);
@@ -58,7 +72,7 @@ public class ShopButtons {
         cosmetics.setText("Cosmetics");
         cosmetics.setTextScale(.8f);
 
-        abilities = new BoxButton(x+width/2f,y+height/2f-gap,0,0){
+        abilities = new BoxButton(){
             @Override
             public void justTouched(){
                 abilities.setAnimation(abilitiesClicked);
@@ -68,7 +82,7 @@ public class ShopButtons {
         abilities.setText("Abilities");
         abilities.setTextScale(.8f);
 
-        other = new BoxButton(x+width/2f,y+height/2f-gap*2,0,0){
+        other = new BoxButton(){
             @Override
             public void justTouched(){
                 other.setAnimation(otherClicked);
@@ -88,29 +102,6 @@ public class ShopButtons {
     }
 
     public void setActions(){
-        cosmeticsA = AnimationManager.getPopUp(x,y,width,height,.24f,new ActorAnimator.ActionCommand(){
-            @Override
-            public void command(ActorAnimator animator){
-                abilities.setAnimation(abilitiesA);
-                stage.addActor(abilities);
-            }
-        });
-
-        abilitiesA = AnimationManager.getPopUp(x,y-gap,width,height,.24f,new ActorAnimator.ActionCommand(){
-            @Override
-            public void command(ActorAnimator animator){
-                other.setAnimation(otherA);
-                stage.addActor(other);
-            }
-        });
-
-        otherA = AnimationManager.getPopUp(x,y-gap*2,width,height,.24f,new ActorAnimator.ActionCommand(){
-            @Override
-            public void command(ActorAnimator animator){
-                back.doAnimation();
-                stage.addActor(back.getActor());
-            }
-        });
 
         cosmeticsClicked = new ActorAnimator();
         cosmeticsClicked.addCommand(new ActorAnimator.ActionCommand(){
@@ -219,11 +210,11 @@ public class ShopButtons {
     }
 
     public void resetScreen(){
-        cosmetics.setBounds(x+width/2f,y+height/2f,0,0);
+        cosmetics.setBounds(x,y,width,height);
         cosmetics.addTouch();
-        abilities.setBounds(x+width/2f,y+height/2f-gap,0,0);
+        abilities.setBounds(x,y-gap,width,height);
         abilities.addTouch();
-        other.setBounds(x+width/2f,y+height/2f-gap*2,0,0);
+        other.setBounds(x,y-gap*2,width,height);
         other.addTouch();
         back.resetScreen();
     }

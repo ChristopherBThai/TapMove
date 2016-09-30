@@ -56,6 +56,23 @@ public class BoxButton extends AnimatableActor {
         textScale = 1f;
     }
 
+    public BoxButton(){
+        super();
+        visible = true;
+        addTouch();
+        addListener(new ClickListener() {
+            public void clicked (InputEvent event, float x, float y) {
+                justTouched();
+                down = .15f;
+            }
+        });
+        line = SpriteManager.getLine();
+        corner = SpriteManager.getCorner();
+        lineThickness = .2f;
+        insideScale = .8f;
+        textScale = 1f;
+    }
+
     public void draw(Batch batch, float parentAlpha){
         if(!lockInside)
             insideScale();

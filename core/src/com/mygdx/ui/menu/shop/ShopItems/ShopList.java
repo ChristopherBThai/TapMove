@@ -17,6 +17,15 @@ public class ShopList{
 		items = new ArrayList<ShopItem>();
 	}
 
+	public void add(ShopItem item){
+		items.add(item);
+	}
+
+	public void setBounds(float x, float y, float width, float height){
+		for(ShopItem item:items)
+			item.setBounds(x,y,width,height);
+	}
+
 	public ShopItem getCurrent(){
 		return items.get(current);
 	}

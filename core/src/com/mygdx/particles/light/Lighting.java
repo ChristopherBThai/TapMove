@@ -1,6 +1,7 @@
 package com.mygdx.particles.light;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 
@@ -18,5 +19,9 @@ public class Lighting{
 
     public void setLightLength(float lightLength){
         pointLight.setDistance(lightLength);
+    }
+
+    public void setColor(Color color){
+        pointLight.setColor(color);
     }
 }

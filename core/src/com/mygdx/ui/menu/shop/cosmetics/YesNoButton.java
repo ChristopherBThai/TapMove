@@ -1,11 +1,17 @@
 package com.mygdx.ui.menu.shop.cosmetics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.managers.AnimationManager;
+import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
+import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
+import com.mygdx.utils.actors.Button;
 import com.mygdx.utils.actors.Line;
 import com.mygdx.utils.actors.Text;
 
@@ -18,8 +24,11 @@ public class YesNoButton{
 
 	private Actor act;
 
+	private ShopList shopList;
+
 	private Text question,bought,name1,name2;
 	private BoxButton button,yes,no;
+	private Button next,prev;
 	private Line split,yes1,yes2,no1,no2;
 
 	private float boughtOpacityTimer;
@@ -30,7 +39,8 @@ public class YesNoButton{
 
 	private ActorAnimator buttonExtend,buttonRetract,buttonA,yesExtend,yesRetract;
 
-	public YesNoButton(float x, float y, Stage stage){
+	public YesNoButton(ShopList shopList, float x, float y, Stage stage){
+		this.shopList = shopList;
 		setBounds(x,y);
 		setActors();
 		setActions();
@@ -43,16 +53,31 @@ public class YesNoButton{
 				bought.setAnimateOpacity(0f);
 			}
 		}
+		shopList.getCurrent().act(delta);
+	}
+
+	public void render(Batch batch,float parentAlpha){
+		shopList.getCurrent().draw(batch,parentAlpha);
 	}
 
 	public void doAnimation(){
-		button.setAnimation(buttonA);
+		button.setOpacity(0f);
+		button.setAnimateOpacity(1f);
+		shopList.getCurrent().setOpacity(0f);
+		shopList.getCurrent().setAnimateOpacity(1f);
+		name1.setOpacity(0f);
+		name1.setAnimateOpacity(1f);
+		next.setOpacity(0f);
+		next.setAnimateOpacity(1f);
+		prev.setOpacity(0f);
+		prev.setAnimateOpacity(1f);
 	}
 
 	public void setBounds(float x, float y){
 		oLength = Gdx.graphics.getHeight()*.09f;
 		oX = x;
 		oY = y;
+		shopList.setBounds(oX+oLength*symbolBorder,oY+oLength*symbolBorder,oLength*(1-symbolBorder*2),oLength*(1-symbolBorder*2));
 	}
 
 	public void setActors(){
@@ -60,6 +85,10 @@ public class YesNoButton{
 			@Override
 			public void act(float delta){
 				update(delta);
+			}
+			@Override
+			public void draw(Batch batch, float parentAlpha){
+				render(batch,parentAlpha);
 			}
 		};
 
@@ -70,6 +99,26 @@ public class YesNoButton{
 			}
 		};
 		button.setThickness(.1f);
+
+		next = new Button(){
+			@Override
+			public void justTouched(){
+				shopList.next();
+				name1.setText(shopList.getCurrent().getName());
+				name1.setPosition(oX+oLength/2-name1.getWidth()/2,oY+oLength*1.2f+name1.getHeight());
+			}
+		};
+		next.setSprite(SpriteManager.getLine());
+
+		prev = new Button(){
+			@Override
+			public void justTouched(){
+				shopList.prev();
+				name1.setText(shopList.getCurrent().getName());
+				name1.setPosition(oX+oLength/2-name1.getWidth()/2,oY+oLength*1.2f+name1.getHeight());
+			}
+		};
+		prev.setSprite(SpriteManager.getLine());
 
 		yes = new BoxButton(oX+oLength/2,oY,oLength,oLength){
 			@Override
@@ -94,12 +143,21 @@ public class YesNoButton{
 		question.setFontSize(oLength*.2f);
 		bought = new Text(oLength, "Purchased!");
 		bought.setFontSize(question.getFontSize());
+		name1 = new Text(oLength, shopList.getCurrent().getName());
+		name1.setFontSize(question.getFontSize());
 
 		split = new Line();
 		no1 = new Line();
 		no2 = new Line();
 		yes1 = new Line();
 		yes2 = new Line();
+
+
+		next.setBounds(oX+oLength+oLength*symbolBorder,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
+		prev.setBounds(oX-oLength*symbolBorder-oLength*.5f,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
+		prev.setRotation(180);
+		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
+		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
 	}
 
 	private void touched(){
@@ -114,6 +172,7 @@ public class YesNoButton{
 	private void bought(){
 		bought.setAnimateOpacity(1f);
 		boughtOpacityTimer = 2.3f;
+		ColorManager.setPlayer(shopList.getCurrent().getColor());
 	}
 
 	public void setActions(){
@@ -135,6 +194,12 @@ public class YesNoButton{
 				yes1.setAnimation(yesExtend);
 				yes2.setAnimation(null);
 				button.removeTouch();
+				next.removeTouch();
+				next.setAnimateOpacity(0f);
+				prev.setAnimateOpacity(0f);
+				prev.removeTouch();
+				shopList.getCurrent().setAnimateOpacity(0f);
+				name1.setAnimateOpacity(0f);
 			}
 		});
 		buttonExtend.animateTo(oX-oLength/2,oY,oLength*2,oLength,.1f);
@@ -159,6 +224,12 @@ public class YesNoButton{
 				yes.removeTouch();
 				no.removeTouch();
 				button.addTouch();
+				next.addTouch();
+				next.setOpacity(1f);
+				prev.addTouch();
+				prev.setOpacity(1f);
+				shopList.getCurrent().setAnimateOpacity(1f);
+				name1.setAnimateOpacity(1f);
 			}
 		});
 		buttonRetract.animateTo(oX,oY,oLength,oLength,.1f);
@@ -200,11 +271,17 @@ public class YesNoButton{
 		stage.addActor(yes);
 		stage.addActor(no);
 		stage.addActor(bought);
+		stage.addActor(name1);
+		stage.addActor(next);
+		stage.addActor(prev);
 	}
 
 	public void resetScreen(){
-		button.setBounds(oX+oLength/2,oY+oLength/2,0,0);
+		button.setBounds(oX,oY,oLength,oLength);
 		button.setAnimation(null);
+		button.addTouch();
+		next.addTouch();
+		prev.addTouch();
 		split.setBounds(oX+oLength/2,oY+oLength/2,0,0);
 		split.setAnimation(null);
 		no1.setBounds(oX+oLength/2-(oLength*symbolBorder),oY+(oLength*symbolBorder),0,0);
@@ -215,11 +292,10 @@ public class YesNoButton{
 		yes1.setAnimation(null);
 		yes2.setBounds(oX+oLength/2+(oLength*symbolBorder)+(oLength*(1-symbolBorder))/3,oY+(oLength*symbolBorder),0,0);
 		yes2.setAnimation(null);
-		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
 		question.setOpacity(0f);
-		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY+oLength*1.2f+bought.getHeight());
 		bought.setOpacity(0f);
-		button.addTouch();
+		name1.setText(shopList.getCurrent().getName());
+		name1.setPosition(oX+oLength/2-name1.getWidth()/2,oY+oLength*1.2f+name1.getHeight());
 		selected = false;
 		yes.removeTouch();
 		no.removeTouch();
@@ -231,6 +307,7 @@ public class YesNoButton{
 		bought.dispose();
 		yes.dispose();
 		no.dispose();
+		name1.dispose();
 	}
 
 }

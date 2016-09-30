@@ -10,7 +10,7 @@ public class AnimatableActor extends Actor {
     float x,y;
     float bufferX,bufferY;
 
-    float opacity,aOpacity,aOpacityspeed;
+    protected float opacity,aOpacity,aOpacityspeed;
     int animateOpacityTime;
     ActorAnimator animate;
 
