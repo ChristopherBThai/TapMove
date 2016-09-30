@@ -120,4 +120,8 @@ public class AnimatableActor extends Actor {
     public ActorAnimator getAnimate(){
         return animate;
     }
+
+    public float getOpacity(){
+        return opacity;
+    }
 }

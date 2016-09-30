@@ -69,6 +69,10 @@ public class Line extends AnimatableActor{
 		adjustThickness = true;
 	}
 
+	public void setPoints(float x1, float y1, float x2, float y2){
+		super.setBounds(x1,y1,x2-x1,y2-y1);
+	}
+
 	@Override
 	protected void sizeChanged(){
 		adjustValues = true;
