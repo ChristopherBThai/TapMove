@@ -14,9 +14,12 @@ public class Light {
     int animationTime;
     float cLightLevel;
 
+    float defaultLight;
+
     public Light(World world){
         rayHandler = new RayHandler(world);
-        setLightLevel(.7f);
+        defaultLight = .6f;
+        setLightLevel(defaultLight);
     }
 
     public void setLightLevel(float lightLevel){
@@ -54,6 +57,6 @@ public class Light {
     }
 
     public void resetLights(){
-        this.animateTo(.7f,.1f);
+        this.animateTo(defaultLight,.1f);
     }
 }

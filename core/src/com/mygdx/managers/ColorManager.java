@@ -2,6 +2,7 @@ package com.mygdx.managers;
 
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.screen.MenuScreen;
 
 public class ColorManager {
 	public static Color BACKGROUND;
@@ -24,13 +25,14 @@ public class ColorManager {
 		GREEN = toColor(120,255,120,255);
 
 		PLAYER = NORMAL;
-		PLAYER_LIGHT = new Color(PLAYER.r,PLAYER.g,PLAYER.b,.58f);
+		PLAYER_LIGHT = new Color(PLAYER.r,PLAYER.g,PLAYER.b,.8f);
 	}
 
 	public static void setPlayer(Color color){
 		PLAYER = color;
-		PLAYER_LIGHT = new Color(PLAYER.r,PLAYER.g,PLAYER.b,.58f);
+		PLAYER_LIGHT = new Color(PLAYER.r,PLAYER.g,PLAYER.b,.8f);
 		GameScreen.entMan.lighting.setColor(PLAYER_LIGHT);
+		//MenuScreen.background.lighting.setColor(PLAYER_LIGHT);
 	}
 	
 	static Color toColor(float r, float g, float b, float a){

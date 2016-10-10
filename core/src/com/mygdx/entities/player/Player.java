@@ -41,15 +41,18 @@ public class Player extends Entity {
 	
 	@Override
 	public void render(SpriteBatch sb){
-		ability.render(sb);
+		if(ability!=null)
+			ability.render(sb);
 		sb.setColor(ColorManager.PLAYER);
 		sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 	}
 	
 	@Override
 	public void update(float delta){
-		ability.update(delta);
-		dash.update(delta);
+		if(ability!=null)
+			ability.update(delta);
+		if(dash!=null)
+			dash.update(delta);
 	}
 
 	public void moveTo(float x, float y) {
@@ -101,6 +104,8 @@ public class Player extends Entity {
 	}
 
 	public boolean isDashing(){
+		if(dash==null)
+			return false;
 		return dash.isDashing();
 	}
 
