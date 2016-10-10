@@ -2,6 +2,7 @@ package com.mygdx.particles.light;
 
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 
@@ -15,6 +16,13 @@ public class Lighting{
         pointLight.setSoftnessLength(5f);
         if(player!=null)
             pointLight.attachToBody(player.getBody());
+    }
+
+    public Lighting(Body body, Light light){
+        pointLight = new PointLight(light.rayHandler, 50, ColorManager.NORMAL, 5, 0, 0);
+        pointLight.setSoftnessLength(5f);
+        if(body!=null)
+            pointLight.attachToBody(body);
     }
 
     public void setLightLength(float lightLength){

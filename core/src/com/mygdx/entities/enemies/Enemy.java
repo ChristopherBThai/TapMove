@@ -13,6 +13,7 @@ import com.mygdx.managers.SpriteManager;
 
 public class Enemy extends Entity {
 
+    public static final int LIGHT_BALL = 0;
     public static final int NORMAL_ENEMY = 1;
     public static final int FAST_ENEMY = 2;
     public static final int BIG_ENEMY = 3;

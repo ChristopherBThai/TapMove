@@ -4,6 +4,7 @@ import com.mygdx.entities.enemies.BigEnemy;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.enemies.FastEnemy;
 import com.mygdx.entities.enemies.InvisibleEnemy;
+import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.entities.enemies.NormalEnemy;
 import com.mygdx.game.MyGame;
 import com.mygdx.screen.GameScreen;
@@ -15,10 +16,22 @@ public class EnemyCreator {
 
 
     static float enemyRespawnTime,respawnCooldown = 1f;
+    static float lightRespawnTime,lightrespawnCooldown = 5;
     static float newEnemy = 300;
 
 
     public static boolean createEnemy(float delta) {
+
+        if(lightRespawnTime<=0){
+            Enemy enemy;
+            enemy = createLight();
+            enemy.randomize();
+            GameScreen.entMan.enemies.add(enemy);
+        }else{
+            lightRespawnTime -= delta;
+        }
+
+
         if(enemyRespawnTime<=0){
             Enemy enemy;
 
@@ -83,6 +96,20 @@ public class EnemyCreator {
         return enemyType;
     }
 
+    private static Enemy createLight(){
+        int loc = -1;
+        Enemy enemy;
+        for(int i=0;i<GameScreen.entMan.enemyPool.size();i++)
+            if(GameScreen.entMan.enemyPool.get(i).equals(Enemy.LIGHT_BALL))
+                loc = i;
+        if(loc>=0)
+            enemy = GameScreen.entMan.enemyPool.remove(loc);
+        else
+            enemy = new LightBall(0,0,GameScreen.entMan.world);
+        lightRespawnTime = (float) (Math.random()*lightrespawnCooldown+5);
+        return enemy;
+    }
+
     private static Enemy createInvisible(){
         int loc = -1;
         Enemy enemy;
@@ -93,7 +120,7 @@ public class EnemyCreator {
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
             enemy = new InvisibleEnemy(0,0,GameScreen.entMan.world);
-        enemyRespawnTime = (float) (Math.random()*1.25f);
+        enemyRespawnTime = (float) (Math.random()*1.25f*respawnCooldown);
         return enemy;
     }
 
@@ -135,7 +162,7 @@ public class EnemyCreator {
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
             enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
-        enemyRespawnTime = (float) (Math.random()*1f);
+        enemyRespawnTime = (float) (Math.random()*1f*respawnCooldown);
         return enemy;
     }
 }
