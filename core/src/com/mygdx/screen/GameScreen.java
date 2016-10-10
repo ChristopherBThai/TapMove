@@ -2,6 +2,7 @@ package com.mygdx.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -108,8 +109,11 @@ public class GameScreen extends Screen implements GestureListener{
 
 		}else{
 			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
-			if(running)
-				entMan.tap(pos.x,pos.y);
+			if(running){
+				entMan.tap(pos.x, pos.y);
+				ParticleEffectPool.PooledEffect effect = GameScreen.partMan.pc.getEffect();
+				effect.setPosition(pos.x,pos.y);
+			}
 		}
 
 		return true;
@@ -122,7 +126,9 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		entMan.fling(velocityX, velocityY);
+		if(Math.abs(velocityX)>600||Math.abs(velocityY)>600)
+			entMan.fling(velocityX, velocityY);
+
 		return true;
 	}
 

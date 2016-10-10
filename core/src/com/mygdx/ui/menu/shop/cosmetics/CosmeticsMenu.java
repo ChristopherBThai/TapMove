@@ -1,7 +1,6 @@
 package com.mygdx.ui.menu.shop.cosmetics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -18,7 +17,7 @@ public class CosmeticsMenu {
     Stage stage;
 
     BackButton back;
-    YesNoButton playerColor;
+    com.mygdx.ui.menu.shop.YesNoButton playerColor;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -58,7 +57,7 @@ public class CosmeticsMenu {
         temp = new ShopItem(100,"GREEN", SpriteManager.getCircle());
         temp.setColor(ColorManager.GREEN);
         list.add(temp);
-        playerColor = new YesNoButton(list,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        playerColor = new com.mygdx.ui.menu.shop.YesNoButton(list,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
     }
 
     public void setActions(){

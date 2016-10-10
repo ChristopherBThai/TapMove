@@ -1,4 +1,4 @@
-package com.mygdx.ui.menu.shop.cosmetics;
+package com.mygdx.ui.menu.shop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
