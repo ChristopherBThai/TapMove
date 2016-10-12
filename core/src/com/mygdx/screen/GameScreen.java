@@ -103,9 +103,9 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
-		if(hudMan.ability.useAbility(x,Gdx.app.getGraphics().getHeight()-y)){
+		/*if(hudMan.ability.useAbility(x,Gdx.app.getGraphics().getHeight()-y)){
 			entMan.useAbility();
-		}else if(hudMan.tap(x,Gdx.app.getGraphics().getHeight()-y)){
+		}else*/ if(hudMan.tap(x,Gdx.app.getGraphics().getHeight()-y)){
 
 		}else{
 			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);

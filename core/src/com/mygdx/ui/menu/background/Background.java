@@ -10,8 +10,8 @@ import com.mygdx.entities.enemies.NormalEnemy;
 import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.light.ConeLighting;
-import com.mygdx.particles.light.Light;
-import com.mygdx.particles.light.Lighting;
+import com.mygdx.particles.light.FollowLight;
+import com.mygdx.particles.light.WorldLighting;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class Background {
     //Player player;
     //float movePlayer;
     //public Lighting lighting;
-    Light light;
+    WorldLighting light;
 
     ArrayList<Enemy> enemies,enemyPool;
     float respawn,current;
@@ -34,7 +34,7 @@ public class Background {
     public Background(){
         world = new World(new Vector2(0, 0),true);
         b2dr = new Box2DDebugRenderer();
-        light = new Light(world);
+        light = new WorldLighting(world);
         ConeLighting cone = new ConeLighting(null,light);
         cone.setPos(MyGame.WIDTH*.5F,MyGame.HEIGHT*1.02f);
         enemies = new ArrayList<Enemy>();

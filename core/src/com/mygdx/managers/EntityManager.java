@@ -1,7 +1,5 @@
 package com.mygdx.managers;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -17,8 +15,8 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
-import com.mygdx.particles.light.Light;
-import com.mygdx.particles.light.Lighting;
+import com.mygdx.particles.light.FollowLight;
+import com.mygdx.particles.light.WorldLighting;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.MathUtility;
 import com.mygdx.utils.create.EnemyCreator;
@@ -34,8 +32,9 @@ public class EntityManager implements ContactListener{
 	public Box2DDebugRenderer b2dr;
 	
 	public Player player;
-	public Light light;
-	public Lighting lighting;
+	public WorldLighting light;
+	public FollowLight pLighting;
+	private float defaultBrightness, defaultPlayerLightLength;
 
 	public ArrayList<Enemy> enemies, enemyPool, enemiesKilled;
 	
@@ -54,8 +53,10 @@ public class EntityManager implements ContactListener{
 		enemyPool = new ArrayList<Enemy>();
 		enemiesKilled = new ArrayList<Enemy>();
 
-		light = new Light(world);
-		lighting = new Lighting(player,light);
+		light = new WorldLighting(world);
+		pLighting = new FollowLight(player,light);
+		defaultBrightness = .5f;
+		defaultPlayerLightLength = 40;
 		
 		slowAmount = 1;
 	}
@@ -78,6 +79,8 @@ public class EntityManager implements ContactListener{
 					checkDead();
 
 				player.update(delta);
+				pLighting.setLightLength(player.getLifePercent()*(defaultPlayerLightLength-10)+10);
+				light.setLightLevel(defaultBrightness*player.getLifePercent());
 
 				boolean slowTemp = false;
 
@@ -89,9 +92,7 @@ public class EntityManager implements ContactListener{
 
 				if(slowTemp!=slowTime){
 					if(slowTemp)
-						light.animateTo(light.getLightLevel()*.7f,.1f);
-					else
-						light.resetLights();
+						light.animateTo(defaultBrightness*player.getLifePercent()*.7f,.1f);
 					slowTime = slowTemp;
 				}
 
@@ -215,6 +216,7 @@ public class EntityManager implements ContactListener{
 				p = ((Player)a.getUserData());
 			else if(b.getUserData() instanceof Player)
 				p = ((Player)b.getUserData());
+
 			Enemy e = null;
 			if(a.getUserData() instanceof  Enemy)
 				e = ((Enemy)a.getUserData());
@@ -222,7 +224,7 @@ public class EntityManager implements ContactListener{
 				e = ((Enemy)b.getUserData());
 
 			if(p!=null&&e!=null){
-				if(p.isDashing()) {
+				if(p.isDashing()||!e.isEnemy) {
 					//contact.setEnabled(false);
 					//System.out.println(enemies.indexOf(e));
 					//e.getBody().setActive(false);
@@ -245,7 +247,6 @@ public class EntityManager implements ContactListener{
 		//Gdx.app.log("tap","presolve");
 		WorldManifold manifold = contact.getWorldManifold();
 		for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
-			//Gdx.app.log("tap",""+j);
 			if (game.running) {
 
 				Body a = contact.getFixtureA().getBody();
@@ -256,6 +257,7 @@ public class EntityManager implements ContactListener{
 					p = ((Player) a.getUserData());
 				else if (b.getUserData() instanceof Player)
 					p = ((Player) b.getUserData());
+
 				Enemy e = null;
 				if (a.getUserData() instanceof Enemy)
 					e = ((Enemy) a.getUserData());
@@ -263,10 +265,12 @@ public class EntityManager implements ContactListener{
 					e = ((Enemy) b.getUserData());
 
 				if (p != null && e != null) {
-					if (p.isDashing()) {
+					if (p.isDashing()||!e.isEnemy) {
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
-						//Gdx.app.log("tap","contact disabled for "+e.getBody().getPosition());
+						if(!e.isEnemy){
+							p.giveLife(8f);
+						}
 					}
 				}
 			}

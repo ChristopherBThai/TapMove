@@ -106,7 +106,7 @@ public class EnemyCreator {
             enemy = GameScreen.entMan.enemyPool.remove(loc);
         else
             enemy = new LightBall(0,0,GameScreen.entMan.world);
-        lightRespawnTime = (float) (Math.random()*lightrespawnCooldown+5);
+        lightRespawnTime = (float) (Math.random()*lightrespawnCooldown+1.6f);
         return enemy;
     }
 

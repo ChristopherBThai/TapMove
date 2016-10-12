@@ -8,19 +8,20 @@ import com.mygdx.managers.ColorManager;
 
 import box2dLight.PointLight;
 
-public class Lighting{
+public class FollowLight{
     PointLight pointLight;
 
-    public Lighting(Player player,Light light){
+    public FollowLight(Player player,WorldLighting light){
         pointLight = new PointLight(light.rayHandler, 200, ColorManager.PLAYER_LIGHT, 40, 0, 0);
         pointLight.setSoftnessLength(5f);
         if(player!=null)
             pointLight.attachToBody(player.getBody());
     }
 
-    public Lighting(Body body, Light light){
+    public FollowLight(Body body, WorldLighting light, boolean xray){
         pointLight = new PointLight(light.rayHandler, 50, ColorManager.NORMAL, 5, 0, 0);
         pointLight.setSoftnessLength(5f);
+        pointLight.setXray(xray);
         if(body!=null)
             pointLight.attachToBody(body);
     }

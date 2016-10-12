@@ -8,7 +8,7 @@ import box2dLight.RayHandler;
 /**
  * Created by Mono on 7/18/2016.
  */
-public class Light {
+public class WorldLighting {
     public RayHandler rayHandler;
     float aLightLevel,aspeed;
     int animationTime;
@@ -16,7 +16,7 @@ public class Light {
 
     float defaultLight;
 
-    public Light(World world){
+    public WorldLighting(World world){
         rayHandler = new RayHandler(world);
         defaultLight = .6f;
         setLightLevel(defaultLight);

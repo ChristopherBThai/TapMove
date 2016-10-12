@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.Explosion;
+import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.game.MyGame;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
@@ -12,13 +13,15 @@ import com.mygdx.managers.SpriteManager;
 
 public class Player extends Entity {
 	
-	float radius;
+	private float radius;
 	
-	float pushStrength;
-	Dash dash;
+	public float pushStrength;
 
-	Ability ability;
+	private Dash dash;
+	private Ability ability;
+
 	public boolean invincible;
+	private float life,currentLife;
 	
 	public Player(float x, float y, float radius, World world){
 		super(BodyCreater.createCircle(x, y, radius, false, true, world));
@@ -27,6 +30,8 @@ public class Player extends Entity {
 		this.radius = radius;
 		this.ability = new Explosion(this);
 		pushStrength = 400;
+		life = 20;
+		currentLife = life;
 		dash = new Dash(this);
 	}
 
@@ -36,6 +41,8 @@ public class Player extends Entity {
 		this.body.setAngularDamping(10f);
 		this.radius = radius;
 		this.ability = new Explosion(this);
+		life = 30;
+		currentLife = life;
 		pushStrength = 400;
 	}
 	
@@ -53,6 +60,7 @@ public class Player extends Entity {
 			ability.update(delta);
 		if(dash!=null)
 			dash.update(delta);
+		currentLife -= delta;
 	}
 
 	public void moveTo(float x, float y) {
@@ -61,7 +69,8 @@ public class Player extends Entity {
 	}
 
 	public void dashTo(float x, float y){
-		dash.fling(x,y);
+		if(dash.fling(x,y))
+			currentLife -= life*.25f;
 	}
 
 	public void push(float speed) {
@@ -103,19 +112,21 @@ public class Player extends Entity {
 		return result1||result2;
 	}
 
+	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {
+		if(!(e instanceof LightBall)&&this.getPos().dst(e.getPos())<this.radius*2+e.getRadius())
+			return true;
+		return false;
+	}
+
 	public boolean isDashing(){
 		if(dash==null)
 			return false;
 		return dash.isDashing();
 	}
 
-	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {
-		if(this.getPos().dst(e.getPos())<this.radius*2+e.getRadius())
-			return true;
-		return false;
-	}
-
 	public boolean isDead(){
+		if(currentLife<=0)
+			return true;
 		if(this.getPos().x<0-this.radius||
 				this.getPos().x> MyGame.WIDTH+this.radius||
 				this.getPos().y<0-this.radius||
@@ -132,6 +143,24 @@ public class Player extends Entity {
 		return this.ability;
 	}
 
+	public float getLifePercent(){
+		return currentLife/life;
+	}
+
+	public float getMaxLife(){
+		return life;
+	}
+
+	public float getCurrentLife(){
+		return currentLife;
+	}
+
+	public void giveLife(float lifeAmount){
+		currentLife += lifeAmount;
+		if(currentLife>life)
+			currentLife = life;
+	}
+
 	public float getRadius(){
 		return radius;
 	}
@@ -145,5 +174,6 @@ public class Player extends Entity {
 		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);
 		ability.reset();
+		currentLife = life;
 	}
 }

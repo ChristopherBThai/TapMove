@@ -29,6 +29,8 @@ public class Enemy extends Entity {
 
     private ParticleEffectPool.PooledEffect particle;
 
+    public boolean isEnemy;
+
     public Enemy(float x, float y, float radius, float density, float restitution, World world){
         super(BodyCreater.createCircle(x, y, radius, density, restitution, false, true, world));
         this.body.setLinearDamping(0f);
@@ -38,6 +40,7 @@ public class Enemy extends Entity {
         strafe = 200;
         strafeBuffer = 100;
         color = ColorManager.NORMAL_ENEMY;
+        isEnemy = true;
         if(NORMAL_RADIUS==0)
             NORMAL_RADIUS = MyGame.WIDTH *.07f;
     }

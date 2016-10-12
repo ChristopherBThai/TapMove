@@ -31,7 +31,7 @@ public class ColorManager {
 	public static void setPlayer(Color color){
 		PLAYER = color;
 		PLAYER_LIGHT = new Color(PLAYER.r,PLAYER.g,PLAYER.b,.8f);
-		GameScreen.entMan.lighting.setColor(PLAYER_LIGHT);
+		GameScreen.entMan.pLighting.setColor(PLAYER_LIGHT);
 		//MenuScreen.background.lighting.setColor(PLAYER_LIGHT);
 	}
 	

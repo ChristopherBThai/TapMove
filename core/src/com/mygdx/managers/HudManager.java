@@ -16,7 +16,7 @@ public class HudManager {
 	GameScreen game;
 	Stage stage;
 
-	public AbilityButton ability;
+	//public AbilityButton ability;
 	public Pause pause;
 	public Score score;
 	public GameoverButtons gameover;
@@ -27,7 +27,7 @@ public class HudManager {
 		this.game = game;
 		stage = new Stage(new ScreenViewport());
 
-		ability = new AbilityButton(stage);
+		//ability = new AbilityButton(stage);
 		pause = new Pause(stage);
 		score = new Score(stage);
 		gameover = new GameoverButtons(stage,game);
@@ -51,7 +51,7 @@ public class HudManager {
 		stage.act();
 		pause.update(delta);
 		score.update(delta);
-		ability.update(delta);
+		//ability.update(delta);
 		gameover.update(delta);
 	}
 	
@@ -66,7 +66,7 @@ public class HudManager {
 		opacity = 0;
 		stage.clear();
 		score.reset();
-		ability.reset();
+		//ability.reset();
 		pause.reset();
 		gameover.reset();
 	}

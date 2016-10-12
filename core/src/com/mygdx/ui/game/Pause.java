@@ -44,7 +44,7 @@ public class Pause {
             @Override
             public void command(ActorAnimator animator){
                 GameScreen.entMan.light.animateTo(0f,.1f);
-                GameScreen.hudMan.ability.hideButton();
+                //GameScreen.hudMan.ability.hideButton();
                 button.setInside(null);
             }
         });
@@ -55,7 +55,7 @@ public class Pause {
             @Override
             public void command(ActorAnimator animator){
                 GameScreen.entMan.light.resetLights();
-                GameScreen.hudMan.ability.showButton();
+                //GameScreen.hudMan.ability.showButton();
             }
         });
         unpause.animateTo(x,y,width,height,.1f);
