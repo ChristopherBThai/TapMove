@@ -1,4 +1,8 @@
 # TapMove
-Just a side project I'm working on named Tap Moved
+An android game created by Christopher Thai
 
-Created by Christopher Thai
+## Menu Screen
+
+The menu screen has three options: Play, Store, and Options.
+
+[![Screenshot](Screenshot.gif)](https://media.giphy.com/media/WdWoIdde2rJRK/giphy.gif)
