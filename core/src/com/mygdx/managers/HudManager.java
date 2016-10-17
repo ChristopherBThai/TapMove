@@ -8,6 +8,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.game.AbilityButton;
 import com.mygdx.ui.game.GameoverButtons;
+import com.mygdx.ui.game.LifeBar;
 import com.mygdx.ui.game.Pause;
 import com.mygdx.ui.game.Score;
 
@@ -17,6 +18,7 @@ public class HudManager {
 	Stage stage;
 
 	//public AbilityButton ability;
+	public LifeBar lifeBar;
 	public Pause pause;
 	public Score score;
 	public GameoverButtons gameover;
@@ -30,6 +32,7 @@ public class HudManager {
 		//ability = new AbilityButton(stage);
 		pause = new Pause(stage);
 		score = new Score(stage);
+		lifeBar = new LifeBar(stage);
 		gameover = new GameoverButtons(stage,game);
 
 		this.reset();
@@ -51,6 +54,7 @@ public class HudManager {
 		stage.act();
 		pause.update(delta);
 		score.update(delta);
+		lifeBar.update(delta);
 		//ability.update(delta);
 		gameover.update(delta);
 	}
@@ -66,6 +70,7 @@ public class HudManager {
 		opacity = 0;
 		stage.clear();
 		score.reset();
+		lifeBar.reset();
 		//ability.reset();
 		pause.reset();
 		gameover.reset();

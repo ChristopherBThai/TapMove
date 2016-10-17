@@ -124,4 +124,9 @@ public class AnimatableActor extends Actor {
     public float getOpacity(){
         return opacity;
     }
+
+    @Override
+    public String toString(){
+        return "[x:"+this.getX()+" y:"+this.getY()+" width:"+this.getWidth()+" height:"+this.getHeight()+"]";
+    }
 }
