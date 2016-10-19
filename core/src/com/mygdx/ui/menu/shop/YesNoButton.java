@@ -368,6 +368,22 @@ public class YesNoButton{
 		removeList.clear();
 	}
 
+	public float getWidth(){
+		return oLength*2;
+	}
+
+	public float getHeight(){
+		return oLength;
+	}
+
+	public float getX(){
+		return oX-oLength/2;
+	}
+
+	public float getY(){
+		return oY;
+	}
+
 	public void dispose(){
 		button.dispose();
 		question.dispose();

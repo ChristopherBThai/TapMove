@@ -95,19 +95,19 @@ public class Enemy extends Entity {
 
         switch(random){
             case 0:
-                this.setPos(-this.getRadius()*2, MyGame.HEIGHT*Math.random());
+                this.setPos(-this.getRadius(), MyGame.HEIGHT*Math.random());
                 this.setVelocity(Math.random()*speed+speedBuffer, Math.random()*strafe-strafeBuffer);
                 break;
             case 1:
-                this.setPos(MyGame.WIDTH*Math.random(), -this.getRadius()*2);
+                this.setPos(MyGame.WIDTH*Math.random(), -this.getRadius());
                 this.setVelocity(Math.random()*strafe-strafeBuffer, Math.random()*speed+speedBuffer);
                 break;
             case 2:
-                this.setPos(MyGame.WIDTH+this.getRadius()*2, MyGame.HEIGHT*Math.random());
+                this.setPos(MyGame.WIDTH+this.getRadius(), MyGame.HEIGHT*Math.random());
                 this.setVelocity(-Math.random()*speed+speedBuffer, Math.random()*strafe-strafeBuffer);
                 break;
             case 3:
-                this.setPos(MyGame.WIDTH*Math.random(), MyGame.HEIGHT+this.getRadius()*2);
+                this.setPos(MyGame.WIDTH*Math.random(), MyGame.HEIGHT+this.getRadius());
                 this.setVelocity(Math.random()*strafe-strafeBuffer, -Math.random()*speed+speedBuffer);
                 break;
         }

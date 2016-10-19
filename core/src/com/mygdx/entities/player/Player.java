@@ -125,6 +125,8 @@ public class Player extends Entity {
 	}
 
 	public boolean isDead(){
+		if(isDashing())
+			return false;
 		if(currentLife<=0)
 			return true;
 		if(this.getPos().x<0-this.radius||

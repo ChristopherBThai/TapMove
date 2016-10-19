@@ -51,6 +51,8 @@ public class LifeBar {
 
     public void update(float delta){
         lifebar.setWidth(barWidth*GameScreen.entMan.player.getLifePercent());
+        if(lifebar.getWidth()<0)
+            lifebar.setWidth(0);
     }
 
     public void reset(){
