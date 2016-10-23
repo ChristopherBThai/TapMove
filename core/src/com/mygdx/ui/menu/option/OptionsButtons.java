@@ -2,6 +2,7 @@ package com.mygdx.ui.menu.option;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.BackButton;
 
 /**
  * Created by Christopher Thai on 7/19/2016.
@@ -10,7 +11,7 @@ public class OptionsButtons {
     MenuScreen screen;
     Stage stage;
 
-    com.mygdx.ui.menu.BackButton back;
+    BackButton back;
 
     public OptionsButtons(MenuScreen screen){
         this.screen = screen;

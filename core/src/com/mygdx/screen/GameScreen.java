@@ -16,6 +16,9 @@ import com.mygdx.managers.ParticleManager;
 
 public class GameScreen extends Screen implements GestureListener{
 
+	public static final int CLASSIC = 1, DARK = 2;
+	public static int currentMode;
+
 	public static EntityManager entMan;
 	public static HudManager hudMan;
 	public static ParticleManager partMan;
@@ -36,6 +39,10 @@ public class GameScreen extends Screen implements GestureListener{
 		running = true;
 		pause = false;
 		MyGame.hideAd();
+	}
+
+	public void setMode(int mode){
+		currentMode = mode;
 	}
 
 	@Override

@@ -4,23 +4,34 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.screen.GameScreen;
 
 import java.util.ArrayList;
 
 /**
- * Created by Mono on 7/18/2016.
+ * Created by Christopher Thai on 7/18/2016.
  */
 public class Save {
-    private static float highScore;
+    private static float classicHighScore,darkHighScore;
     private static int money;
     private static boolean ads = true;
 
     public static boolean setHighScore(float score){
-        if(score>highScore){
-            highScore = score;
-            return true;
+        if(GameScreen.currentMode==GameScreen.DARK){
+
+            if(score>darkHighScore){
+                darkHighScore = score;
+                return true;
+            }
+            return false;
+        }else{
+
+            if(score>classicHighScore){
+                classicHighScore = score;
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     public static int addMoney(int amount){
@@ -41,7 +52,9 @@ public class Save {
     }
 
     public static float getHighScore(){
-        return highScore;
+        if(GameScreen.currentMode==GameScreen.DARK)
+            return darkHighScore;
+        return classicHighScore;
     }
 
     public static boolean adsEnabled(){
@@ -50,13 +63,15 @@ public class Save {
 
     public static void load(){
         if(!Gdx.files.local("save.json").exists()) {
-            highScore = 0;
+            classicHighScore = 0;
+            darkHighScore = 0;
             money = 0;
             ads = true;
         }else{
             Json save = new Json();
             SaveValues saveValues = save.fromJson(SaveValues.class,Gdx.files.local("save.json"));
-            highScore = saveValues.highScore;
+            classicHighScore = saveValues.classic;
+            darkHighScore = saveValues.dark;
             money = saveValues.money;
             ads = saveValues.ads;
         }
@@ -65,7 +80,7 @@ public class Save {
     public static void save(){
         Json save = new Json();
 
-        String saveText = save.prettyPrint(new SaveValues(highScore,money,ads));
+        String saveText = save.prettyPrint(new SaveValues(classicHighScore,darkHighScore,money,ads));
         FileHandle file = null;
         try{
             file = Gdx.files.local("save.json");
@@ -79,33 +94,38 @@ public class Save {
     }
 
     static private class SaveValues implements Json.Serializable{
-        public float highScore;
+        public float classic,dark;
         public int money;
         public boolean ads;
 
         public SaveValues(){
-            highScore = 0;
+            classic = 0;
+            dark = 0;
             money = 0;
             ads = true;
         }
 
-        public SaveValues(float highScore,int money, boolean ads){
-            this.highScore = highScore;
+        public SaveValues(float classic,float dark,int money, boolean ads){
+            this.classic = classic;
+            this.dark = dark;
             this.money = money;
             this.ads = ads;
         }
 
         @Override
         public void write(Json json){
-            json.writeValue("highScore",highScore);
+            json.writeValue("classic",classic);
+            json.writeValue("dark",dark);
             json.writeValue("money",money);
             json.writeValue("ads",ads);
         }
 
         @Override
         public void read(Json json, JsonValue jsonData){
-            if(jsonData.has("highScore"))
-                highScore = json.readValue("highScore", float.class, jsonData);
+            if(jsonData.has("classic"))
+                classic = json.readValue("classic", float.class, jsonData);
+            if(jsonData.has("dark"))
+                dark = json.readValue("dark", float.class, jsonData);
             if(jsonData.has("money"))
                 money = json.readValue("money", int.class, jsonData);
             if(jsonData.has("ads"))

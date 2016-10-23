@@ -9,6 +9,7 @@ import com.mygdx.managers.SoundManager;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.background.Background;
 import com.mygdx.ui.menu.option.OptionsButtons;
+import com.mygdx.ui.menu.play.PlayButtons;
 import com.mygdx.ui.menu.shop.abilities.AbilitiesMenu;
 import com.mygdx.ui.menu.shop.cosmetics.CosmeticsMenu;
 import com.mygdx.ui.menu.shop.other.OtherMenu;
@@ -18,6 +19,7 @@ public class MenuScreen extends Screen {
 	
 	public Stage stage;
 
+	public static PlayButtons play;
 	public static MenuButtons menu;
 	public static ShopButtons shop;
 	public static OptionsButtons options;
@@ -30,7 +32,8 @@ public class MenuScreen extends Screen {
 	public void create() {
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
-		SoundManager.loopMenuBgm(.7f,true);
+		//SoundManager.loopMenuBgm(.7f,true);
+		play = new PlayButtons(this);
 		menu = new MenuButtons(this);
 		shop = new ShopButtons(this);
 		options = new OptionsButtons(this);
@@ -76,6 +79,7 @@ public class MenuScreen extends Screen {
 	public void resetScreen(){
 		Gdx.input.setInputProcessor(stage);
 		stage.clear();
+		play.resetScreen();
 		menu.resetScreen();
 		shop.resetScreen();
 		options.resetScreen();
@@ -84,6 +88,7 @@ public class MenuScreen extends Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
+		play.dispose();
 		menu.dispose();
 		shop.dispose();
 		options.dispose();

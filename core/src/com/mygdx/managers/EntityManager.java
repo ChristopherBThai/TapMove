@@ -34,7 +34,7 @@ public class EntityManager implements ContactListener{
 	public Player player;
 	public WorldLighting light;
 	public FollowLight pLighting;
-	private float defaultBrightness, defaultPlayerLightLength;
+	private float defaultBrightness,defaultBrightnessMin, defaultPlayerLightLength;
 
 	public ArrayList<Enemy> enemies, enemyPool, enemiesKilled;
 	
@@ -80,7 +80,7 @@ public class EntityManager implements ContactListener{
 
 				player.update(delta);
 				pLighting.setLightLength(player.getLifePercent()*(defaultPlayerLightLength-10)+10);
-				light.setLightLevel(defaultBrightness*player.getLifePercent());
+				light.setLightLevel(defaultBrightness*player.getLifePercent()+defaultBrightnessMin);
 
 				boolean slowTemp = false;
 
@@ -190,6 +190,13 @@ public class EntityManager implements ContactListener{
 			i--;
 		}
 		player.reset();
+		if(GameScreen.currentMode==GameScreen.DARK){
+			defaultBrightness = .05f;
+			defaultBrightnessMin = .1f;
+		}else{
+			defaultBrightness = .6f;
+			defaultBrightnessMin = .1f;
+		}
 	}
 
 	public void dispose() {
