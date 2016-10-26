@@ -11,6 +11,7 @@ public class SpriteManager {
 	private static Sprite circle,halfCircle;
 	private static Sprite explosion;
 	private static Sprite corner,line,pause;
+	private static Sprite back;
 	
 	public static Sprite getButtonBorder(){
 		if(buttonBorder==null)
@@ -58,5 +59,11 @@ public class SpriteManager {
 		if(halfCircle==null)
 			halfCircle = new Sprite(new Texture(Gdx.files.internal("sprites/half_circle.png")));
 		return halfCircle;
+	}
+
+	public static Sprite getBack() {
+		if(back==null)
+			back = new Sprite(new Texture(Gdx.files.internal("sprites/back.png")));
+		return back;
 	}
 }

@@ -289,8 +289,8 @@ public class BoxButton extends AnimatableActor {
     public void setAnimateInsideOpacity(float opacity){
         if(text!=null)
             text.setAnimateOpacity(opacity);
-        if(text!=null)
-            text.setAnimateOpacity(opacity);
+        if(inside!=null)
+            inside.setAnimateOpacity(opacity);
     }
 
     @Override

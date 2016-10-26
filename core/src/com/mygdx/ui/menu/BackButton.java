@@ -1,6 +1,7 @@
 package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.managers.SpriteManager;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.managers.AnimationManager;
@@ -24,6 +25,7 @@ public class BackButton {
         //back.setAnimation(backA);
         back.setOpacity(0f);
         back.setAnimateOpacity(1f);
+        back.setAnimateInsideOpacity(1f);
     }
 
     public void moveToReset(){
@@ -53,6 +55,9 @@ public class BackButton {
             }
         };
         back.setThickness(.1f);
+        back.setInside(SpriteManager.getBack());
+        back.setLockInside(false);
+        //back.setInsideScale(.7f);
     }
 
     public void setActions(){
