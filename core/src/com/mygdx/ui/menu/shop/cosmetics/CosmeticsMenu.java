@@ -8,6 +8,7 @@ import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
+import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
 
 /**
  * Created by Mono on 6/20/2016.
@@ -17,7 +18,7 @@ public class CosmeticsMenu {
     Stage stage;
 
     BackButton back;
-    com.mygdx.ui.menu.shop.YesNoButton playerColor;
+    YesNoButton playerColor;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -40,6 +41,7 @@ public class CosmeticsMenu {
     }
 
     public void setActors(){
+
         back = new BackButton(){
             @Override
             public void back(){
@@ -47,17 +49,11 @@ public class CosmeticsMenu {
                 MenuScreen.shop.set(false);
             }
         };
+
+
         ShopList list = new ShopList("Color");
-        ShopItem temp = new ShopItem(100,"Blue", SpriteManager.getCircle());
-        temp.setColor(ColorManager.BLUE);
-        list.add(temp);
-        temp = new ShopItem(100,"RED", SpriteManager.getCircle());
-        temp.setColor(ColorManager.RED);
-        list.add(temp);
-        temp = new ShopItem(100,"GREEN", SpriteManager.getCircle());
-        temp.setColor(ColorManager.GREEN);
-        list.add(temp);
-        playerColor = new com.mygdx.ui.menu.shop.YesNoButton(list,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        list.add(ColorList.values());
+        playerColor = new YesNoButton(list,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
     }
 
     public void setActions(){

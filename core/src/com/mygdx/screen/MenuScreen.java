@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.managers.SoundManager;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.background.Background;
 import com.mygdx.ui.menu.option.OptionsButtons;
@@ -13,7 +12,7 @@ import com.mygdx.ui.menu.play.PlayButtons;
 import com.mygdx.ui.menu.shop.abilities.AbilitiesMenu;
 import com.mygdx.ui.menu.shop.cosmetics.CosmeticsMenu;
 import com.mygdx.ui.menu.shop.other.OtherMenu;
-import com.mygdx.ui.menu.shop.ShopButtons;
+import com.mygdx.ui.menu.shop.ShopItems.ShopButtons;
 
 public class MenuScreen extends Screen {
 	

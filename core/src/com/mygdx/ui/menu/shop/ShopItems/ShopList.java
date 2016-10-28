@@ -21,6 +21,12 @@ public class ShopList{
 		items.add(item);
 	}
 
+	public void add(ItemListInterface[] items){
+		for(ItemListInterface item: items){
+			item.addToList(this);
+		}
+	}
+
 	public void setBounds(float x, float y, float width, float height){
 		for(ShopItem item:items)
 			item.setBounds(x,y,width,height);
