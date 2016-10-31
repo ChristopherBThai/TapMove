@@ -12,6 +12,7 @@ public class Score {
 
     Stage stage;
 
+    Text mode;
     Text score;
     Text finalScore,highScore;
     boolean showScore;
@@ -25,6 +26,7 @@ public class Score {
         score.setPosition(0f, score.getHeight());
         finalScore = new Text(score.getFontSize()*1.5f, "");
         highScore = new Text(finalScore.getFontSize()*.8f,"");
+        mode = new Text(score.getFontSize()*1.5f,"");
 
     }
 
@@ -40,11 +42,17 @@ public class Score {
                 stage.clear();
                 stage.addActor(finalScore);
                 stage.addActor(highScore);
+                stage.addActor(mode);
                 Save.setHighScore(scoreCount);
                 Save.addMoney(moneyCount);
+                if(GameScreen.currentMode==GameScreen.DARK)
+                    mode.setText("Dark mode");
+                else
+                    mode.setText("Classic mode");
                 finalScore.setText("Score: "+(int)scoreCount);
                 highScore.setText("Highscore: "+(int)Save.getHighScore());
                 finalScore.setPosition(Gdx.graphics.getWidth()/2f-finalScore.getWidth()/2f, Gdx.graphics.getHeight()*.75f+finalScore.getHeight()/2f);
+                mode.setPosition(Gdx.graphics.getWidth()/2f-mode.getWidth()/2f,finalScore.getY()+mode.getHeight()*1.5f);
                 highScore.setPosition(Gdx.graphics.getWidth()/2f-highScore.getWidth()/2f, finalScore.getY()-((highScore.getHeight())*1.1f)-finalScore.getHeight());
                 showScore = true;
             }
