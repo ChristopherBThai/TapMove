@@ -2,22 +2,25 @@ package com.mygdx.ui.menu.shop.ShopItems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.managers.AnimationManager;
 import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.AnimatableActor;
 import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.utils.actors.Button;
+import com.mygdx.utils.actors.Image;
 import com.mygdx.utils.actors.Line;
 import com.mygdx.utils.actors.Text;
 
 import java.util.ArrayList;
 
 /**
- * Created by Mono on 9/20/2016.
+ * Created by Christopher Thai on 9/20/2016.
  */
 
 public class YesNoButton{
@@ -29,11 +32,17 @@ public class YesNoButton{
 	private ArrayList<AnimatableActor> removeList;
 	float iX,iY,iLength;
 
-	private Text question,bought,name;
-	private BoxButton button,yes,no;
 	private Button next,prev;
 	private Line next1,next2,next3,prev1,prev2,prev3;
+
+	private Text question,bought,name;
+
+	private BoxButton button,yes,no;
 	private Line split,yes1,yes2,no1,no2;
+
+	private static Image moneySprite;
+	private Text cost;
+	private float gapBetweenSpriteAndCost;
 
 	private float boughtOpacityTimer;
 
@@ -66,6 +75,7 @@ public class YesNoButton{
 			prev1.setOpacity(next.getOpacity());
 			prev2.setOpacity(next.getOpacity());
 			prev3.setOpacity(next.getOpacity());
+
 		}
 
 		for(int i=0;i<removeList.size();i++){
@@ -74,6 +84,17 @@ public class YesNoButton{
 				removeList.remove(i);
 				i--;
 			}
+		}
+
+		if(button.isAnimating()){
+			next1.setBuffers(oX-button.getX(),0);
+			next2.setBuffers(oX-button.getX(),0);
+			next3.setBuffers(oX-button.getX(),0);
+			prev1.setBuffers(button.getX()-oX,0);
+			prev2.setBuffers(button.getX()-oX,0);
+			prev3.setBuffers(button.getX()-oX,0);
+			Gdx.app.log("Tap:",""+next1.getBufferX());
+
 		}
 
 		shopList.getCurrent().act(delta);
@@ -87,16 +108,13 @@ public class YesNoButton{
 	}
 
 	public void doAnimation(){
-		button.setOpacity(0f);
-		button.setAnimateOpacity(1f);
-		shopList.getCurrent().setOpacity(0f);
-		shopList.getCurrent().setAnimateOpacity(1f);
-		name.setOpacity(0f);
-		name.setAnimateOpacity(1f);
-		next.setOpacity(0f);
-		next.setAnimateOpacity(1f);
-		prev.setOpacity(0f);
-		prev.setAnimateOpacity(1f);
+		button.animateToVisible();
+		shopList.getCurrent().animateToVisible();
+		name.animateToVisible();
+		next.animateToVisible();
+		prev.animateToVisible();
+		moneySprite.animateToVisible();
+		cost.animateToVisible();
 	}
 
 	public void setBounds(float x, float y){
@@ -107,6 +125,7 @@ public class YesNoButton{
 		iY = oY+oLength*symbolBorder;
 		iLength = oLength*(1-symbolBorder*2);
 		shopList.setBounds(iX,iY,iLength,iLength);
+		gapBetweenSpriteAndCost = oLength * .14f;
 	}
 
 	public void setActors(){
@@ -142,6 +161,7 @@ public class YesNoButton{
 				shopList.getCurrent().setAnimateOpacity(1f);
 				name.setText(shopList.getCurrent().getName());
 				name.setPosition(oX+oLength/2-name.getWidth()/2,oY+oLength*1.2f+name.getHeight());
+				setCostText();
 			}
 		};
 
@@ -158,6 +178,7 @@ public class YesNoButton{
 				shopList.getCurrent().setAnimateOpacity(1f);
 				name.setText(shopList.getCurrent().getName());
 				name.setPosition(oX+oLength/2-name.getWidth()/2,oY+oLength*1.2f+name.getHeight());
+				setCostText();
 			}
 		};
 
@@ -212,6 +233,9 @@ public class YesNoButton{
 		prev.setRotation(180);
 		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
 		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+
+		cost = new Text(name.getFontSize(),"0");
+		moneySprite = new Image(SpriteManager.getCircle(),0,0,cost.getWidth(),cost.getHeight());
 	}
 
 	private void touched(){
@@ -334,6 +358,8 @@ public class YesNoButton{
 		stage.addActor(prev1);
 		stage.addActor(prev2);
 		stage.addActor(prev3);
+		stage.addActor(moneySprite);
+		stage.addActor(cost);
 	}
 
 	public void resetScreen(){
@@ -356,6 +382,7 @@ public class YesNoButton{
 		bought.setOpacity(0f);
 		name.setText(shopList.getCurrent().getName());
 		name.setPosition(oX+oLength/2-name.getWidth()/2,oY+oLength*1.2f+name.getHeight());
+		setCostText();
 		selected = false;
 		yes.removeTouch();
 		no.removeTouch();
@@ -391,6 +418,14 @@ public class YesNoButton{
 		yes.dispose();
 		no.dispose();
 		name.dispose();
+		cost.dispose();
+	}
+
+	private void setCostText(){
+		cost.setText(""+shopList.getCurrent().getPrice());
+		float totalWidth = gapBetweenSpriteAndCost + cost.getWidth() + moneySprite.getWidth();
+		moneySprite.setPosition(oX+oLength/2f-totalWidth/2f,oY-cost.getHeight()-oLength*.2f);
+		cost.setPosition(moneySprite.getX()+gapBetweenSpriteAndCost,moneySprite.getY()+cost.getHeight());
 	}
 
 }

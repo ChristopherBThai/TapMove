@@ -12,7 +12,7 @@ import com.mygdx.ui.menu.play.PlayButtons;
 import com.mygdx.ui.menu.shop.abilities.AbilitiesMenu;
 import com.mygdx.ui.menu.shop.cosmetics.CosmeticsMenu;
 import com.mygdx.ui.menu.shop.other.OtherMenu;
-import com.mygdx.ui.menu.shop.ShopItems.ShopButtons;
+import com.mygdx.ui.menu.shop.ShopButtons;
 
 public class MenuScreen extends Screen {
 	

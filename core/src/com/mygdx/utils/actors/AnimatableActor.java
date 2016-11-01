@@ -125,6 +125,15 @@ public class AnimatableActor extends Actor {
         return opacity;
     }
 
+    public boolean isAnimating(){
+        return !(animate == null);
+    }
+
+    public void animateToVisible(){
+        setOpacity(0f);
+        setAnimateOpacity(1f);
+    }
+
     @Override
     public String toString(){
         return "[x:"+this.getX()+" y:"+this.getY()+" width:"+this.getWidth()+" height:"+this.getHeight()+"]";

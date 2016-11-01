@@ -1,4 +1,4 @@
-package com.mygdx.ui.menu.shop.ShopItems;
+package com.mygdx.ui.menu.shop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;

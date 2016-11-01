@@ -43,7 +43,7 @@ public class Line extends AnimatableActor{
 		adjustThickness();
 		if(!(this.getWidth()==0&&this.getHeight()==0)){
 			batch.setColor(this.getColor().r,this.getColor().g,this.getColor().b,opacity);
-			batch.draw(line,x,y-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
+			batch.draw(line,getX(),getY()-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
 		}
 	}
 
