@@ -73,7 +73,8 @@ public class BoxButton extends AnimatableActor {
         textScale = 1f;
     }
 
-    public void draw(Batch batch, float parentAlpha){
+    @Override
+    public void render(Batch batch, float parentAlpha){
         if(!lockInside)
             insideScale();
         adjustValues();
@@ -85,9 +86,7 @@ public class BoxButton extends AnimatableActor {
     }
 
     @Override
-    public void act(float delta){
-        super.act(delta);
-
+    public void update(float delta){
         if(down>0)
             down-=delta;
         else if(down<0)

@@ -1,12 +1,13 @@
 package com.mygdx.utils.actors;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 /**
  * Created by Christopher Thai on 7/27/2016 at 4:06 PM.
  */
-public class AnimatableActor extends Actor {
+public abstract class AnimatableActor extends Actor {
     float x,y;
     float bufferX,bufferY;
 
@@ -14,11 +15,14 @@ public class AnimatableActor extends Actor {
     int animateOpacityTime;
     ActorAnimator animate;
 
+    boolean show;
+
     public AnimatableActor(){
         aOpacity = 1f;
         opacity = 1f;
         aOpacityspeed = .1f;
         setTouchable(Touchable.disabled);
+        show = true;
     }
 
     @Override
@@ -37,7 +41,17 @@ public class AnimatableActor extends Actor {
             animateOpacityTime--;
             opacity = opacity + (aOpacity - opacity)*aOpacityspeed;
         }
+        update(delta);
     }
+    public abstract void update(float delta);
+
+    @Override
+    public void draw(Batch batch, float parentAlpha){
+        if(show)
+            render(batch,parentAlpha);
+    }
+
+    public abstract void render(Batch batch, float parentAlpha);
 
     public void moveTo(float x, float y, float width, float height, float speed){
         ActorAnimator action = new ActorAnimator();
@@ -134,8 +148,18 @@ public class AnimatableActor extends Actor {
         setAnimateOpacity(1f);
     }
 
+    public void hide(){
+        show = false;
+    }
+
+    public void show(){
+        show = true;
+    }
+
     @Override
     public String toString(){
         return "[x:"+this.getX()+" y:"+this.getY()+" width:"+this.getWidth()+" height:"+this.getHeight()+"]";
     }
+
+
 }

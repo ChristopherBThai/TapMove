@@ -7,14 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Created by Mono on 9/29/2016.
+ * Created by Christopher Thai on 9/29/2016.
  */
 
 public class Button extends AnimatableActor{
 
 	private float down;
 	private boolean touchable;
-	private boolean visible;
 
 	Sprite sprite;
 
@@ -42,9 +41,7 @@ public class Button extends AnimatableActor{
 	}
 
 	@Override
-	public void act(float delta){
-		super.act(delta);
-
+	public void update(float delta){
 		if(down > 0)
 			down -= delta;
 		else if(down < 0)
@@ -52,7 +49,7 @@ public class Button extends AnimatableActor{
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha){
+	public void render(Batch batch, float parentAlpha){
 		if(sprite!=null){
 			batch.setColor(getColor().r,getColor().g,getColor().b,opacity);
 			if(getRotation()==0)
@@ -89,10 +86,6 @@ public class Button extends AnimatableActor{
 
 	public boolean isPressed(){
 		return down>0;
-	}
-
-	public void setVisible(boolean visible){
-		this.visible = visible;
 	}
 
 	public void setSprite(Sprite sprite){

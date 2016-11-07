@@ -17,12 +17,11 @@ public class Image extends AnimatableActor{
     }
 
     @Override
-    public void act(float delta){
-        super.act(delta);
+    public void update(float delta){
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha){
+    public void render(Batch batch, float parentAlpha){
         batch.setColor(getColor().r,getColor().g,getColor().b,opacity);
         batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
     }

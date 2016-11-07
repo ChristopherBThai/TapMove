@@ -65,6 +65,8 @@ public class YesNoButton{
 			boughtOpacityTimer -= delta;
 			if(boughtOpacityTimer<=0){
 				bought.setAnimateOpacity(0f);
+				cost.setAnimateOpacity(1f);
+				moneySprite.setAnimateOpacity(1f);
 			}
 		}
 
@@ -235,20 +237,32 @@ public class YesNoButton{
 		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
 
 		cost = new Text(name.getFontSize(),"0");
-		moneySprite = new Image(SpriteManager.getCircle(),0,0,cost.getWidth(),cost.getHeight());
+		moneySprite = new Image(SpriteManager.getCircle(),0,0,cost.getHeight(),cost.getHeight());
 	}
 
 	private void touched(){
-		selected = !selected;
-
-		if(selected){
-			button.setAnimation(buttonExtend);
-		}else
-			button.setAnimation(buttonRetract);
+		if(shopList.getCurrent().isBought()){
+			bought.setText("Equipped!");
+			bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+			bought.setAnimateOpacity(1f);
+			cost.setAnimateOpacity(0f);
+			moneySprite.setAnimateOpacity(0f);
+			boughtOpacityTimer = 2.3f;
+		}else{
+			selected = !selected;
+			if(selected){
+				button.setAnimation(buttonExtend);
+			}else
+				button.setAnimation(buttonRetract);
+		}
 	}
 
 	private void bought(){
 		bought.setAnimateOpacity(1f);
+		bought.setText("Purchased!");
+		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+		cost.setAnimateOpacity(0f);
+		moneySprite.setAnimateOpacity(0f);
 		boughtOpacityTimer = 2.3f;
 		ColorManager.setPlayer(shopList.getCurrent().getColor());
 	}
@@ -422,10 +436,17 @@ public class YesNoButton{
 	}
 
 	private void setCostText(){
-		cost.setText(""+shopList.getCurrent().getPrice());
-		float totalWidth = gapBetweenSpriteAndCost + cost.getWidth() + moneySprite.getWidth();
-		moneySprite.setPosition(oX+oLength/2f-totalWidth/2f,oY-cost.getHeight()-oLength*.2f);
-		cost.setPosition(moneySprite.getX()+gapBetweenSpriteAndCost,moneySprite.getY()+cost.getHeight());
+		if(!shopList.getCurrent().isBought()){
+			cost.setText(""+shopList.getCurrent().getPrice());
+			float totalWidth = gapBetweenSpriteAndCost + cost.getWidth() + moneySprite.getWidth();
+			moneySprite.setPosition(oX+oLength/2f-totalWidth/2f,oY-cost.getHeight()-oLength*.2f);
+			cost.setPosition(moneySprite.getX()+moneySprite.getWidth()+gapBetweenSpriteAndCost,moneySprite.getY()+cost.getHeight());
+			moneySprite.show();
+		}else{
+			cost.setText("owned");
+			cost.setPosition(oX+oLength/2f-cost.getWidth()/2f,oY-cost.getHeight()-oLength*.2f+cost.getHeight());
+			moneySprite.hide();
+		}
 	}
 
 }

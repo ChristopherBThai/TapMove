@@ -10,7 +10,7 @@ import com.mygdx.managers.SpriteManager;
 import com.mygdx.utils.MathUtility;
 
 /**
- * Created by Mono on 9/20/2016.
+ * Created by Christopher Thai on 9/20/2016.
  */
 
 public class Line extends AnimatableActor{
@@ -38,7 +38,12 @@ public class Line extends AnimatableActor{
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha){
+	public void update(float delta){
+
+	}
+
+	@Override
+	public void render(Batch batch, float parentAlpha){
 		adjustSize();
 		adjustThickness();
 		if(!(this.getWidth()==0&&this.getHeight()==0)){

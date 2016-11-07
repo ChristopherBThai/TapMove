@@ -35,9 +35,14 @@ public class Text extends AnimatableActor{
 	}
 	
 	@Override
-	public void draw(Batch batch, float parentAlpha){
+	public void render(Batch batch, float parentAlpha){
 		bitFont.setColor(getColor().r,getColor().g,getColor().b,opacity);
 		bitFont.draw(batch, string, this.getX(), this.getY());
+	}
+
+	@Override
+	public void update(float delta){
+
 	}
 	
 	public static BitmapFont createFonts(BitmapFont font) {
