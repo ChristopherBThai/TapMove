@@ -1,6 +1,7 @@
 package com.mygdx.ui.menu.shop.cosmetics;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -22,6 +23,7 @@ public enum ColorList implements ItemListInterface{
 	private final String name;
 	private final Color color;
 	private final boolean isBought;
+	private final static Sprite sprite = SpriteManager.getCircle();
 
 	ColorList(int cost,String name,Color color, boolean bought){
 		this.cost = cost;
@@ -32,8 +34,18 @@ public enum ColorList implements ItemListInterface{
 
 
 	public void addToList(ShopList list){
-		ShopItem temp = new ShopItem(cost,name, SpriteManager.getCircle(),isBought);
-		temp.setColor(color);
+		ShopItem temp = new ShopItem(cost,name, SpriteManager.getCircle(),isBought){
+			@Override
+			public void equipItem(){
+				ColorManager.setPlayer(color);
+			}
+
+			@Override
+			public void render(Batch batch, float parentAlpha){
+				batch.setColor(color.r,color.g,color.b,opacity);
+				batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
+			}
+		};
 
 		list.add(temp);
 	}

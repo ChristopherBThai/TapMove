@@ -1,6 +1,8 @@
 package com.mygdx.entities.player;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
@@ -12,6 +14,8 @@ import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 
 public class Player extends Entity {
+
+	private Sprite design;
 	
 	private float radius;
 	
@@ -52,6 +56,10 @@ public class Player extends Entity {
 			ability.render(sb);
 		sb.setColor(ColorManager.PLAYER);
 		sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
+		if(design!=null){
+			sb.setColor(ColorManager.PLAYER_DESIGN);
+			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, MathUtils.radiansToDegrees*body.getAngle());
+		}
 	}
 	
 	@Override
@@ -141,6 +149,10 @@ public class Player extends Entity {
 		this.ability = ability;
 	}
 
+	public void setDesign(Sprite sprite){
+		this.design = sprite;
+	}
+
 	public Ability getAbility(){
 		return this.ability;
 	}
@@ -155,6 +167,10 @@ public class Player extends Entity {
 
 	public float getCurrentLife(){
 		return currentLife;
+	}
+
+	public Sprite getDesign(){
+		return design;
 	}
 
 	public void giveLife(float lifeAmount){

@@ -12,6 +12,7 @@ public class SpriteManager {
 	private static Sprite explosion;
 	private static Sprite corner,line,pause;
 	private static Sprite back;
+	private static Sprite checkers;
 	
 	public static Sprite getButtonBorder(){
 		if(buttonBorder==null)
@@ -65,5 +66,11 @@ public class SpriteManager {
 		if(back==null)
 			back = new Sprite(new Texture(Gdx.files.internal("sprites/back.png")));
 		return back;
+	}
+
+	public static Sprite getCheckers() {
+		if(checkers==null)
+			checkers = new Sprite(new Texture(Gdx.files.internal("sprites/pattern1.png")));
+		return checkers;
 	}
 }

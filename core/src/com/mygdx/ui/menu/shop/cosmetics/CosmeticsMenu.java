@@ -14,11 +14,11 @@ import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
  * Created by Mono on 6/20/2016.
  */
 public class CosmeticsMenu {
-    MenuScreen screen;
-    Stage stage;
+    private MenuScreen screen;
+    private Stage stage;
 
-    BackButton back;
-    YesNoButton playerColor;
+    private BackButton back;
+    private YesNoButton playerColor,playerDesign;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -31,9 +31,11 @@ public class CosmeticsMenu {
     public void set(boolean withReset){
         resetScreen();
         back.doAnimation();
-        playerColor.doAnimation();
         stage.addActor(back.getActor());
+        playerColor.doAnimation();
         playerColor.addActor(stage);
+        playerDesign.doAnimation();
+        playerDesign.addActor(stage);
     }
 
     public void setBounds(){
@@ -51,9 +53,13 @@ public class CosmeticsMenu {
         };
 
 
-        ShopList list = new ShopList("Color");
-        list.add(ColorList.values());
-        playerColor = new YesNoButton(list,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        ShopList list1 = new ShopList("Color");
+        list1.add(ColorList.values());
+        playerColor = new YesNoButton(list1,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+
+        ShopList list2 = new ShopList("Design");
+        list2.add(DesignList.values());
+        playerDesign = new YesNoButton(list2,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.8f,stage);
     }
 
     public void setActions(){
@@ -62,10 +68,12 @@ public class CosmeticsMenu {
     public void resetScreen(){
         back.resetScreen();
         playerColor.resetScreen();
+        playerDesign.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
         playerColor.dispose();
+        playerDesign.dispose();
     }
 }

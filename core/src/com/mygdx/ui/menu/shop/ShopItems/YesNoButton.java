@@ -40,7 +40,7 @@ public class YesNoButton{
 	private BoxButton button,yes,no;
 	private Line split,yes1,yes2,no1,no2;
 
-	private static Image moneySprite;
+	private Image moneySprite;
 	private Text cost;
 	private float gapBetweenSpriteAndCost;
 
@@ -188,7 +188,7 @@ public class YesNoButton{
 			@Override
 			public void justTouched(){
 				touched();
-				bought();
+				buyItem();
 			}
 		};
 		yes.setVisible(false);
@@ -243,7 +243,15 @@ public class YesNoButton{
 	private void touched(){
 		if(shopList.getCurrent().isBought()){
 			bought.setText("Equipped!");
-			bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+			bought.setPosition(oX + oLength / 2 - bought.getWidth() / 2, oY - oLength * .2f);
+			bought.setAnimateOpacity(1f);
+			cost.setAnimateOpacity(0f);
+			moneySprite.setAnimateOpacity(0f);
+			boughtOpacityTimer = 2.3f;
+			shopList.getCurrent().equipItem();
+		}else if(!shopList.getCurrent().hasEnough()){
+			bought.setText("Not Enough!!");
+			bought.setPosition(oX + oLength / 2 - bought.getWidth() / 2, oY - oLength * .2f);
 			bought.setAnimateOpacity(1f);
 			cost.setAnimateOpacity(0f);
 			moneySprite.setAnimateOpacity(0f);
@@ -257,14 +265,16 @@ public class YesNoButton{
 		}
 	}
 
-	private void bought(){
-		bought.setAnimateOpacity(1f);
-		bought.setText("Purchased!");
-		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
-		cost.setAnimateOpacity(0f);
-		moneySprite.setAnimateOpacity(0f);
-		boughtOpacityTimer = 2.3f;
-		ColorManager.setPlayer(shopList.getCurrent().getColor());
+	private void buyItem(){
+		if(shopList.getCurrent().buyItem()){
+			bought.setAnimateOpacity(1f);
+			bought.setText("Purchased!");
+			bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+			cost.setAnimateOpacity(0f);
+			moneySprite.setAnimateOpacity(0f);
+			boughtOpacityTimer = 2.3f;
+			shopList.getCurrent().equipItem();
+		}
 	}
 
 	public void setActions(){

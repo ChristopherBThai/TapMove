@@ -72,7 +72,7 @@ public class Save {
             SaveValues saveValues = save.fromJson(SaveValues.class,Gdx.files.local("save.json"));
             classicHighScore = saveValues.classic;
             darkHighScore = saveValues.dark;
-            money = saveValues.money;
+            money = 9999999;//saveValues.money;
             ads = saveValues.ads;
         }
     }
