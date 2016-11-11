@@ -16,6 +16,7 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum DesignList implements ItemListInterface{
 	NONE(0,"Blank",null,true),
+	SWIRL(1000,"Swirl",SpriteManager.getSwirl(),false),
 	QUARTER_SLICE(1000,"Checkers", SpriteManager.getCheckers(),false);
 
 	private final int cost;

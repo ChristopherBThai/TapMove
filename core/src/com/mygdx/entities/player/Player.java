@@ -1,5 +1,6 @@
 package com.mygdx.entities.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,6 +17,7 @@ import com.mygdx.managers.SpriteManager;
 public class Player extends Entity {
 
 	private Sprite design;
+	private float designAngle, designTargetAngle;
 	
 	private float radius;
 	
@@ -58,7 +60,7 @@ public class Player extends Entity {
 		sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 		if(design!=null){
 			sb.setColor(ColorManager.PLAYER_DESIGN);
-			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, MathUtils.radiansToDegrees*body.getAngle());
+			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
 		}
 	}
 	
@@ -69,6 +71,10 @@ public class Player extends Entity {
 		if(dash!=null)
 			dash.update(delta);
 		currentLife -= delta;
+
+
+		designAngle = designAngle + (designTargetAngle - designAngle) * .1f;
+		Gdx.app.log("tap",""+designAngle);
 	}
 
 	public void moveTo(float x, float y) {
@@ -106,6 +112,14 @@ public class Player extends Entity {
 		}
 		
 		this.body.setTransform(this.body.getPosition().x, this.body.getPosition().y, radians);
+
+		designTargetAngle = MathUtils.radiansToDegrees*body.getAngle();
+		float direction = (designTargetAngle + 270) - (designAngle + 270);
+		if(direction > 180)
+			designAngle += 360;
+		else if(direction < -180)
+			designAngle -= 360;
+
 	}
 
 	public boolean useAbility(){

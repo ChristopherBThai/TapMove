@@ -12,7 +12,7 @@ public class SpriteManager {
 	private static Sprite explosion;
 	private static Sprite corner,line,pause;
 	private static Sprite back;
-	private static Sprite checkers;
+	private static Sprite checkers,swirl;
 	
 	public static Sprite getButtonBorder(){
 		if(buttonBorder==null)
@@ -72,5 +72,11 @@ public class SpriteManager {
 		if(checkers==null)
 			checkers = new Sprite(new Texture(Gdx.files.internal("sprites/pattern1.png")));
 		return checkers;
+	}
+
+	public static Sprite getSwirl() {
+		if(swirl==null)
+			swirl = new Sprite(new Texture(Gdx.files.internal("sprites/pattern2.png")));
+		return swirl;
 	}
 }
