@@ -17,7 +17,14 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 public enum DesignList implements ItemListInterface{
 	NONE(0,"Blank",null,true),
 	SWIRL(1000,"Swirl",SpriteManager.getSwirl(),false),
-	QUARTER_SLICE(1000,"Checkers", SpriteManager.getCheckers(),false);
+	QUARTER_SLICE(1000,"Checkers", SpriteManager.getCheckers(),false),
+	ARROW(1000,"Arrow",SpriteManager.getArrow(),false),
+	BIOHAZARD(1000,"Biohazard",SpriteManager.getBiohazard(),false),
+	HAZARD(1000,"Hazard",SpriteManager.getHazard(),false),
+	HEART(1000,"Heart",SpriteManager.getHeart(),false),
+	NEUTRON(1000,"Neutron",SpriteManager.getNeutron(),false),
+	STRIPES(1000,"Stripes",SpriteManager.getStripes(),false),
+	TARGET(1000,"Target",SpriteManager.getTarget(),false);
 
 	private final int cost;
 	private final String name;
