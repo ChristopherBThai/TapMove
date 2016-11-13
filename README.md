@@ -1,6 +1,8 @@
 # TapMove
 An android game created by Christopher Thai
 
+You can watch a test gameplay, as of November 12, 2016, [here](https://www.youtube.com/watch?v=4xtKRyK8Yzw)!
+
 ## Menu Screen
 
 The menu screen has three options: Play, Store, and Options.
