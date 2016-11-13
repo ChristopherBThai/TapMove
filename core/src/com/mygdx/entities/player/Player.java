@@ -84,7 +84,7 @@ public class Player extends Entity {
 
 	public void dashTo(float x, float y){
 		if(dash.fling(x,y))
-			currentLife -= life*.25f;
+			currentLife -= life*.1f;
 	}
 
 	public void push(float speed) {

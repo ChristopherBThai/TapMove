@@ -25,7 +25,7 @@ public class Enemy extends Entity {
     float radius;
 
     float speed,speedBuffer;
-    float strafe, strafeBuffer;
+    float strafe;
 
     private ParticleEffectPool.PooledEffect particle;
 
@@ -38,7 +38,6 @@ public class Enemy extends Entity {
         speed = 500;
         speedBuffer = 300;
         strafe = 200;
-        strafeBuffer = 100;
         color = ColorManager.NORMAL_ENEMY;
         isEnemy = true;
         if(NORMAL_RADIUS==0)
@@ -96,19 +95,19 @@ public class Enemy extends Entity {
         switch(random){
             case 0:
                 this.setPos(-this.getRadius(), MyGame.HEIGHT*Math.random());
-                this.setVelocity(Math.random()*speed+speedBuffer, Math.random()*strafe-strafeBuffer);
+                this.setVelocity(Math.random()*speed+speedBuffer, Math.random()*strafe-strafe/2);
                 break;
             case 1:
                 this.setPos(MyGame.WIDTH*Math.random(), -this.getRadius());
-                this.setVelocity(Math.random()*strafe-strafeBuffer, Math.random()*speed+speedBuffer);
+                this.setVelocity(Math.random()*strafe-strafe/2, Math.random()*speed+speedBuffer);
                 break;
             case 2:
                 this.setPos(MyGame.WIDTH+this.getRadius(), MyGame.HEIGHT*Math.random());
-                this.setVelocity(-Math.random()*speed+speedBuffer, Math.random()*strafe-strafeBuffer);
+                this.setVelocity(-Math.random()*speed-speedBuffer, Math.random()*strafe-strafe/2);
                 break;
             case 3:
                 this.setPos(MyGame.WIDTH*Math.random(), MyGame.HEIGHT+this.getRadius());
-                this.setVelocity(Math.random()*strafe-strafeBuffer, -Math.random()*speed+speedBuffer);
+                this.setVelocity(Math.random()*strafe-strafe/2, -Math.random()*speed-speedBuffer);
                 break;
         }
 

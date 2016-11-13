@@ -72,6 +72,8 @@ public class Particle {
         this.remove(effect);
 
         pe.scaleEffect(origionalScale);
+
+        pool.clear();
     }
 
     public void update(float delta){

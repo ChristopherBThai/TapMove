@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class EnemyCreator {
 
 
-    static float enemyRespawnTime,respawnCooldown = 1f;
+    static float enemyRespawnTime,respawnCooldown = 1.7f;
     static float lightRespawnTime,lightrespawnCooldown = 5;
-    static float newEnemy = 300;
+    static float newEnemy = 200;
 
 
     public static boolean createEnemy(float delta) {

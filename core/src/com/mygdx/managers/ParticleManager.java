@@ -28,9 +28,6 @@ public class ParticleManager {
         et = new EnemyTrail();
         es = new EnemySmoke();
         pc = new PlayerClick();
-        for(int i=0;i<10;i++)
-            pc.getEffect();
-        pc.reset();
     }
 
     public void update(float delta){
