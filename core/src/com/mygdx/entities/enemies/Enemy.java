@@ -18,16 +18,17 @@ public class Enemy extends Entity {
     public static final int FAST_ENEMY = 2;
     public static final int BIG_ENEMY = 3;
     public static final int INVISIBLE_ENEMY = 4;
+    public static final int FOLLOW_ENEMY = 5;
 
     public static float NORMAL_RADIUS;
 
-    Color color;
-    float radius;
+    protected Color color;
+    protected float radius;
 
-    float speed,speedBuffer;
-    float strafe;
+    protected float speed,speedBuffer;
+    protected float strafe;
 
-    private ParticleEffectPool.PooledEffect particle;
+    protected ParticleEffectPool.PooledEffect particle;
 
     public boolean isEnemy;
 

@@ -6,7 +6,7 @@ import com.mygdx.particles.light.FollowLight;
 import com.mygdx.screen.GameScreen;
 
 /**
- * Created by Mono on 10/9/2016.
+ * Created by Christopher Thai on 10/9/2016.
  */
 
 public class LightBall extends Enemy{

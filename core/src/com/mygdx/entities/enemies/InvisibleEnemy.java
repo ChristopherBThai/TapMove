@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.managers.SpriteManager;
 
 /**
- * Created by Mono on 6/22/2016.
+ * Created by Christopher Thai on 6/22/2016.
  */
 public class InvisibleEnemy extends Enemy{
 

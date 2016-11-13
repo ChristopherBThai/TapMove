@@ -3,6 +3,7 @@ package com.mygdx.utils.create;
 import com.mygdx.entities.enemies.BigEnemy;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.enemies.FastEnemy;
+import com.mygdx.entities.enemies.FollowingEnemy;
 import com.mygdx.entities.enemies.InvisibleEnemy;
 import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.entities.enemies.NormalEnemy;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class EnemyCreator {
 
 
-    static float enemyRespawnTime,respawnCooldown = 1.7f;
+    static float enemyRespawnTime,respawnCooldown = 3f;
     static float lightRespawnTime,lightrespawnCooldown = 5;
     static float newEnemy = 200;
 
@@ -38,6 +39,9 @@ public class EnemyCreator {
             int enemyType = getRandomEnemy();
 
             switch (enemyType){
+                case Enemy.FOLLOW_ENEMY:
+                    enemy = createFollow();
+                    break;
                 case Enemy.INVISIBLE_ENEMY:
                     enemy = createInvisible();
                     break;
@@ -64,9 +68,19 @@ public class EnemyCreator {
     private static int getRandomEnemy(){
         int enemyType;
         float score = GameScreen.hudMan.score.getScore();
-
-        if(score>=newEnemy*3) {
-            double random = Math.random();
+        double random = Math.random();
+        if(score>=newEnemy*4) {
+            if(random >= .9)
+                enemyType = Enemy.FOLLOW_ENEMY;
+            else if(random >= .8)
+                enemyType = Enemy.INVISIBLE_ENEMY;
+            else if (random >= .7)
+                enemyType = Enemy.FAST_ENEMY;
+            else if (random >= .6)
+                enemyType = Enemy.BIG_ENEMY;
+            else
+                enemyType = Enemy.NORMAL_ENEMY;
+        }else if(score>=newEnemy*3) {
             if(random >= .877)
                 enemyType = Enemy.INVISIBLE_ENEMY;
             else if (random >= .766)
@@ -76,7 +90,6 @@ public class EnemyCreator {
             else
                 enemyType = Enemy.NORMAL_ENEMY;
         }else if(score>=newEnemy*2){
-            double random = Math.random();
             if(random>=.8)
                 enemyType = Enemy.FAST_ENEMY;
             else if(random>=.6)
@@ -84,7 +97,6 @@ public class EnemyCreator {
             else
                 enemyType = Enemy.NORMAL_ENEMY;
         }else if(score>=newEnemy){
-            double random = Math.random();
             if(random>=.8)
                 enemyType = Enemy.BIG_ENEMY;
             else
@@ -107,6 +119,20 @@ public class EnemyCreator {
         else
             enemy = new LightBall(0,0,GameScreen.entMan.world);
         lightRespawnTime = (float) (Math.random()*lightrespawnCooldown+1.6f);
+        return enemy;
+    }
+
+    private static Enemy createFollow(){
+        int loc = -1;
+        Enemy enemy;
+        for(int i=0;i<GameScreen.entMan.enemyPool.size();i++)
+            if(GameScreen.entMan.enemyPool.get(i).equals(Enemy.FOLLOW_ENEMY))
+                loc = i;
+        if(loc>=0)
+            enemy = GameScreen.entMan.enemyPool.remove(loc);
+        else
+            enemy = new FollowingEnemy(0,0,GameScreen.entMan.world);
+        enemyRespawnTime = (float) (Math.random()*1.25f*respawnCooldown);
         return enemy;
     }
 
