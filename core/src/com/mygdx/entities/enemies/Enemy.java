@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.game.MyGame;
+import com.mygdx.particles.ParticleList;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
@@ -74,7 +75,7 @@ public class Enemy extends Entity {
     }
 
     public void removeParticle(){
-        GameScreen.partMan.et.remove(particle);
+        ParticleList.ENEMY_TRAIL.particle.remove(particle);
         this.particle = null;
     }
 
@@ -88,9 +89,9 @@ public class Enemy extends Entity {
 
     public Enemy randomize() {
         this.body.setActive(true);
-        this.particle = GameScreen.partMan.et.getEffect();
-        GameScreen.partMan.et.setColor(particle,this.color);
-        GameScreen.partMan.et.setScale(particle,radius/NORMAL_RADIUS);
+        this.particle = ParticleList.ENEMY_TRAIL.particle.getEffect();
+        ParticleList.ENEMY_TRAIL.particle.setColor(particle,this.color);
+        ParticleList.ENEMY_TRAIL.particle.setScale(particle,radius/NORMAL_RADIUS);
         int random = (int) (Math.random()*4);
 
         switch(random){

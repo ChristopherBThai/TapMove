@@ -13,6 +13,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.managers.EntityManager;
 import com.mygdx.managers.HudManager;
 import com.mygdx.managers.ParticleManager;
+import com.mygdx.particles.ParticleList;
 
 public class GameScreen extends Screen implements GestureListener{
 
@@ -118,7 +119,7 @@ public class GameScreen extends Screen implements GestureListener{
 			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
 			if(running){
 				entMan.tap(pos.x, pos.y);
-				ParticleEffectPool.PooledEffect effect = GameScreen.partMan.pc.getEffect();
+				ParticleEffectPool.PooledEffect effect = ParticleList.PLAYER_CLICK.particle.getEffect();
 				effect.setPosition(pos.x,pos.y);
 			}
 		}
