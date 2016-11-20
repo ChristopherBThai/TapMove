@@ -14,20 +14,20 @@ import com.mygdx.game.MyGame;
  */
 public class Particle {
 
-    ParticleEffect pe;
-    ParticleEffectPool pool;
+    private ParticleEffect pe;
+    private ParticleEffectPool pool;
     private Array<ParticleEffectPool.PooledEffect> effects;
 
-    float angleHighMax,angleHighMin,angleLowMax,angleLowMin;
-    float scaleHighMax,scaleHighMin,scaleLowMax,scaleLowMin;
-    float velHighMax,velHighMin,velLowMax,velLowMin;
-    float gravityHighMax,gravityHighMin,gravityLowMax,gravityLowMin;
-    float spawnWidthHighMax,spawnWidthHighMin,spawnWidthLowMax,spawnWidthLowMin;
-    float spawnHeightHighMax,spawnHeightHighMin,spawnHeightLowMax,spawnHeightLowMin;
+    private float angleHighMax,angleHighMin,angleLowMax,angleLowMin;
+    private float scaleHighMax,scaleHighMin,scaleLowMax,scaleLowMin;
+    private float velHighMax,velHighMin,velLowMax,velLowMin;
+    private float gravityHighMax,gravityHighMin,gravityLowMax,gravityLowMin;
+    private float spawnWidthHighMax,spawnWidthHighMin,spawnWidthLowMax,spawnWidthLowMin;
+    private float spawnHeightHighMax,spawnHeightHighMin,spawnHeightLowMax,spawnHeightLowMin;
 
-    float origionalScale;
+    private float origionalScale;
 
-    boolean endWhenEnd;
+    private boolean endWhenEnd;
 
     public Particle(String loc,boolean ends){
         endWhenEnd = ends;
@@ -74,6 +74,8 @@ public class Particle {
         pe.scaleEffect(origionalScale);
 
         pool.clear();
+
+
     }
 
     public void update(float delta){

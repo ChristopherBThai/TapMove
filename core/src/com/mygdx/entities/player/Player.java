@@ -1,6 +1,7 @@
 package com.mygdx.entities.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -10,6 +11,7 @@ import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.game.MyGame;
+import com.mygdx.particles.ParticleList;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -17,11 +19,13 @@ import com.mygdx.managers.SpriteManager;
 public class Player extends Entity {
 
 	private Sprite design;
+	private ParticleEffectPool.PooledEffect trail;
+	private ParticleList particleName;
 	private float designAngle, designTargetAngle;
 	
 	private float radius;
 	
-	public float pushStrength;
+	private float pushStrength;
 
 	private Dash dash;
 	private Ability ability;
@@ -31,6 +35,15 @@ public class Player extends Entity {
 	
 	public Player(float x, float y, float radius, World world){
 		super(BodyCreater.createCircle(x, y, radius, false, true, world));
+		init(radius);
+	}
+
+	public Player(float x, float y, float radius, World world, boolean isStatic){
+		super(BodyCreater.createCircle(x, y, radius, isStatic, true, world));
+		init(radius);
+	}
+
+	private void init(float radius){
 		this.body.setLinearDamping(.3f);
 		this.body.setAngularDamping(10f);
 		this.radius = radius;
@@ -39,17 +52,7 @@ public class Player extends Entity {
 		life = 20;
 		currentLife = life;
 		dash = new Dash(this);
-	}
-
-	public Player(float x, float y, float radius, World world, boolean isStatic){
-		super(BodyCreater.createCircle(x, y, radius, isStatic, true, world));
-		this.body.setLinearDamping(.3f);
-		this.body.setAngularDamping(10f);
-		this.radius = radius;
-		this.ability = new Explosion(this);
-		life = 30;
-		currentLife = life;
-		pushStrength = 400;
+		particleName = ParticleList.PLAYER_TRAIL;
 	}
 	
 	@Override
@@ -66,6 +69,8 @@ public class Player extends Entity {
 	
 	@Override
 	public void update(float delta){
+		if(trail!=null)
+			trail.setPosition(this.getPos().x, this.getPos().y);
 		if(ability!=null)
 			ability.update(delta);
 		if(dash!=null)
@@ -167,6 +172,10 @@ public class Player extends Entity {
 		this.design = sprite;
 	}
 
+	public void setTrailDesign(String loc){
+		trail.getEmitters().first().setImagePath(loc);
+	}
+
 	public Ability getAbility(){
 		return this.ability;
 	}
@@ -197,6 +206,10 @@ public class Player extends Entity {
 		return radius;
 	}
 
+	public float getPushStrength(){
+		return pushStrength;
+	}
+
 	public boolean abilityReady() {
 		return ability.isReady();
 	}
@@ -206,6 +219,7 @@ public class Player extends Entity {
 		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);
 		ability.reset();
+		trail = particleName.particle.getEffect();
 		currentLife = life;
 	}
 }

@@ -12,7 +12,7 @@ public class Dash {
 
     public Dash(Player player){
         this.player = player;
-        dashStrength = player.pushStrength*50;
+        dashStrength = player.getPushStrength()*50;
         maxDashTime = 1;
         currentDashTime = maxDashTime;
         maxDashingTime = .2f;

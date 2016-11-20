@@ -30,9 +30,9 @@ public class GameScreen extends Screen implements GestureListener{
 	private GestureDetector gesture;
 	@Override
 	public void create() {
+		partMan = new ParticleManager(this);
 		entMan = new EntityManager(this);
 		hudMan = new HudManager(this);
-		partMan = new ParticleManager(this);
 
 		gesture = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gesture);
@@ -75,9 +75,9 @@ public class GameScreen extends Screen implements GestureListener{
 	
 	public void restart(){
 		MyGame.hideAd();
+		partMan.reset();
 		entMan.reset();
 		hudMan.reset();
-		partMan.reset();
 		running = true;
 		pause = false;
 	}
