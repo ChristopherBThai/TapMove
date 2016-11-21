@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.MyGame;
 
 /**
@@ -28,6 +30,8 @@ public class Particle {
     private float origionalScale;
 
     private boolean endWhenEnd;
+
+    private Sprite newSprite;
 
     public Particle(String loc,boolean ends){
         endWhenEnd = ends;
@@ -97,6 +101,8 @@ public class Particle {
     public ParticleEffectPool.PooledEffect getEffect(){
         ParticleEffectPool.PooledEffect effect = pool.obtain();
         effects.add(effect);
+        if(newSprite!=null)
+            this.setSprite(effect,newSprite);
         effect.reset();
         return effect;
     }
@@ -137,8 +143,20 @@ public class Particle {
         effect.reset();
     }
 
-    public void setSpriteLocation(ParticleEffectPool.PooledEffect effect, String loc){
-        effect.getEmitters().first().setImagePath(loc);
+    public void setAllSprite(Sprite sprite){
+        for(ParticleEffectPool.PooledEffect effect:effects)
+            setSprite(effect,sprite);
+
+        Array<ParticleEffectPool.PooledEffect> temp = new Array<ParticleEffectPool.PooledEffect>();
+
+        for(ParticleEffectPool.PooledEffect effect:temp)
+            setSprite(effect,sprite);
+
+        newSprite = sprite;
+    }
+
+    public void setSprite(ParticleEffectPool.PooledEffect effect, Sprite sprite){
+        effect.getEmitters().first().setSprite(sprite);
     }
 
     public void remove(ParticleEffectPool.PooledEffect effect){

@@ -21,7 +21,6 @@ public class Player extends Entity {
 
 	private Sprite design;
 	private ParticleEffectPool.PooledEffect trail;
-	private String trailLoc;
 	private ParticleTypes particleName;
 	private float designAngle, designTargetAngle;
 	
@@ -55,7 +54,6 @@ public class Player extends Entity {
 		currentLife = life;
 		dash = new Dash(this);
 		particleName = ParticleTypes.PLAYER_TRAIL;
-		trailLoc = ParticleList.CIRCLE.getLoc();
 	}
 	
 	@Override
@@ -175,10 +173,6 @@ public class Player extends Entity {
 		this.design = sprite;
 	}
 
-	public void setTrailDesign(String loc){
-		trailLoc = loc;
-	}
-
 	public Ability getAbility(){
 		return this.ability;
 	}
@@ -223,7 +217,6 @@ public class Player extends Entity {
 		this.getBody().setLinearVelocity(0f,0f);
 		ability.reset();
 		trail = particleName.particle.getEffect();
-		ParticleTypes.PLAYER_TRAIL.particle.setSpriteLocation(trail,trailLoc);
 		ParticleTypes.PLAYER_TRAIL.particle.setColor(trail,ColorManager.PLAYER);
 		currentLife = life;
 	}
