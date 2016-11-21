@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
-import com.mygdx.particles.ParticleList;
+import com.mygdx.particles.ParticleTypes;
 import com.mygdx.particles.light.FollowLight;
 import com.mygdx.particles.light.WorldLighting;
 import com.mygdx.screen.GameScreen;
@@ -152,11 +152,11 @@ public class EntityManager implements ContactListener{
 
 	public boolean killEnemyByDash(Enemy enemy){
 		//System.out.println("KilledByDash");
-		ParticleEffectPool.PooledEffect effect = ParticleList.ENEMY_SMOKE.particle.getEffect();
+		ParticleEffectPool.PooledEffect effect = ParticleTypes.ENEMY_SMOKE.particle.getEffect();
 		effect.setPosition(enemy.getPos().x,enemy.getPos().y);
-		ParticleList.ENEMY_SMOKE.particle.setAngle(effect, MathUtility.vectorToRadians(player.getBody().getLinearVelocity().x,player.getBody().getLinearVelocity().y)* MathUtils.radiansToDegrees);
-		ParticleList.ENEMY_SMOKE.particle.setColor(effect, enemy.getColor());
-		ParticleList.ENEMY_SMOKE.particle.setScale(effect, enemy.getRadius()/enemy.NORMAL_RADIUS);
+		ParticleTypes.ENEMY_SMOKE.particle.setAngle(effect, MathUtility.vectorToRadians(player.getBody().getLinearVelocity().x,player.getBody().getLinearVelocity().y)* MathUtils.radiansToDegrees);
+		ParticleTypes.ENEMY_SMOKE.particle.setColor(effect, enemy.getColor());
+		ParticleTypes.ENEMY_SMOKE.particle.setScale(effect, enemy.getRadius()/enemy.NORMAL_RADIUS);
 		enemy.disable();
 		enemyPool.add(enemy);
 		Score.addMoney(2);

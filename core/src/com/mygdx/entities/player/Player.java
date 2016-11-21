@@ -11,7 +11,8 @@ import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.game.MyGame;
-import com.mygdx.particles.ParticleList;
+import com.mygdx.particles.ParticleTypes;
+import com.mygdx.ui.menu.shop.cosmetics.ParticleList;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -20,7 +21,8 @@ public class Player extends Entity {
 
 	private Sprite design;
 	private ParticleEffectPool.PooledEffect trail;
-	private ParticleList particleName;
+	private String trailLoc;
+	private ParticleTypes particleName;
 	private float designAngle, designTargetAngle;
 	
 	private float radius;
@@ -52,7 +54,8 @@ public class Player extends Entity {
 		life = 20;
 		currentLife = life;
 		dash = new Dash(this);
-		particleName = ParticleList.PLAYER_TRAIL;
+		particleName = ParticleTypes.PLAYER_TRAIL;
+		trailLoc = ParticleList.CIRCLE.getLoc();
 	}
 	
 	@Override
@@ -173,7 +176,7 @@ public class Player extends Entity {
 	}
 
 	public void setTrailDesign(String loc){
-		trail.getEmitters().first().setImagePath(loc);
+		trailLoc = loc;
 	}
 
 	public Ability getAbility(){
@@ -220,6 +223,8 @@ public class Player extends Entity {
 		this.getBody().setLinearVelocity(0f,0f);
 		ability.reset();
 		trail = particleName.particle.getEffect();
+		ParticleTypes.PLAYER_TRAIL.particle.setSpriteLocation(trail,trailLoc);
+		ParticleTypes.PLAYER_TRAIL.particle.setColor(trail,ColorManager.PLAYER);
 		currentLife = life;
 	}
 }

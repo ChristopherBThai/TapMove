@@ -1,7 +1,7 @@
 package com.mygdx.managers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.particles.ParticleList;
+import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
 
 import java.util.ArrayList;
@@ -19,26 +19,26 @@ public class ParticleManager {
 
     public void update(float delta){
         if(!GameScreen.pause){
-            for(ParticleList particle:ParticleList.values()){
+            for(ParticleTypes particle:ParticleTypes.values()){
                 particle.particle.update(delta);
             }
         }
     }
 
     public void render(SpriteBatch sb){
-        for(ParticleList particle:ParticleList.values()){
+        for(ParticleTypes particle:ParticleTypes.values()){
             particle.particle.render(sb);
         }
     }
 
     public void reset(){
-        for(ParticleList particle:ParticleList.values()){
+        for(ParticleTypes particle:ParticleTypes.values()){
             particle.particle.reset();
         }
     }
 
     public void dispose(){
-        for(ParticleList particle:ParticleList.values()){
+        for(ParticleTypes particle:ParticleTypes.values()){
             particle.particle.dispose();
         }
     }

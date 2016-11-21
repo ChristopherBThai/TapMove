@@ -136,6 +136,11 @@ public class Particle {
 
         effect.reset();
     }
+
+    public void setSpriteLocation(ParticleEffectPool.PooledEffect effect, String loc){
+        effect.getEmitters().first().setImagePath(loc);
+    }
+
     public void remove(ParticleEffectPool.PooledEffect effect){
         if(effect!=null){
             effects.removeValue(effect, true);

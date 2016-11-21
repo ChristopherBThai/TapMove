@@ -18,7 +18,7 @@ public class CosmeticsMenu {
     private Stage stage;
 
     private BackButton back;
-    private YesNoButton playerColor,playerDesign;
+    private YesNoButton playerColor,playerDesign,playerTrail;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -36,6 +36,8 @@ public class CosmeticsMenu {
         playerColor.addActor(stage);
         playerDesign.doAnimation();
         playerDesign.addActor(stage);
+        playerTrail.doAnimation();
+        playerTrail.addActor(stage);
     }
 
     public void setBounds(){
@@ -60,6 +62,10 @@ public class CosmeticsMenu {
         ShopList list2 = new ShopList("Design");
         list2.add(DesignList.values());
         playerDesign = new YesNoButton(list2,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.8f,stage);
+
+        ShopList list3 = new ShopList("Trails");
+        list3.add(ParticleList.values());
+        playerTrail = new YesNoButton(list3,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.2f,stage);
     }
 
     public void setActions(){
@@ -69,11 +75,13 @@ public class CosmeticsMenu {
         back.resetScreen();
         playerColor.resetScreen();
         playerDesign.resetScreen();
+        playerTrail.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
         playerColor.dispose();
         playerDesign.dispose();
+        playerTrail.dispose();
     }
 }
