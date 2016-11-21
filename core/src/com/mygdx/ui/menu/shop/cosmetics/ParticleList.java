@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
+import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
@@ -15,20 +16,18 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
  */
 
 public enum ParticleList implements ItemListInterface{
-	CIRCLE(0,"Circles", "circle.png",SpriteManager.getCircle(),true),
-	HEART(1000,"Hearts", "heart.png",SpriteManager.getHeart(),false),
-	SWIRL(1000,"Swirls", "pattern2.png",SpriteManager.getSwirl(),false);
+	CIRCLE(0,"Circles",SpriteManager.getCircle(),true),
+	HEART(1000,"Hearts",SpriteManager.getHeart(),false),
+	SWIRL(1000,"Swirls",SpriteManager.getSwirl(),false);
 
 	private final int cost;
 	private final String name;
-	private final String loc;
 	private final boolean isBought;
 	private final Sprite sprite;
 
-	ParticleList(int cost,String name,String loc,Sprite sprite, boolean bought){
+	ParticleList(int cost,String name,Sprite sprite, boolean bought){
 		this.cost = cost;
 		this.name = name;
-		this.loc = loc;
 		this.sprite = sprite;
 		this.isBought = bought;
 	}
@@ -38,7 +37,7 @@ public enum ParticleList implements ItemListInterface{
 		ShopItem temp = new ShopItem(cost,name, sprite,isBought){
 			@Override
 			public void equipItem(){
-				GameScreen.entMan.player.setTrailDesign(loc);
+				ParticleTypes.PLAYER_TRAIL.particle.setAllSprite(sprite);
 			}
 
 			@Override
@@ -49,9 +48,5 @@ public enum ParticleList implements ItemListInterface{
 		};
 
 		list.add(temp);
-	}
-
-	public String getLoc(){
-		return loc;
 	}
 }
