@@ -25,7 +25,7 @@ public class MenuButtons {
     ActorAnimator playClicked,storeClicked,optionsClicked;
 
     Text tap,move;
-    Text money;
+    static Text money;
     Image moneyImage;
 
     public MenuButtons(MenuScreen screen){
@@ -214,11 +214,16 @@ public class MenuButtons {
         tap.setPosition(Gdx.app.getGraphics().getWidth()/2f-tap.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f);
         move.setPosition(Gdx.app.getGraphics().getWidth()/2f-move.getWidth()/2f,tap.getY()-move.getHeight());
 
-        money.setText(""+Save.getMoney());
+        setMoneyText(""+Save.getMoney());
+
+        this.set();
+    }
+
+    public static void setMoneyText(String text){
+        money.setText(text);
         money.setFontSize(Gdx.app.getGraphics().getWidth()/24f);
         money.setPosition(Gdx.app.getGraphics().getWidth()*.1f,Gdx.app.getGraphics().getHeight()*.95f+money.getHeight()/2f);
 
-        this.set();
     }
 
     public void dispose(){

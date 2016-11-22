@@ -1,8 +1,11 @@
 package com.mygdx.ui.menu.shop.cosmetics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
@@ -15,29 +18,32 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum ColorList implements ItemListInterface{
 	WHITE(0,"White",ColorManager.NORMAL,true),
-	BLUE(300,"BLUE",ColorManager.BLUE,false),
-	RED(300,"RED",ColorManager.RED,false),
-	GREEN(300,"GREEN",ColorManager.GREEN,false);
+	BLUE(300,"Blue",ColorManager.BLUE,false),
+	RED(300,"Red",ColorManager.RED,false),
+	GREEN(300,"Green",ColorManager.GREEN,false);
 
 	private final int cost;
 	private final String name;
 	private final Color color;
-	private final boolean isBought;
+	private boolean isBought;
 	private final static Sprite sprite = SpriteManager.getCircle();
+
+	private static ColorList current = WHITE;
 
 	ColorList(int cost,String name,Color color, boolean bought){
 		this.cost = cost;
 		this.name = name;
 		this.color = color;
 		this.isBought = bought;
+
 	}
 
 
 	public void addToList(ShopList list){
-		ShopItem temp = new ShopItem(cost,name, SpriteManager.getCircle(),isBought){
+		ShopItem temp = new ShopItem(this){
 			@Override
 			public void equipItem(){
-				ColorManager.setPlayer(color);
+				equip();
 			}
 
 			@Override
@@ -48,5 +54,38 @@ public enum ColorList implements ItemListInterface{
 		};
 
 		list.add(temp);
+	}
+
+	public void equip(){
+		ColorManager.setPlayer(color);
+		current = this;
+	}
+
+	public String getCurrent(){
+		return current.name;
+	}
+
+	public boolean isBought(){
+		return isBought;
+	}
+
+	public void setEquipped(String name){
+		for(ColorList item : ColorList.values())
+			if(item.name.equals(name))
+				item.equip();
+
+		Gdx.app.log("Tap",name);
+	}
+
+	public void setBought(boolean isBought){
+		this.isBought = isBought;
+	}
+
+	public int getPrice(){
+		return this.cost;
+	}
+
+	public String getName(){
+		return name;
 	}
 }

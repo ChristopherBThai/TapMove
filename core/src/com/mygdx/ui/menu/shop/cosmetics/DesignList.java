@@ -30,7 +30,9 @@ public enum DesignList implements ItemListInterface{
 	private final String name;
 	private final Sprite sprite;
 	private final static Sprite background = SpriteManager.getCircle();
-	private final boolean isBought;
+	private boolean isBought;
+
+	private static DesignList current = NONE;
 
 	DesignList(int cost, String name, Sprite sprite, boolean bought){
 		this.cost = cost;
@@ -43,10 +45,10 @@ public enum DesignList implements ItemListInterface{
 	@Override
 	public void addToList(ShopList list){
 
-		ShopItem temp = new ShopItem(cost,name, SpriteManager.getCircle(),isBought){
+		ShopItem temp = new ShopItem(this){
 			@Override
 			public void equipItem(){
-				GameScreen.entMan.player.setDesign(sprite);
+				equip();
 			}
 
 			@Override
@@ -61,5 +63,37 @@ public enum DesignList implements ItemListInterface{
 		};
 
 		list.add(temp);
+	}
+
+	@Override
+	public void equip(){
+		GameScreen.entMan.player.setDesign(sprite);
+		current = this;
+	}
+
+	public String getCurrent(){
+		return current.name;
+	}
+
+	public boolean isBought(){
+		return isBought;
+	}
+
+	public void setEquipped(String name){
+		for(DesignList item : DesignList.values())
+			if(item.name.equals(name))
+				item.equip();
+	}
+
+	public void setBought(boolean isBought){
+		this.isBought = isBought;
+	}
+
+	public int getPrice(){
+		return this.cost;
+	}
+
+	public String getName(){
+		return name;
 	}
 }

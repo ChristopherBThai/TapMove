@@ -52,13 +52,13 @@ public class MyGame extends ApplicationAdapter {
 		sr = new ShapeRenderer();
 		sr.setAutoShapeType(true);
 
-		Save.load();
-
 		menuScreen = new MenuScreen();
 		gameScreen = new GameScreen();
 		gameScreen.create();
 		menuScreen.create();
 		ScreenManager.setScreen(menuScreen, false, false);
+
+		Save.load();
 
 		this.showAd();
 	}

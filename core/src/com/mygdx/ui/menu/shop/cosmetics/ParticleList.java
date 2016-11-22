@@ -22,8 +22,10 @@ public enum ParticleList implements ItemListInterface{
 
 	private final int cost;
 	private final String name;
-	private final boolean isBought;
+	private boolean isBought;
 	private final Sprite sprite;
+
+	private static ParticleList current = CIRCLE;
 
 	ParticleList(int cost,String name,Sprite sprite, boolean bought){
 		this.cost = cost;
@@ -32,12 +34,12 @@ public enum ParticleList implements ItemListInterface{
 		this.isBought = bought;
 	}
 
-
+	@Override
 	public void addToList(ShopList list){
-		ShopItem temp = new ShopItem(cost,name, sprite,isBought){
+		ShopItem temp = new ShopItem(this){
 			@Override
 			public void equipItem(){
-				ParticleTypes.PLAYER_TRAIL.particle.setAllSprite(sprite);
+				equip();
 			}
 
 			@Override
@@ -48,5 +50,37 @@ public enum ParticleList implements ItemListInterface{
 		};
 
 		list.add(temp);
+	}
+
+	@Override
+	public void equip(){
+		ParticleTypes.PLAYER_TRAIL.particle.setAllSprite(sprite);
+		current = this;
+	}
+
+	public String getCurrent(){
+		return current.name;
+	}
+
+	public boolean isBought(){
+		return isBought;
+	}
+
+	public void setEquipped(String name){
+		for(ParticleList item : ParticleList.values())
+			if(item.name.equals(name))
+				item.equip();
+	}
+
+	public void setBought(boolean isBought){
+		this.isBought = isBought;
+	}
+
+	public int getPrice(){
+		return this.cost;
+	}
+
+	public String getName(){
+		return name;
 	}
 }

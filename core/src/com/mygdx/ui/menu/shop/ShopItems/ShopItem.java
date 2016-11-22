@@ -11,27 +11,11 @@ import com.mygdx.utils.actors.AnimatableActor;
 
 public class ShopItem extends AnimatableActor{
 
-	private int price;
-	private boolean bought;
-	private String name;
+	private ItemListInterface item;
 
-	public ShopItem(){
+	public ShopItem(ItemListInterface item) {
 		super();
-		price = 0;
-		bought = false;
-		name = "null";
-	}
-
-	public ShopItem(int price, String name, Sprite sprite) {
-		bought = false;
-		this.price = price;
-		this.name = name;
-	}
-
-	public ShopItem(int price, String name, Sprite sprite,boolean isBought) {
-		bought = isBought;
-		this.price = price;
-		this.name = name;
+		this.item = item;
 	}
 
 	@Override
@@ -43,28 +27,24 @@ public class ShopItem extends AnimatableActor{
 	public void equipItem(){}
 
 	public boolean buyItem(){
-		bought = hasEnough();
-		return Save.take(price);
+		item.setBought(hasEnough());
+		return Save.take(item.getPrice());
 	}
 
 	public boolean hasEnough(){
-		return Save.getMoney() >= price;
-	}
-
-	public void setPrice(int price){
-		this.price = price;
+		return Save.getMoney() >= item.getPrice();
 	}
 
 	public boolean isBought(){
-		return bought;
+		return item.isBought();
 	}
 
 	public int getPrice(){
-		return price;
+		return item.getPrice();
 	}
 
 	public String getName(){
-		return name;
+		return item.getName();
 	}
 
 }
