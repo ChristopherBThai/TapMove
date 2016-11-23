@@ -5,10 +5,13 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.MyGame;
+import com.mygdx.particles.Particle;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.cosmetics.ColorList;
+import com.mygdx.ui.menu.shop.cosmetics.DesignList;
+import com.mygdx.ui.menu.shop.cosmetics.ParticleList;
 
 import java.util.ArrayList;
 
@@ -77,10 +80,14 @@ public class Save {
             Json save = new Json();
             ArrayList<Object> saveObjects = save.fromJson(ArrayList.class,Gdx.files.local("save.json"));
 
-            if(saveObjects.get(0) instanceof SaveValues)
+            if(saveObjects.size()>0&&saveObjects.get(0) instanceof SaveValues)
                 ((SaveValues) saveObjects.get(0)).load();
-            if(saveObjects.get(1) instanceof ShopValues)
+            if(saveObjects.size()>1&&saveObjects.get(1) instanceof ShopValues)
                 ((ShopValues) saveObjects.get(1)).load(ColorList.values());
+            if(saveObjects.size()>2&&saveObjects.get(2) instanceof ShopValues)
+                ((ShopValues) saveObjects.get(2)).load(DesignList.values());
+            if(saveObjects.size()>3&&saveObjects.get(3) instanceof ShopValues)
+                ((ShopValues) saveObjects.get(3)).load(ParticleList.values());
 
         }
     }
@@ -91,6 +98,8 @@ public class Save {
         ArrayList<Object> saveObjects = new ArrayList<Object>();
         saveObjects.add(new SaveValues(classicHighScore,darkHighScore,money,ads));
         saveObjects.add(new ShopValues(ColorList.values()));
+        saveObjects.add(new ShopValues(DesignList.values()));
+        saveObjects.add(new ShopValues(ParticleList.values()));
 
         String saveText = save.prettyPrint(save.toJson(saveObjects));
         Gdx.app.log("Tap",saveText);
