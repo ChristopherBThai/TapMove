@@ -26,7 +26,7 @@ public enum ColorList implements ItemListInterface{
 	private final String name;
 	private final Color color;
 	private boolean isBought;
-	private final static Sprite sprite = SpriteManager.getCircle();
+	private final static Sprite sprite = SpriteManager.CIRCLE.getSprite();
 
 	private static ColorList current = WHITE;
 

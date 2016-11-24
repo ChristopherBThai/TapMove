@@ -22,17 +22,18 @@ public class Line extends AnimatableActor{
 	public Line(float x, float y, float xDiff, float yDiff){
 		super();
 		super.setBounds(x,y,xDiff,yDiff);
-		super.setColor(Color.WHITE);
-		line = SpriteManager.getLine();
-		adjustValues = true;
-		setThickness(.1f);
+		init();
 	}
 
 	public Line(){
 		super();
 		super.setBounds(0,0,0,0);
+		init();
+	}
+
+	private void init(){
 		super.setColor(Color.WHITE);
-		line = SpriteManager.getLine();
+		line = SpriteManager.BOX.getSprite();
 		adjustValues = true;
 		setThickness(.1f);
 	}

@@ -33,7 +33,7 @@ public class ScrollButton {
             }
         };
         button.setThickness(.1f);
-        button.setInside(SpriteManager.getExplosion());
+        button.setInside(SpriteManager.OUTER_CIRCLE.getSprite());
         button.setInsideScale(.7f);
 
         this.x = x;

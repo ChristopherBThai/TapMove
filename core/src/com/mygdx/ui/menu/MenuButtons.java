@@ -3,30 +3,31 @@ package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.MyGame;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.utils.MathUtility;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
+import com.mygdx.utils.actors.Image;
 import com.mygdx.utils.actors.Text;
 import com.mygdx.managers.ColorManager;
-import com.mygdx.managers.ScreenManager;
 import com.mygdx.managers.SpriteManager;
 
 public class MenuButtons {
-    MenuScreen screen;
-    Stage stage;
+    private static MenuScreen screen;
+    private static Stage stage;
 
-    BoxButton play,store,options;
-    float width, height;
-    float playX,storeX,optionsX;
-    float playY,storeY,optionsY;
-    ActorAnimator playClicked,storeClicked,optionsClicked;
+    private static Image title;
+    private static float titleWidth,titleHeight,titleX,titleY;
 
-    Text tap,move;
-    static Text money;
-    Image moneyImage;
+    private static BoxButton play,store,options;
+    private static float width, height;
+    private static float playX,storeX,optionsX;
+    private static float playY,storeY,optionsY;
+    private static ActorAnimator playClicked,storeClicked,optionsClicked;
+
+    private static Text money;
+    private static Image moneyImage;
 
     public MenuButtons(MenuScreen screen){
         this.screen = screen;
@@ -65,13 +66,13 @@ public class MenuButtons {
         options.setText("Options");
         options.setThickness(.1f);
 
-        tap = new Text(Gdx.app.getGraphics().getWidth()/15f, "TAP");
-        move = new Text(Gdx.app.getGraphics().getWidth()/15f, "MOVE");
-        tap.setFontSize(Gdx.app.getGraphics().getWidth()/15f);
-        move.setFontSize(Gdx.app.getGraphics().getWidth()/15f);
+        title = new Image(SpriteManager.TITLE.getSprite());
+        title.setColor(ColorManager.PLAYER);
+        title.setSize(titleWidth,titleHeight);
+        title.setPosition(titleX,titleY);
 
         money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+Save.getMoney());
-        moneyImage = new Image(SpriteManager.getCircle());
+        moneyImage = new Image(SpriteManager.CIRCLE.getSprite());
         moneyImage.setColor(ColorManager.PLAYER);
         moneyImage.setSize(Gdx.app.getGraphics().getHeight()*.025f,Gdx.app.getGraphics().getHeight()*.025f);
         moneyImage.setPosition(Gdx.app.getGraphics().getWidth()*.02f,Gdx.app.getGraphics().getHeight()*.95f-moneyImage.getHeight()/2f);
@@ -86,6 +87,10 @@ public class MenuButtons {
         storeY = playY-height*1.3f;
         optionsX = storeX;
         optionsY = storeY-height*1.3f;
+        titleWidth = MathUtility.getSpriteWidth(SpriteManager.TITLE.getSprite(),.18f);
+        titleHeight = MathUtility.getSpriteHeight(.18f);
+        titleX = Gdx.app.getGraphics().getWidth()/2f-titleWidth/2f;
+        titleY = Gdx.app.getGraphics().getHeight()*.73f - titleHeight/2f;
     }
 
     private void setActions(){
@@ -100,8 +105,8 @@ public class MenuButtons {
                 play.setAnimateInsideOpacity(0f);
                 store.moveTo(store.getX(),-store.getHeight(),width,height,.1f);
                 options.moveTo(options.getX(),-store.getHeight(),width,height,.1f);
-                tap.moveTo(tap.getX(),Gdx.graphics.getHeight()+tap.getHeight(),.1f);
-                move.moveTo(move.getX(),Gdx.graphics.getHeight()+move.getHeight(),.1f);
+                title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
+
             }
         });
         playClicked.animateTo(-play.getThickness()*1.2f,-play.getThickness()*1.2f,Gdx.graphics.getWidth()+play.getThickness()*1.2f,Gdx.graphics.getHeight()+play.getThickness()*1.2f,.1f);
@@ -114,8 +119,7 @@ public class MenuButtons {
                 play.setAnimateInsideOpacity(1f);
                 options.moveTo(optionsX,optionsY,width,height,.1f);
                 store.moveTo(storeX,storeY,width,height,.1f);
-                tap.moveTo(Gdx.app.getGraphics().getWidth()/2f-tap.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f,.1f);
-                move.moveTo(Gdx.app.getGraphics().getWidth()/2f-move.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f-move.getHeight(),.1f);
+                title.moveTo(titleX,titleY,.1f);
             }
         });
         playClicked.animateTo(playX,playY,width,height,.1f);
@@ -129,8 +133,7 @@ public class MenuButtons {
                 play.lockText(false);
                 options.lockText(false);
                 store.setAnimateInsideOpacity(0f);
-                tap.moveTo(tap.getX(),Gdx.graphics.getHeight()+tap.getHeight(),.1f);
-                move.moveTo(move.getX(),Gdx.graphics.getHeight()+move.getHeight(),.1f);
+                title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 options.moveTo(options.getX(),-options.getHeight(),width,height,.1f);
             }
@@ -145,8 +148,7 @@ public class MenuButtons {
                 store.setAnimateInsideOpacity(1f);
                 play.moveTo(playX,playY,width,height,.1f);
                 options.moveTo(optionsX,optionsY,width,height,.1f);
-                tap.moveTo(Gdx.app.getGraphics().getWidth()/2f-tap.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f,.1f);
-                move.moveTo(Gdx.app.getGraphics().getWidth()/2f-move.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f-move.getHeight(),.1f);
+                title.moveTo(titleX,titleY,.1f);
             }
         });
         storeClicked.animateTo(storeX,storeY,width,height,.1f);
@@ -160,8 +162,7 @@ public class MenuButtons {
                 play.lockText(false);
                 store.lockText(false);
                 options.setAnimateInsideOpacity(0f);
-                tap.moveTo(tap.getX(),Gdx.graphics.getHeight()+tap.getHeight(),.1f);
-                move.moveTo(move.getX(),Gdx.graphics.getHeight()+move.getHeight(),.1f);
+                title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 store.moveTo(options.getX(),Gdx.graphics.getHeight(),width,height,.1f);
             }
@@ -176,16 +177,14 @@ public class MenuButtons {
                 options.setAnimateInsideOpacity(1f);
                 play.moveTo(playX,playY,width,height,.1f);
                 store.moveTo(storeX,storeY,width,height,.1f);
-                tap.moveTo(Gdx.app.getGraphics().getWidth()/2f-tap.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f,.1f);
-                move.moveTo(Gdx.app.getGraphics().getWidth()/2f-move.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f-move.getHeight(),.1f);
+                title.moveTo(titleX,titleY,.1f);
             }
         });
         optionsClicked.animateTo(optionsX,optionsY,width,height,.1f);
     }
 
     public void set(){
-        stage.addActor(tap);
-        stage.addActor(move);
+        stage.addActor(title);
         stage.addActor(play);
         stage.addActor(store);
         stage.addActor(options);
@@ -211,9 +210,6 @@ public class MenuButtons {
         options.lockText(false);
         options.addTouch();
 
-        tap.setPosition(Gdx.app.getGraphics().getWidth()/2f-tap.getWidth()/2f,Gdx.app.getGraphics().getHeight()*.84f-tap.getHeight()/2f);
-        move.setPosition(Gdx.app.getGraphics().getWidth()/2f-move.getWidth()/2f,tap.getY()-move.getHeight());
-
         setMoneyText(""+Save.getMoney());
 
         this.set();
@@ -230,7 +226,5 @@ public class MenuButtons {
         play.dispose();
         store.dispose();
         options.dispose();
-        tap.dispose();
-        move.dispose();
     }
 }

@@ -16,20 +16,20 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum DesignList implements ItemListInterface{
 	NONE(0,"Blank",null,true),
-	SWIRL(1000,"Swirl",SpriteManager.getSwirl(),false),
-	QUARTER_SLICE(1000,"Checkers", SpriteManager.getCheckers(),false),
-	ARROW(1000,"Arrow",SpriteManager.getArrow(),false),
-	BIOHAZARD(1000,"Biohazard",SpriteManager.getBiohazard(),false),
-	HAZARD(1000,"Hazard",SpriteManager.getHazard(),false),
-	HEART(1000,"Heart",SpriteManager.getHeart(),false),
-	NEUTRON(1000,"Neutron",SpriteManager.getNeutron(),false),
-	STRIPES(1000,"Stripes",SpriteManager.getStripes(),false),
-	TARGET(1000,"Target",SpriteManager.getTarget(),false);
+	SWIRL(1000,"Swirl",SpriteManager.SWIRL.getSprite(),false),
+	QUARTER_SLICE(1000,"Checkers", SpriteManager.CHECKER.getSprite(),false),
+	ARROW(1000,"Arrow",SpriteManager.ARROW.getSprite(),false),
+	BIOHAZARD(1000,"Biohazard",SpriteManager.BIOHAZARD.getSprite(),false),
+	HAZARD(1000,"Hazard",SpriteManager.HAZARD.getSprite(),false),
+	HEART(1000,"Heart",SpriteManager.HEART.getSprite(),false),
+	NEUTRON(1000,"Neutron",SpriteManager.NEUTRON.getSprite(),false),
+	STRIPES(1000,"Stripes",SpriteManager.STRIPES.getSprite(),false),
+	TARGET(1000,"Target",SpriteManager.TARGET.getSprite(),false);
 
 	private final int cost;
 	private final String name;
 	private final Sprite sprite;
-	private final static Sprite background = SpriteManager.getCircle();
+	private final static Sprite background = SpriteManager.CIRCLE.getSprite();
 	private boolean isBought;
 
 	private static DesignList current = NONE;

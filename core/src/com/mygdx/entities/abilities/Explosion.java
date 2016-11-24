@@ -14,7 +14,7 @@ public class Explosion extends Ability{
     float power;
 
     public Explosion(Player player){
-        super(player,SpriteManager.getExplosion());
+        super(player,SpriteManager.OUTER_CIRCLE.getSprite());
         radius = 0;
         growthRate = 8f;
         power = 1500f;

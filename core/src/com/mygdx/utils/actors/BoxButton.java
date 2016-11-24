@@ -41,23 +41,16 @@ public class BoxButton extends AnimatableActor {
     public BoxButton(float x, float y, float width, float height){
         super();
         super.setBounds(x, y, width, height);
-        visible = true;
-        addTouch();
-        addListener(new ClickListener() {
-            public void clicked (InputEvent event, float x, float y) {
-                justTouched();
-                down = .15f;
-            }
-        });
-        line = SpriteManager.getLine();
-        corner = SpriteManager.getCorner();
-        lineThickness = .2f;
-        insideScale = .8f;
-        textScale = 1f;
+        init();
     }
 
     public BoxButton(){
         super();
+        init();
+    }
+
+    private void init(){
+
         visible = true;
         addTouch();
         addListener(new ClickListener() {
@@ -66,8 +59,8 @@ public class BoxButton extends AnimatableActor {
                 down = .15f;
             }
         });
-        line = SpriteManager.getLine();
-        corner = SpriteManager.getCorner();
+        line = SpriteManager.BOX.getSprite();
+        corner = SpriteManager.CORNER.getSprite();
         lineThickness = .2f;
         insideScale = .8f;
         textScale = 1f;

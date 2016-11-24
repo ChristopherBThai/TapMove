@@ -12,7 +12,7 @@ public class Invincible extends Ability{
     float radius;
 
     public Invincible(Player player){
-        super(player, SpriteManager.getExplosion());
+        super(player, SpriteManager.OUTER_CIRCLE.getSprite());
         super.setCooldownTime(30f);
         super.setDurationTime(5f);
         radius = player.getRadius()*1.3f;

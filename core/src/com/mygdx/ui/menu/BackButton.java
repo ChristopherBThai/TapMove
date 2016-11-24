@@ -55,7 +55,7 @@ public class BackButton {
             }
         };
         back.setThickness(.1f);
-        back.setInside(SpriteManager.getBack());
+        back.setInside(SpriteManager.BACK.getSprite());
         back.setLockInside(false);
         //back.setInsideScale(.7f);
     }

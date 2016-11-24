@@ -16,6 +16,12 @@ public class Image extends AnimatableActor{
         this.sprite = sprite;
     }
 
+    public Image(Sprite sprite){
+        super();
+        setBounds(0,0,0,0);
+        this.sprite = sprite;
+    }
+
     @Override
     public void update(float delta){
     }

@@ -49,7 +49,7 @@ public class Enemy extends Entity {
     @Override
     public void render(SpriteBatch sb){
         sb.setColor(color);
-        sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
+        sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
     }
 
     @Override

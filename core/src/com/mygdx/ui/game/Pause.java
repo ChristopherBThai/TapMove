@@ -35,7 +35,7 @@ public class Pause {
 
 
         button = new BoxButton(x,y,width,height);
-        button.setInside(SpriteManager.getPause());
+        button.setInside(SpriteManager.PAUSE.getSprite());
         button.setInsideScale(.7f);
         stage.addActor(button);
 
@@ -62,7 +62,7 @@ public class Pause {
         unpause.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
-                button.setInside(SpriteManager.getPause());
+                button.setInside(SpriteManager.PAUSE.getSprite());
             }
         });
     }

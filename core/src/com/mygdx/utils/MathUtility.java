@@ -1,5 +1,7 @@
 package com.mygdx.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
@@ -26,5 +28,13 @@ public class MathUtility {
 
     public static float vectorToAngle(float x, float y){
         return vectorToRadians(x,y)* MathUtils.radiansToDegrees;
+    }
+
+    public static float getSpriteHeight(float percent){
+        return Gdx.app.getGraphics().getHeight()*percent;
+    }
+
+    public static float getSpriteWidth(Sprite sprite, float percent){
+        return sprite.getWidth() * (getSpriteHeight(percent) / sprite.getHeight());
     }
 }

@@ -15,7 +15,7 @@ import com.mygdx.utils.MathUtility;
 public class FollowingEnemy extends Enemy{
 
 	private float angle,visualAngle;
-	private static Sprite line = SpriteManager.getLine();
+	private static Sprite line = SpriteManager.BOX.getSprite();
 	private float lineThickness;
 
 	private float pushSpeed;

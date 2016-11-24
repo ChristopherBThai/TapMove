@@ -237,7 +237,7 @@ public class YesNoButton{
 		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
 
 		cost = new Text(name.getFontSize(),"0");
-		moneySprite = new Image(SpriteManager.getCircle(),0,0,cost.getHeight(),cost.getHeight());
+		moneySprite = new Image(SpriteManager.CIRCLE.getSprite(),0,0,cost.getHeight(),cost.getHeight());
 	}
 
 	private void touched(){

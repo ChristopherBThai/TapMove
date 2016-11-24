@@ -22,7 +22,7 @@ public class InvisibleEnemy extends Enemy{
     @Override
     public void render(SpriteBatch sb){
         sb.setColor(color.r,color.g,color.b,opacity);
-        sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
+        sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
     }
 
     @Override

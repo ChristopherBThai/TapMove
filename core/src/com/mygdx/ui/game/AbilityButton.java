@@ -31,7 +31,7 @@ public class AbilityButton {
 
         ability = new BoxButton(x,y,width,height);
         ability.setThickness(.2f);
-        ability.setInside(SpriteManager.getExplosion());
+        ability.setInside(SpriteManager.OUTER_CIRCLE.getSprite());
         stage.addActor(ability);
 
         ready = new ActorAnimator();

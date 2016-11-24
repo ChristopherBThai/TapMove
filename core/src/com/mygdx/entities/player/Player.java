@@ -61,7 +61,7 @@ public class Player extends Entity {
 		if(ability!=null)
 			ability.render(sb);
 		sb.setColor(ColorManager.PLAYER);
-		sb.draw(SpriteManager.getCircle(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
+		sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 		if(design!=null){
 			sb.setColor(ColorManager.PLAYER_DESIGN);
 			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);

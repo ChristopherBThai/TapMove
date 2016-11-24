@@ -45,7 +45,7 @@ public class LifeBar {
         barX = x+gap;
         barY = y+gap;
 
-        lifebar = new Image(SpriteManager.getLine(),barX,barY,barWidth,barHeight);
+        lifebar = new Image(SpriteManager.BOX.getSprite(),barX,barY,barWidth,barHeight);
         lifebar.setOpacity(.6f);
     }
 
