@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.managers.SpriteManager;
+import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.utils.actors.Text;
 
 
@@ -11,8 +12,8 @@ public class AbilitiesMenu {
     MenuScreen screen;
     Stage stage;
 
-    //com.mygdx.ui.menu.shop.Scrollable.Scroll scroll;
-    Text text;
+    private Text text;
+    private MoneyDisplay money;
 
 
     com.mygdx.ui.menu.BackButton back;
@@ -28,11 +29,11 @@ public class AbilitiesMenu {
     public void set(boolean withReset){
         resetScreen();
         back.doAnimation();
-        text.setOpacity(0f);
-        text.setAnimateOpacity(1f);
-        //scroll.set();
+        text.animateToVisible();
         stage.addActor(back.getActor());
         stage.addActor(text);
+        money.addToStage(stage);
+        money.doAnimation();
     }
 
     public void setBounds(){
@@ -51,10 +52,7 @@ public class AbilitiesMenu {
         text = new Text(180,"Coming soon!");
         text.setPosition(Gdx.graphics.getWidth()/2-text.getWidth()/2,Gdx.graphics.getHeight()/2+text.getHeight()/2);
 
-        //scroll = new com.mygdx.ui.menu.shop.Scrollable.Scroll(stage);
-        //for(int i=0;i<80;i++){
-        //    scroll.addButton(SpriteManager.getCircle());
-        //}
+        money = new MoneyDisplay();
     }
 
     public void setActions(){
@@ -62,10 +60,12 @@ public class AbilitiesMenu {
 
     public void resetScreen(){
         back.resetScreen();
+        money.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
         text.dispose();
+        money.dispose();
     }
 }

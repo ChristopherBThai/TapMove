@@ -26,8 +26,7 @@ public class MenuButtons {
     private static float playY,storeY,optionsY;
     private static ActorAnimator playClicked,storeClicked,optionsClicked;
 
-    private static Text money;
-    private static Image moneyImage;
+    public static MoneyDisplay money;
 
     public MenuButtons(MenuScreen screen){
         this.screen = screen;
@@ -71,11 +70,7 @@ public class MenuButtons {
         title.setSize(titleWidth,titleHeight);
         title.setPosition(titleX,titleY);
 
-        money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+Save.getMoney());
-        moneyImage = new Image(SpriteManager.CIRCLE.getSprite());
-        moneyImage.setColor(ColorManager.PLAYER);
-        moneyImage.setSize(Gdx.app.getGraphics().getHeight()*.025f,Gdx.app.getGraphics().getHeight()*.025f);
-        moneyImage.setPosition(Gdx.app.getGraphics().getWidth()*.02f,Gdx.app.getGraphics().getHeight()*.95f-moneyImage.getHeight()/2f);
+        money = new MoneyDisplay();
     }
 
     private void setBounds(){
@@ -106,6 +101,7 @@ public class MenuButtons {
                 store.moveTo(store.getX(),-store.getHeight(),width,height,.1f);
                 options.moveTo(options.getX(),-store.getHeight(),width,height,.1f);
                 title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
+                money.moveToHide();
 
             }
         });
@@ -120,6 +116,7 @@ public class MenuButtons {
                 options.moveTo(optionsX,optionsY,width,height,.1f);
                 store.moveTo(storeX,storeY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
+                money.moveToReset();
             }
         });
         playClicked.animateTo(playX,playY,width,height,.1f);
@@ -136,6 +133,7 @@ public class MenuButtons {
                 title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 options.moveTo(options.getX(),-options.getHeight(),width,height,.1f);
+                money.moveToHide();
             }
         });
         storeClicked.animateTo(-store.getThickness()*1.2f,-store.getThickness()*1.2f,Gdx.graphics.getWidth()+store.getThickness()*1.2f,Gdx.graphics.getHeight()+store.getThickness()*1.2f,.1f);
@@ -149,6 +147,7 @@ public class MenuButtons {
                 play.moveTo(playX,playY,width,height,.1f);
                 options.moveTo(optionsX,optionsY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
+                money.moveToReset();
             }
         });
         storeClicked.animateTo(storeX,storeY,width,height,.1f);
@@ -165,6 +164,7 @@ public class MenuButtons {
                 title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 store.moveTo(options.getX(),Gdx.graphics.getHeight(),width,height,.1f);
+                money.moveToHide();
             }
         });
         optionsClicked.animateTo(-store.getThickness()*1.2f,-store.getThickness()*1.2f,Gdx.graphics.getWidth()+store.getThickness()*1.2f,Gdx.graphics.getHeight()+store.getThickness()*1.2f,.1f);
@@ -178,6 +178,7 @@ public class MenuButtons {
                 play.moveTo(playX,playY,width,height,.1f);
                 store.moveTo(storeX,storeY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
+                money.moveToReset();
             }
         });
         optionsClicked.animateTo(optionsX,optionsY,width,height,.1f);
@@ -188,8 +189,7 @@ public class MenuButtons {
         stage.addActor(play);
         stage.addActor(store);
         stage.addActor(options);
-        stage.addActor(money);
-        stage.addActor(moneyImage);
+        money.addToStage(stage);
     }
 
     public void resetScreen(){
@@ -210,21 +210,15 @@ public class MenuButtons {
         options.lockText(false);
         options.addTouch();
 
-        setMoneyText(""+Save.getMoney());
+        money.resetScreen();
 
         this.set();
-    }
-
-    public static void setMoneyText(String text){
-        money.setText(text);
-        money.setFontSize(Gdx.app.getGraphics().getWidth()/24f);
-        money.setPosition(Gdx.app.getGraphics().getWidth()*.1f,Gdx.app.getGraphics().getHeight()*.95f+money.getHeight()/2f);
-
     }
 
     public void dispose(){
         play.dispose();
         store.dispose();
         options.dispose();
+        money.dispose();
     }
 }

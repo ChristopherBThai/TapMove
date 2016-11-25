@@ -3,13 +3,15 @@ package com.mygdx.ui.menu.shop.other;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.BackButton;
+import com.mygdx.ui.menu.MoneyDisplay;
 
 public class OtherMenu {
     MenuScreen screen;
     Stage stage;
 
-    Actor act;
-    com.mygdx.ui.menu.BackButton back;
+    private BackButton back;
+    private MoneyDisplay money;
 
     public OtherMenu(MenuScreen screen){
         this.screen = screen;
@@ -19,15 +21,12 @@ public class OtherMenu {
         setActions();
     }
 
-    public void update(float delta){
-
-    }
-
     public void set(boolean withReset){
         resetScreen();
         back.doAnimation();
         stage.addActor(back.getActor());
-        stage.addActor(act);
+        money.addToStage(stage);
+        money.doAnimation();
     }
 
     public void setBounds(){
@@ -42,12 +41,8 @@ public class OtherMenu {
                 MenuScreen.shop.set(false);
             }
         };
-        act = new Actor(){
-            @Override
-            public void act(float delta){
-                update(delta);
-            }
-        };
+
+        money = new MoneyDisplay();
     }
 
     public void setActions(){
@@ -55,10 +50,12 @@ public class OtherMenu {
 
     public void resetScreen(){
         back.resetScreen();
+        money.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
+        money.dispose();
     }
 
 }

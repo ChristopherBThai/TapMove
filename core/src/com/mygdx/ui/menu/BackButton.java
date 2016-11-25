@@ -12,13 +12,11 @@ import com.mygdx.managers.AnimationManager;
 public class BackButton {
 
     BoxButton back;
-    float backWidth,backHeight,backX,backY;
-    ActorAnimator backA;
+    float backLength,backX,backY;
 
     public BackButton(){
         this.setBounds();
         this.setActors();
-        this.setActions();
     }
 
     public void doAnimation(){
@@ -29,11 +27,11 @@ public class BackButton {
     }
 
     public void moveToReset(){
-        back.moveTo(backX,backY,backWidth,backHeight,.1f);
+        back.moveTo(backX,backY,backLength,backLength,.1f);
     }
 
     public void moveToHide(){
-        back.moveTo(-backWidth,-backHeight,backWidth,backHeight,.1f);
+        back.moveTo(-backLength,-backLength,backLength,backLength,.1f);
     }
 
     public BoxButton getActor(){
@@ -41,8 +39,7 @@ public class BackButton {
     }
 
     public void setBounds(){
-        backHeight = Gdx.graphics.getHeight()*.09f;
-        backWidth = backHeight;
+        backLength = Gdx.graphics.getHeight()*.09f;
         backX = Gdx.graphics.getWidth()*.01f;
         backY = Gdx.graphics.getHeight()*.1f;
     }
@@ -60,13 +57,8 @@ public class BackButton {
         //back.setInsideScale(.7f);
     }
 
-    public void setActions(){
-        backA = AnimationManager.getPopUp(backX,backY,backWidth,backHeight,.24f);
-    }
-
     public void resetScreen(){
-        //back.setBounds(backX+backWidth/2f,backY+backHeight/2f,0,0);
-        back.setBounds(backX,backY,backWidth,backHeight);
+        back.setBounds(backX,backY,backLength,backLength);
     }
 
     public void dispose(){

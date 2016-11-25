@@ -8,6 +8,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.particles.Particle;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.menu.MenuButtons;
+import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.cosmetics.ColorList;
 import com.mygdx.ui.menu.shop.cosmetics.DesignList;
@@ -49,7 +50,7 @@ public class Save {
     public static boolean take(int amount){
         if(money>=amount){
             money -= amount;
-            MenuButtons.setMoneyText(""+money);
+            MoneyDisplay.setMoneyText(""+money);
             return true;
         }
         return false;
@@ -161,7 +162,7 @@ public class Save {
             Save.darkHighScore = dark;
             Save.money = 9999999;//money;
             Save.ads = ads;
-            MenuButtons.setMoneyText(""+money);
+            MoneyDisplay.setMoneyText(""+money);
         }
     }
 

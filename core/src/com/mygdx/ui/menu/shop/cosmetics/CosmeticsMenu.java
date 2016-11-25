@@ -6,6 +6,7 @@ import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
+import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
@@ -19,6 +20,7 @@ public class CosmeticsMenu {
 
     private BackButton back;
     private YesNoButton playerColor,playerDesign,playerTrail;
+    private MoneyDisplay money;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;
@@ -38,6 +40,8 @@ public class CosmeticsMenu {
         playerDesign.addActor(stage);
         playerTrail.doAnimation();
         playerTrail.addActor(stage);
+        money.addToStage(stage);
+        money.doAnimation();
     }
 
     public void setBounds(){
@@ -66,6 +70,8 @@ public class CosmeticsMenu {
         ShopList list3 = new ShopList("Trails");
         list3.add(ParticleList.values());
         playerTrail = new YesNoButton(list3,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.2f,stage);
+
+        money = new MoneyDisplay();
     }
 
     public void setActions(){
@@ -76,6 +82,7 @@ public class CosmeticsMenu {
         playerColor.resetScreen();
         playerDesign.resetScreen();
         playerTrail.resetScreen();
+        money.resetScreen();
     }
 
     public void dispose(){
@@ -83,5 +90,6 @@ public class CosmeticsMenu {
         playerColor.dispose();
         playerDesign.dispose();
         playerTrail.dispose();
+        money.dispose();
     }
 }
