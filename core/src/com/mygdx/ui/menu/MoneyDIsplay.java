@@ -2,12 +2,9 @@ package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.managers.AnimationManager;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.utils.Save;
-import com.mygdx.utils.actors.ActorAnimator;
-import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.utils.actors.Image;
 import com.mygdx.utils.actors.Text;
 

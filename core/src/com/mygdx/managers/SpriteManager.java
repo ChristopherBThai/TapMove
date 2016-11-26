@@ -21,7 +21,9 @@ public enum SpriteManager {
 	HEART("sprites/design/heart.png"),
 	NEUTRON("sprites/design/neutron.png"),
 	STRIPES("sprites/design/stripes.png"),
-	TARGET("sprites/design/target.png");
+	TARGET("sprites/design/target.png"),
+	NO_SYMBOL("sprites/design/no_symbol.png"),
+	PAW("sprites/design/paw.png");
 
 	private final String loc;
 	private Sprite sprite;

@@ -20,6 +20,7 @@ public class Enemy extends Entity {
     public static final int BIG_ENEMY = 3;
     public static final int INVISIBLE_ENEMY = 4;
     public static final int FOLLOW_ENEMY = 5;
+    public static final int MAGNET_ENEMY = 6;
 
     public static float NORMAL_RADIUS;
 
@@ -56,7 +57,6 @@ public class Enemy extends Entity {
     public void update(float delta){
         if(particle!=null) {
             particle.setPosition(this.getPos().x, this.getPos().y);
-            //GameScreen.partMan.et.setAngle(particle,(float)(Math.atan(this.getBody().getLinearVelocity().y/getBody().getLinearVelocity().x)* MathUtils.radiansToDegrees));
         }
     }
 

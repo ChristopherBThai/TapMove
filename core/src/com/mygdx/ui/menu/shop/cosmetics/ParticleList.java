@@ -18,7 +18,8 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 public enum ParticleList implements ItemListInterface{
 	CIRCLE(0,"Circles",SpriteManager.CIRCLE.getSprite(),true),
 	HEART(1000,"Hearts",SpriteManager.HEART.getSprite(),false),
-	SWIRL(1000,"Swirls",SpriteManager.SWIRL.getSprite(),false);
+	SWIRL(1000,"Swirls",SpriteManager.SWIRL.getSprite(),false),
+	PAW(1000,"Paws",SpriteManager.PAW.getSprite(),false);
 
 	private final int cost;
 	private final String name;

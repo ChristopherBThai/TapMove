@@ -1,29 +1,31 @@
 Untitled
 - Delay -
-active: true
-lowMin: 0.0
-lowMax: 0.0
+active: false
 - Duration - 
 lowMin: 3000.0
 lowMax: 3000.0
 - Count - 
 min: 0
-max: 50
+max: 25
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 25.0
-highMax: 25.0
+highMin: 4000.0
+highMax: 4000.0
 relative: false
-scalingCount: 1
+scalingCount: 3
 scaling0: 1.0
-timelineCount: 1
+scaling1: 1.0
+scaling2: 0.0
+timelineCount: 3
 timeline0: 0.0
+timeline1: 0.21917808
+timeline2: 0.22017808
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 1000.0
-highMax: 1500.0
+highMin: 3000.0
+highMax: 3000.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -42,8 +44,8 @@ side: both
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 250.0
-highMax: 0.0
+highMin: 170.0
+highMax: 170.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -52,8 +54,8 @@ timeline0: 0.0
 - Spawn Height - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 250.0
-highMax: 0.0
+highMin: 170.0
+highMax: 170.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -62,8 +64,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 53.0
-highMax: 53.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -73,26 +75,32 @@ timeline0: 0.0
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 30.0
-highMax: 75.0
+highMin: 500.0
+highMax: 700.0
 relative: false
-scalingCount: 2
+scalingCount: 4
 scaling0: 1.0
-scaling1: 0.60784316
-timelineCount: 2
+scaling1: 0.43137255
+scaling2: 0.13725491
+scaling3: 0.0
+timelineCount: 4
 timeline0: 0.0
-timeline1: 1.0
+timeline1: 0.11643836
+timeline2: 0.45890412
+timeline3: 1.0
 - Angle - 
 active: true
 lowMin: 90.0
 lowMax: 90.0
-highMin: 0.0
-highMax: 360.0
+highMin: 45.0
+highMax: 135.0
 relative: false
-scalingCount: 1
-scaling0: 1.0
-timelineCount: 1
+scalingCount: 2
+scaling0: 0.3137255
+scaling1: 0.078431375
+timelineCount: 2
 timeline0: 0.0
+timeline1: 1.0
 - Rotation - 
 active: false
 - Wind - 
@@ -112,22 +120,24 @@ lowMax: 0.0
 highMin: 1.0
 highMax: 1.0
 relative: false
-scalingCount: 4
-scaling0: 0.0
-scaling1: 0.7368421
-scaling2: 0.5614035
-scaling3: 0.0
-timelineCount: 4
+scalingCount: 5
+scaling0: 0.80701756
+scaling1: 0.54385966
+scaling2: 0.28070176
+scaling3: 0.10526316
+scaling4: 0.0
+timelineCount: 5
 timeline0: 0.0
-timeline1: 0.23972602
-timeline2: 0.8082192
-timeline3: 1.0
+timeline1: 0.14383562
+timeline2: 0.39726028
+timeline3: 0.65068495
+timeline4: 1.0
 - Options - 
 attached: false
-continuous: true
+continuous: false
 aligned: false
 additive: false
 behind: false
 premultipliedAlpha: false
 - Image Path -
-box.png
+circle.png

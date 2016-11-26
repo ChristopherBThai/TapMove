@@ -49,7 +49,7 @@ public class AbilitiesMenu {
             }
         };
 
-        text = new Text(180,"Coming soon!");
+        text = new Text(140,"Coming soon!");
         text.setPosition(Gdx.graphics.getWidth()/2-text.getWidth()/2,Gdx.graphics.getHeight()/2+text.getHeight()/2);
 
         money = new MoneyDisplay();

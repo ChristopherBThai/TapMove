@@ -7,8 +7,9 @@ package com.mygdx.particles;
 public enum ParticleTypes{
 	PLAYER_CLICK("particle/Click",true),
 	PLAYER_TRAIL("particle/PlayerTrail",false),
-	ENEMY_TRAIL("particle/EnemyTrail7",false),
-	ENEMY_SMOKE("particle/enemyKilled3",true);
+	ENEMY_TRAIL("particle/EnemyTrail",false),
+	ENEMY_SMOKE("particle/EnemySmoke",true),
+	ENEMY_ABSORB("particle/EnemyAbsorb",false);
 
 	public final Particle particle;
 

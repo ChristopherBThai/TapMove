@@ -26,7 +26,7 @@ public class FollowingEnemy extends Enemy{
 		angle = 0;
 		visualAngle = angle;
 		lineThickness = NORMAL_RADIUS * .1f;
-		pushSpeed = speed*.6f;
+		pushSpeed = speed*1.2f;
 		maxPushTime = 2;
 		currentPushTime = maxPushTime;
 	}

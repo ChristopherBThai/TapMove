@@ -1,5 +1,6 @@
 package com.mygdx.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
@@ -23,6 +24,7 @@ public class ParticleManager {
                 particle.particle.update(delta);
             }
         }
+        //Gdx.app.log("tap",""+ParticleTypes.ENEMY_ABSORB.particle);
     }
 
     public void render(SpriteBatch sb){

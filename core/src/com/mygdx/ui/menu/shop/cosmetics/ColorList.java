@@ -74,7 +74,6 @@ public enum ColorList implements ItemListInterface{
 			if(item.name.equals(name))
 				item.equip();
 
-		Gdx.app.log("Tap",name);
 	}
 
 	public void setBought(boolean isBought){

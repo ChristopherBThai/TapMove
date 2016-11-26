@@ -90,7 +90,6 @@ public class Particle {
             }else
                 effects.get(i).update(delta);
         }
-        //Gdx.app.log("pool stats", "active: " + effects.size + " | free: " + pool.getFree() + "/" + pool.max + " | record: " + pool.peak);
     }
 
     public void render(SpriteBatch sb){
@@ -161,8 +160,8 @@ public class Particle {
 
     public void remove(ParticleEffectPool.PooledEffect effect){
         if(effect!=null){
-            effects.removeValue(effect, true);
-            effect.free();
+            if(effects.removeValue(effect, true))
+                effect.free();
         }
     }
 
@@ -173,5 +172,10 @@ public class Particle {
 
     public void dispose(){
         pe.dispose();
+    }
+
+    @Override
+    public String toString(){
+        return "active: " + effects.size + " | free: " + pool.getFree() + "/" + pool.max + " | record: " + pool.peak;
     }
 }

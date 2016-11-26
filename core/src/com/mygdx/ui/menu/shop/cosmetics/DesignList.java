@@ -24,7 +24,9 @@ public enum DesignList implements ItemListInterface{
 	HEART(1000,"Heart",SpriteManager.HEART.getSprite(),false),
 	NEUTRON(1000,"Neutron",SpriteManager.NEUTRON.getSprite(),false),
 	STRIPES(1000,"Stripes",SpriteManager.STRIPES.getSprite(),false),
-	TARGET(1000,"Target",SpriteManager.TARGET.getSprite(),false);
+	TARGET(1000,"Target",SpriteManager.TARGET.getSprite(),false),
+	NO_SYMBOL(1000,"No Symbol",SpriteManager.NO_SYMBOL.getSprite(),false),
+	PAW(1000,"Paw",SpriteManager.PAW.getSprite(),false);
 
 	private final int cost;
 	private final String name;

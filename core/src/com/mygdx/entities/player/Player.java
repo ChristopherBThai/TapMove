@@ -80,7 +80,6 @@ public class Player extends Entity {
 
 
 		designAngle = designAngle + (designTargetAngle - designAngle) * .1f;
-		Gdx.app.log("tap",""+designAngle);
 	}
 
 	public void moveTo(float x, float y) {

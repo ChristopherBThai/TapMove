@@ -103,7 +103,7 @@ public class Save {
         saveObjects.add(new ShopValues(ParticleList.values()));
 
         String saveText = save.prettyPrint(save.toJson(saveObjects));
-        Gdx.app.log("Tap",saveText);
+        //Gdx.app.log("Tap",saveText);
 
         FileHandle file = null;
         try{
