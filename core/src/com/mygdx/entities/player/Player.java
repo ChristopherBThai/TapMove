@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
+import com.mygdx.entities.abilities.ActiveAbility;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.game.MyGame;
@@ -29,10 +30,11 @@ public class Player extends Entity {
 	private float pushStrength;
 
 	private Dash dash;
-	private Ability ability;
 
 	public boolean invincible;
 	private float life,currentLife;
+
+	private Ability ability;
 	
 	public Player(float x, float y, float radius, World world){
 		super(BodyCreater.createCircle(x, y, radius, false, true, world));
@@ -48,7 +50,6 @@ public class Player extends Entity {
 		this.body.setLinearDamping(.3f);
 		this.body.setAngularDamping(10f);
 		this.radius = radius;
-		this.ability = new Explosion(this);
 		pushStrength = 400;
 		life = 20;
 		currentLife = life;
@@ -58,28 +59,29 @@ public class Player extends Entity {
 	
 	@Override
 	public void render(SpriteBatch sb){
-		if(ability!=null)
-			ability.render(sb);
 		sb.setColor(ColorManager.PLAYER);
 		sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 		if(design!=null){
 			sb.setColor(ColorManager.PLAYER_DESIGN);
 			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
 		}
+
+		if(ability!=null)
+			ability.render(sb);
 	}
 	
 	@Override
 	public void update(float delta){
 		if(trail!=null)
 			trail.setPosition(this.getPos().x, this.getPos().y);
-		if(ability!=null)
-			ability.update(delta);
 		if(dash!=null)
 			dash.update(delta);
 		currentLife -= delta;
 
-
 		designAngle = designAngle + (designTargetAngle - designAngle) * .1f;
+
+		if(ability !=null)
+			ability.update(delta);
 	}
 
 	public void moveTo(float x, float y) {
@@ -127,12 +129,6 @@ public class Player extends Entity {
 
 	}
 
-	public boolean useAbility(){
-		if(this.ability!=null)
-			return this.ability.activate();
-		return false;
-	}
-
 	public boolean check(com.mygdx.entities.enemies.Enemy e){
 		boolean result1 =  isClose(e);
 		boolean result2 = ability.check(e);
@@ -164,16 +160,17 @@ public class Player extends Entity {
 		return false;
 	}
 
-	public void setAbility(Ability ability){
-		this.ability = ability;
-	}
-
 	public void setDesign(Sprite sprite){
 		this.design = sprite;
 	}
 
-	public Ability getAbility(){
-		return this.ability;
+	public void setAbility(Ability ability){
+		this.ability = ability;
+	}
+
+	public void abilityActivate(float x, float y){
+		if(ability instanceof ActiveAbility)
+			((ActiveAbility)ability).activate(x,y);
 	}
 
 	public float getLifePercent(){
@@ -206,17 +203,13 @@ public class Player extends Entity {
 		return pushStrength;
 	}
 
-	public boolean abilityReady() {
-		return ability.isReady();
-	}
-
 	public void reset() {
 		this.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
 		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);
-		ability.reset();
 		trail = particleName.particle.getEffect();
 		ParticleTypes.PLAYER_TRAIL.particle.setColor(trail,ColorManager.PLAYER);
 		currentLife = life;
+		ability.reset();
 	}
 }

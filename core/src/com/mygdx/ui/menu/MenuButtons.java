@@ -66,7 +66,7 @@ public class MenuButtons {
         options.setThickness(.1f);
 
         title = new Image(SpriteManager.TITLE.getSprite());
-        title.setColor(ColorManager.PLAYER);
+        title.setColor(ColorManager.NORMAL);
         title.setSize(titleWidth,titleHeight);
         title.setPosition(titleX,titleY);
 

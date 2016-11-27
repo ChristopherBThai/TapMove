@@ -129,7 +129,11 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public boolean longPress(float x, float y) {
-		return false;
+		if(running&&!pause){
+			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
+			entMan.longPress(x,y);
+		}
+		return true;
 	}
 
 	@Override

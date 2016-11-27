@@ -36,8 +36,9 @@ public class MoneyDisplay{
 	public void setActors(){
 		money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+ Save.getMoney());
 		money.setFontSize(Gdx.app.getGraphics().getWidth()/24f);
+		money.setColor(ColorManager.NORMAL);
 		moneyImage = new Image(SpriteManager.CIRCLE.getSprite());
-		moneyImage.setColor(ColorManager.PLAYER);
+		moneyImage.setColor(ColorManager.NORMAL);
 	}
 
 	public void addToStage(Stage stage){

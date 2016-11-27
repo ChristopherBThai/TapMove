@@ -1,41 +1,32 @@
 package com.mygdx.entities.abilities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 
-public class Explosion extends Ability{
+public class Explosion extends ActiveAbility{
 
-    float radius;
-    float growthRate;
+    private float radius;
+    private float growthRate;
+    private float power;
 
-    float power;
+    private static Sprite sprite = SpriteManager.OUTER_CIRCLE.getSprite();
 
-    public Explosion(Player player){
-        super(player,SpriteManager.OUTER_CIRCLE.getSprite());
+    public Explosion(){
+        super(SpriteManager.BOMB.getSprite(),30,.3f);
         radius = 0;
         growthRate = 8f;
         power = 1500f;
-        setDurationTime(.3f);
-        setCooldownTime(30f);
-    }
-
-    @Override
-    protected void justActivated(){
-        radius = 0;
-    }
-
-    @Override
-    protected void justEnded() {
-
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        super.render(sb);
         if(isActive()) {
-            sb.setColor(ColorManager.PLAYER);
+            sb.setColor(ColorManager.NORMAL);
             sb.draw(sprite,player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
         }
     }
@@ -65,5 +56,11 @@ public class Explosion extends Ability{
             e.setVelocity(-(dx/dst)*power, -(dy/dst)*power);
         }
         return false;
+    }
+
+    @Override
+    public void justEnded(){
+        super.justEnded();
+        radius = 0;
     }
 }

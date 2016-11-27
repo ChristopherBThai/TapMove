@@ -23,7 +23,10 @@ public enum SpriteManager {
 	STRIPES("sprites/design/stripes.png"),
 	TARGET("sprites/design/target.png"),
 	NO_SYMBOL("sprites/design/no_symbol.png"),
-	PAW("sprites/design/paw.png");
+	PAW("sprites/design/paw.png"),
+
+	BOMB("sprites/ability/bomb.png"),
+	SHIELD("sprites/ability/shield.png");
 
 	private final String loc;
 	private Sprite sprite;

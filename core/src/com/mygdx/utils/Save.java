@@ -10,6 +10,7 @@ import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
+import com.mygdx.ui.menu.shop.abilities.AbilityList;
 import com.mygdx.ui.menu.shop.cosmetics.ColorList;
 import com.mygdx.ui.menu.shop.cosmetics.DesignList;
 import com.mygdx.ui.menu.shop.cosmetics.ParticleList;
@@ -89,6 +90,8 @@ public class Save {
                 ((ShopValues) saveObjects.get(2)).load(DesignList.values());
             if(saveObjects.size()>3&&saveObjects.get(3) instanceof ShopValues)
                 ((ShopValues) saveObjects.get(3)).load(ParticleList.values());
+            if(saveObjects.size()>4&&saveObjects.get(4) instanceof ShopValues)
+                ((ShopValues) saveObjects.get(4)).load(AbilityList.values());
 
         }
     }
@@ -101,6 +104,7 @@ public class Save {
         saveObjects.add(new ShopValues(ColorList.values()));
         saveObjects.add(new ShopValues(DesignList.values()));
         saveObjects.add(new ShopValues(ParticleList.values()));
+        saveObjects.add(new ShopValues(AbilityList.values()));
 
         String saveText = save.prettyPrint(save.toJson(saveObjects));
         //Gdx.app.log("Tap",saveText);

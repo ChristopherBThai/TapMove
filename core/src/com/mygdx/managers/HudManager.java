@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGame;
 import com.mygdx.screen.GameScreen;
-import com.mygdx.ui.game.AbilityButton;
 import com.mygdx.ui.game.GameoverButtons;
 import com.mygdx.ui.game.LifeBar;
 import com.mygdx.ui.game.Pause;

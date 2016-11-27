@@ -122,10 +122,6 @@ public class EntityManager implements ContactListener{
 			b2dr.render(world, MyGame.camera.combined);
 	}
 
-	public boolean useAbility(){
-		return player.useAbility();
-	}
-
 	private void checkDead() {
 		//System.out.println(enemies.size()+"|"+enemyPool.size());
 		for(int i=0;i<enemies.size();i++)
@@ -168,16 +164,16 @@ public class EntityManager implements ContactListener{
 		enemiesKilled.add(enemy);
 	}
 
-	public boolean abilityReady() {
-		return player.abilityReady();
-	}
-
 	public void tap(float x, float y) {
 		player.moveTo(x,y);
 	}
 
 	public void fling(float velx, float vely){
 		player.dashTo(velx,vely);
+	}
+
+	public void longPress(float x, float y){
+		player.abilityActivate(x,y);
 	}
 	
 	public void reset(){

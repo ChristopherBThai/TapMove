@@ -4,7 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.managers.SpriteManager;
+import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
+import com.mygdx.ui.menu.shop.ShopItems.ShopList;
+import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
+import com.mygdx.ui.menu.shop.cosmetics.ColorList;
 import com.mygdx.utils.actors.Text;
 
 
@@ -12,11 +16,12 @@ public class AbilitiesMenu {
     MenuScreen screen;
     Stage stage;
 
-    private Text text;
+
+    private YesNoButton abilities;
+
     private MoneyDisplay money;
 
-
-    com.mygdx.ui.menu.BackButton back;
+    BackButton back;
 
     public AbilitiesMenu(MenuScreen screen){
         this.screen = screen;
@@ -29,11 +34,11 @@ public class AbilitiesMenu {
     public void set(boolean withReset){
         resetScreen();
         back.doAnimation();
-        text.animateToVisible();
         stage.addActor(back.getActor());
-        stage.addActor(text);
         money.addToStage(stage);
         money.doAnimation();
+        abilities.addActor(stage);
+        abilities.doAnimation();
     }
 
     public void setBounds(){
@@ -49,10 +54,11 @@ public class AbilitiesMenu {
             }
         };
 
-        text = new Text(140,"Coming soon!");
-        text.setPosition(Gdx.graphics.getWidth()/2-text.getWidth()/2,Gdx.graphics.getHeight()/2+text.getHeight()/2);
-
         money = new MoneyDisplay();
+
+        ShopList list1 = new ShopList("Abilities");
+        list1.add(AbilityList.values());
+        abilities = new YesNoButton(list1,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
     }
 
     public void setActions(){
@@ -61,11 +67,12 @@ public class AbilitiesMenu {
     public void resetScreen(){
         back.resetScreen();
         money.resetScreen();
+        abilities.resetScreen();
     }
 
     public void dispose(){
         back.dispose();
-        text.dispose();
         money.dispose();
+        abilities.dispose();
     }
 }
