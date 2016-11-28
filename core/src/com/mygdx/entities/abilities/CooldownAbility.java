@@ -1,8 +1,8 @@
 package com.mygdx.entities.abilities;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
 
 /**
  * Created by Christopher Thai on 11/26/2016.
@@ -12,11 +12,11 @@ public abstract class CooldownAbility extends Ability{
 
 	protected float cooldown,currentCooldown;
 
-	private Sprite visual;
+	private SpriteManager visual;
 	private float opacity;
 	private float visualBuffer,visualLength;
 
-	public CooldownAbility(Sprite visual, float cooldown){
+	public CooldownAbility(SpriteManager visual, float cooldown){
 		this.cooldown = cooldown;
 		this.currentCooldown = cooldown;
 		this.visual = visual;
@@ -28,7 +28,7 @@ public abstract class CooldownAbility extends Ability{
 	public void render(SpriteBatch sb){
 		if(visual!=null){
 			sb.setColor(ColorManager.NORMAL.r,ColorManager.NORMAL.g,ColorManager.NORMAL.b,opacity);
-			sb.draw(visual,player.getPos().x + visualBuffer,player.getPos().y + visualBuffer,visualLength,visualLength);
+			sb.draw(visual.getSprite(),player.getPos().x + visualBuffer,player.getPos().y + visualBuffer,visualLength,visualLength);
 		}
 	}
 

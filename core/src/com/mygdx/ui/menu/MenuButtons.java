@@ -5,11 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.utils.MathUtility;
-import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.utils.actors.Image;
-import com.mygdx.utils.actors.Text;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 
@@ -65,7 +63,7 @@ public class MenuButtons {
         options.setText("Options");
         options.setThickness(.1f);
 
-        title = new Image(SpriteManager.TITLE.getSprite());
+        title = new Image(SpriteManager.TITLE);
         title.setColor(ColorManager.NORMAL);
         title.setSize(titleWidth,titleHeight);
         title.setPosition(titleX,titleY);

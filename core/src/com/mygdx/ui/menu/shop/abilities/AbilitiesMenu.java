@@ -3,25 +3,22 @@ package com.mygdx.ui.menu.shop.abilities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.managers.SpriteManager;
 import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
-import com.mygdx.ui.menu.shop.cosmetics.ColorList;
-import com.mygdx.utils.actors.Text;
 
 
 public class AbilitiesMenu {
-    MenuScreen screen;
-    Stage stage;
+    private MenuScreen screen;
+    private Stage stage;
 
 
     private YesNoButton abilities;
 
     private MoneyDisplay money;
 
-    BackButton back;
+    private BackButton back;
 
     public AbilitiesMenu(MenuScreen screen){
         this.screen = screen;

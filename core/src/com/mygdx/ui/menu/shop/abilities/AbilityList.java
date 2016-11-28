@@ -3,8 +3,10 @@ package com.mygdx.ui.menu.shop.abilities;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.entities.abilities.Ability;
+import com.mygdx.entities.abilities.EnchancedDash;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
+import com.mygdx.entities.abilities.Magnet;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -18,19 +20,21 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
  */
 
 public enum AbilityList implements ItemListInterface{
-	EXPLOSION(3000,"Explosion",new Explosion(),SpriteManager.BOMB.getSprite(),true),
-	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SHIELD.getSprite(),false);
+	EXPLOSION(3000,"Explosion",new Explosion(),SpriteManager.BOMB,true),
+	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SHIELD,false),
+	DASH_UPGRADE(3000,"Dash Upgrade",new EnchancedDash(),SpriteManager.BOOST,false),
+	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false);
 
 	private final int cost;
 	private final String name;
 	private final Ability ability;
-	private final Sprite sprite;
+	private final SpriteManager sprite;
 	private boolean bought;
 
 	private static AbilityList current = EXPLOSION;
 	private static Player player = GameScreen.entMan.player;
 
-	AbilityList(int cost, String name, Ability ability, Sprite sprite, boolean bought){
+	AbilityList(int cost, String name, Ability ability, SpriteManager sprite, boolean bought){
 		this.cost = cost;
 		this.name = name;
 		this.ability = ability;
@@ -50,7 +54,7 @@ public enum AbilityList implements ItemListInterface{
 			public void render(Batch batch, float parentAlpha){
 				if(sprite!=null){
 					batch.setColor(ColorManager.NORMAL.r,ColorManager.NORMAL.g,ColorManager.NORMAL.b,opacity);
-					batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
+					batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 				}
 			}
 		};

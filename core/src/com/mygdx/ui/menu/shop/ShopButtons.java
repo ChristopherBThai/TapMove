@@ -3,19 +3,19 @@ package com.mygdx.ui.menu.shop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.BackButton;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
-import com.mygdx.managers.AnimationManager;
 
 
 public class ShopButtons {
-    MenuScreen screen;
-    Stage stage;
+    private MenuScreen screen;
+    private Stage stage;
 
-    BoxButton cosmetics,abilities,other;
-    com.mygdx.ui.menu.BackButton back;
-    float width,height,x,y,gap;
-    ActorAnimator cosmeticsClicked,abilitiesClicked,otherClicked;
+    private BoxButton cosmetics,abilities,other;
+    private BackButton back;
+    private float width,height,x,y,gap;
+    private ActorAnimator cosmeticsClicked,abilitiesClicked,otherClicked;
 
     public ShopButtons(MenuScreen screen){
         this.screen = screen;

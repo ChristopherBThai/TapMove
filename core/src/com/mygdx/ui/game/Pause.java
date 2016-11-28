@@ -10,12 +10,12 @@ import com.mygdx.managers.SpriteManager;
 
 public class Pause {
 
-    Stage stage;
+    private Stage stage;
 
-    BoxButton button,menu,option,resume;
-    ActorAnimator pause,unpause;
+    private BoxButton button,menu,option,resume;
+    private ActorAnimator pause,unpause;
 
-    boolean prevPause;
+    private boolean prevPause;
 
     public Pause(Stage stage){
         this.stage = stage;
@@ -35,7 +35,7 @@ public class Pause {
 
 
         button = new BoxButton(x,y,width,height);
-        button.setInside(SpriteManager.PAUSE.getSprite());
+        button.setInside(SpriteManager.PAUSE);
         button.setInsideScale(.7f);
         stage.addActor(button);
 
@@ -62,7 +62,7 @@ public class Pause {
         unpause.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
-                button.setInside(SpriteManager.PAUSE.getSprite());
+                button.setInside(SpriteManager.PAUSE);
             }
         });
     }

@@ -8,10 +8,10 @@ import com.mygdx.ui.menu.BackButton;
  * Created by Christopher Thai on 7/19/2016.
  */
 public class OptionsButtons {
-    MenuScreen screen;
-    Stage stage;
+    private MenuScreen screen;
+    private Stage stage;
 
-    BackButton back;
+    private BackButton back;
 
     public OptionsButtons(MenuScreen screen){
         this.screen = screen;

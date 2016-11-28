@@ -2,17 +2,15 @@ package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.managers.SpriteManager;
-import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
-import com.mygdx.managers.AnimationManager;
 
 /**
  * Created by Christopher Thai on 7/19/2016 at 3:06 PM.
  */
 public class BackButton {
 
-    BoxButton back;
-    float backLength,backX,backY;
+    private BoxButton back;
+    private float backLength,backX,backY;
 
     public BackButton(){
         this.setBounds();
@@ -52,7 +50,7 @@ public class BackButton {
             }
         };
         back.setThickness(.1f);
-        back.setInside(SpriteManager.BACK.getSprite());
+        back.setInside(SpriteManager.BACK);
         back.setLockInside(false);
         //back.setInsideScale(.7f);
     }

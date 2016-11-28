@@ -7,29 +7,27 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.entities.enemies.NormalEnemy;
-import com.mygdx.entities.player.Player;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.light.ConeLighting;
-import com.mygdx.particles.light.FollowLight;
 import com.mygdx.particles.light.WorldLighting;
 
 import java.util.ArrayList;
 
 /**
- * Created by Mono on 6/20/2016.
+ * Created by Christopher Thai on 6/20/2016.
  */
 public class Background {
 
-    World world;
-    Box2DDebugRenderer b2dr;
+    private World world;
+    private Box2DDebugRenderer b2dr;
 
     //Player player;
     //float movePlayer;
     //public Lighting lighting;
-    WorldLighting light;
+    private WorldLighting light;
 
-    ArrayList<Enemy> enemies,enemyPool;
-    float respawn,current;
+    private ArrayList<Enemy> enemies,enemyPool;
+    private float respawn,current;
 
     public Background(){
         world = new World(new Vector2(0, 0),true);

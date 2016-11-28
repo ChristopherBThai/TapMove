@@ -13,7 +13,7 @@ import com.mygdx.utils.actors.Image;
  */
 public class LifeBar {
 
-    Stage stage;
+    private Stage stage;
 
     private BoxButton border;
     private Image lifebar;
@@ -45,7 +45,7 @@ public class LifeBar {
         barX = x+gap;
         barY = y+gap;
 
-        lifebar = new Image(SpriteManager.BOX.getSprite(),barX,barY,barWidth,barHeight);
+        lifebar = new Image(SpriteManager.BOX,barX,barY,barWidth,barHeight);
         lifebar.setOpacity(.6f);
     }
 

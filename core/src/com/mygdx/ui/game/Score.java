@@ -2,7 +2,6 @@ package com.mygdx.ui.game;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.Save;
@@ -10,14 +9,14 @@ import com.mygdx.utils.actors.Text;
 
 public class Score {
 
-    Stage stage;
+    private Stage stage;
 
-    Text mode;
-    Text score;
-    Text finalScore,highScore;
-    boolean showScore;
-    static float scoreCount;
-    static int moneyCount;
+    private Text mode;
+    private Text score;
+    private Text finalScore,highScore;
+    private boolean showScore;
+    private static float scoreCount;
+    private static int moneyCount;
 
     public Score(Stage stage){
         this.stage = stage;

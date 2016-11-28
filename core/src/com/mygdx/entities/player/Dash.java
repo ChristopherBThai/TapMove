@@ -1,14 +1,15 @@
 package com.mygdx.entities.player;
 
 /**
- * Created by Christopher Thai on 8/30/2016 at 9:00 PM.
+ * Created by Christopher Thai on 8/30/2016
  */
-public class Dash {
-    Player player;
 
-    float dashStrength;
-    float currentDashTime,maxDashTime;
-    float currentDashingTime,maxDashingTime;
+public class Dash {
+    private Player player;
+
+    private float dashStrength;
+    private float currentDashTime,maxDashTime;
+    private float currentDashingTime,maxDashingTime;
 
     public Dash(Player player){
         this.player = player;

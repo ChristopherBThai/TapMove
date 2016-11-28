@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.managers.SpriteManager;
 
 /**
  * Created by Christopher Thai on 9/29/2016.
@@ -15,7 +16,7 @@ public class Button extends AnimatableActor{
 	private float down;
 	private boolean touchable;
 
-	Sprite sprite;
+	private SpriteManager sprite;
 
 	public Button(float x, float y, float width, float height){
 		super();
@@ -53,9 +54,9 @@ public class Button extends AnimatableActor{
 		if(sprite!=null){
 			batch.setColor(getColor().r,getColor().g,getColor().b,opacity);
 			if(getRotation()==0)
-				batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
+				batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 			else
-				batch.draw(sprite,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
+				batch.draw(sprite.getSprite(),getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
 		}
 	}
 
@@ -88,7 +89,7 @@ public class Button extends AnimatableActor{
 		return down>0;
 	}
 
-	public void setSprite(Sprite sprite){
+	public void setSprite(SpriteManager sprite){
 		this.sprite = sprite;
 	}
 

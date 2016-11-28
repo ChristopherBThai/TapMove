@@ -9,7 +9,7 @@ import com.mygdx.managers.ColorManager;
 import box2dLight.PointLight;
 
 public class FollowLight{
-    PointLight pointLight;
+    private PointLight pointLight;
 
     public FollowLight(Player player,WorldLighting light){
         pointLight = new PointLight(light.rayHandler, 200, ColorManager.PLAYER_LIGHT, 40, 0, 0);

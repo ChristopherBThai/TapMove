@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ads.AdHandler;
@@ -17,7 +18,7 @@ import com.mygdx.managers.SoundManager;
 public class MyGame extends ApplicationAdapter {
 	public static boolean DEBUG = false;
 	
-	static AdHandler handler;
+	private static AdHandler handler;
 	boolean toggle;
 	
 	public static int WIDTH,HEIGHT;
@@ -80,6 +81,8 @@ public class MyGame extends ApplicationAdapter {
 		float delta = Gdx.graphics.getDeltaTime();
 		ScreenManager.update(delta);
 		camera.update();
+
+		//Gdx.app.log("Tap", SpriteManager.getActiveCount());
 	}
 	
 	@Override

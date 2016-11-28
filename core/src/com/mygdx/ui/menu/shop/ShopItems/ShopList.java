@@ -3,7 +3,7 @@ package com.mygdx.ui.menu.shop.ShopItems;
 import java.util.ArrayList;
 
 /**
- * Created by Mono on 9/27/2016.
+ * Created by Christopher Thai on 9/27/2016.
  */
 
 public class ShopList{

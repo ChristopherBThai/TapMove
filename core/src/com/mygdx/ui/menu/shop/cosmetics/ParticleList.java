@@ -16,19 +16,20 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
  */
 
 public enum ParticleList implements ItemListInterface{
-	CIRCLE(0,"Circles",SpriteManager.CIRCLE.getSprite(),true),
-	HEART(1000,"Hearts",SpriteManager.HEART.getSprite(),false),
-	SWIRL(1000,"Swirls",SpriteManager.SWIRL.getSprite(),false),
-	PAW(1000,"Paws",SpriteManager.PAW.getSprite(),false);
+	CIRCLE(0,"Circles",SpriteManager.CIRCLE,true),
+	HEART(1000,"Hearts",SpriteManager.HEART,false),
+	SWIRL(1000,"Swirls",SpriteManager.SWIRL,false),
+	PAW(1000,"Paws",SpriteManager.PAW,false),
+	STAR(1000,"Star",SpriteManager.STAR,false);
 
 	private final int cost;
 	private final String name;
 	private boolean isBought;
-	private final Sprite sprite;
+	private final SpriteManager sprite;
 
 	private static ParticleList current = CIRCLE;
 
-	ParticleList(int cost,String name,Sprite sprite, boolean bought){
+	ParticleList(int cost,String name,SpriteManager sprite, boolean bought){
 		this.cost = cost;
 		this.name = name;
 		this.sprite = sprite;
@@ -46,7 +47,7 @@ public enum ParticleList implements ItemListInterface{
 			@Override
 			public void render(Batch batch, float parentAlpha){
 				batch.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
-				batch.draw(sprite,getX()+getWidth()/2f-getWidth()*.15f,getY()+getHeight()/2f-getHeight()*.15f,getWidth()*.3f,getHeight()*.3f);
+				batch.draw(sprite.getSprite(),getX()+getWidth()/2f-getWidth()*.15f,getY()+getHeight()/2f-getHeight()*.15f,getWidth()*.3f,getHeight()*.3f);
 			}
 		};
 
@@ -55,7 +56,7 @@ public enum ParticleList implements ItemListInterface{
 
 	@Override
 	public void equip(){
-		ParticleTypes.PLAYER_TRAIL.particle.setAllSprite(sprite);
+		ParticleTypes.PLAYER_TRAIL.particle.setAllSprite(sprite.getSprite());
 		current = this;
 	}
 

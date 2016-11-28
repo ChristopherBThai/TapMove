@@ -15,8 +15,8 @@ import com.mygdx.utils.actors.BoxButton;
  */
 
 public class PlayButtons{
-	MenuScreen screen;
-	Stage stage;
+	private MenuScreen screen;
+	private Stage stage;
 
 	private BackButton back;
 

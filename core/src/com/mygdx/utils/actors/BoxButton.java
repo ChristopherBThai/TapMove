@@ -23,7 +23,7 @@ public class BoxButton extends AnimatableActor {
     private boolean scaleText,scaleInside,adjustLines;
     private boolean lockText,lockInside;
 
-    private Sprite line,corner;
+    private SpriteManager line,corner;
     private float lineThickness;
 
     private float cornerSize;
@@ -59,8 +59,8 @@ public class BoxButton extends AnimatableActor {
                 down = .15f;
             }
         });
-        line = SpriteManager.BOX.getSprite();
-        corner = SpriteManager.CORNER.getSprite();
+        line = SpriteManager.BOX;
+        corner = SpriteManager.CORNER;
         lineThickness = .2f;
         insideScale = .8f;
         textScale = 1f;
@@ -111,15 +111,15 @@ public class BoxButton extends AnimatableActor {
         if(text!=null)
             text.draw(batch,parentAlpha);
 
-        batch.draw(corner, bufferX+xCorner1, bufferY+yCorner1, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 270);
-        batch.draw(corner, bufferX+xCorner2, bufferY+yCorner2, cornerSize, cornerSize);
-        batch.draw(corner, bufferX+xCorner3, bufferY+yCorner3, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 90);
-        batch.draw(corner, bufferX+xCorner4, bufferY+yCorner4, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 180);
+        batch.draw(corner.getSprite(), bufferX+xCorner1, bufferY+yCorner1, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 270);
+        batch.draw(corner.getSprite(), bufferX+xCorner2, bufferY+yCorner2, cornerSize, cornerSize);
+        batch.draw(corner.getSprite(), bufferX+xCorner3, bufferY+yCorner3, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 90);
+        batch.draw(corner.getSprite(), bufferX+xCorner4, bufferY+yCorner4, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 180);
 
-        batch.draw(line, bufferX+xLine1, bufferY+yLine1, widthLine1, heightLine1);
-        batch.draw(line, bufferX+xLine2, bufferY+yLine2, 0f, 0f, widthLine2, heightLine2, 1f, 1f, 90);
-        batch.draw(line, bufferX+xLine3, bufferY+yLine3, widthLine3, heightLine3);
-        batch.draw(line, bufferX+xLine4, bufferY+yLine4, 0f, 0f, widthLine4, heightLine4, 1f, 1f, 90);
+        batch.draw(line.getSprite(), bufferX+xLine1, bufferY+yLine1, widthLine1, heightLine1);
+        batch.draw(line.getSprite(), bufferX+xLine2, bufferY+yLine2, 0f, 0f, widthLine2, heightLine2, 1f, 1f, 90);
+        batch.draw(line.getSprite(), bufferX+xLine3, bufferY+yLine3, widthLine3, heightLine3);
+        batch.draw(line.getSprite(), bufferX+xLine4, bufferY+yLine4, 0f, 0f, widthLine4, heightLine4, 1f, 1f, 90);
     }
 
     private void adjustValues(){
@@ -170,8 +170,8 @@ public class BoxButton extends AnimatableActor {
         if(!scaleInside||inside==null)
             return;
 
-        float width = inside.getSprite().getWidth();
-        float height = inside.getSprite().getHeight();
+        float width = inside.getSprite().getSprite().getWidth();
+        float height = inside.getSprite().getSprite().getHeight();
 
         float scaledWidth,scaledHeight;
 
@@ -231,7 +231,7 @@ public class BoxButton extends AnimatableActor {
         return down>0;
     }
 
-    public void setInside(Sprite inner){
+    public void setInside(SpriteManager inner){
         if(inner!=null) {
             if(inside==null)
                 inside = new Image(inner,1,1,1,1);

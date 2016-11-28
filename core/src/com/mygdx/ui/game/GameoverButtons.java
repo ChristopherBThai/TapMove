@@ -10,10 +10,10 @@ import com.mygdx.managers.ScreenManager;
 
 public class GameoverButtons {
 
-    GameScreen game;
-    Stage stage;
+    private GameScreen game;
+    private Stage stage;
 
-    BoxButton menu,restart;
+    private BoxButton menu,restart;
 
     public GameoverButtons(Stage stage,GameScreen game){
         this.stage = stage;

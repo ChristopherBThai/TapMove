@@ -9,18 +9,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.ActiveAbility;
-import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.ParticleTypes;
-import com.mygdx.ui.menu.shop.cosmetics.ParticleList;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 
 public class Player extends Entity {
 
-	private Sprite design;
+	private SpriteManager design;
 	private ParticleEffectPool.PooledEffect trail;
 	private ParticleTypes particleName;
 	private float designAngle, designTargetAngle;
@@ -63,7 +61,7 @@ public class Player extends Entity {
 		sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 		if(design!=null){
 			sb.setColor(ColorManager.PLAYER_DESIGN);
-			sb.draw(design,body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
+			sb.draw(design.getSprite(),body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
 		}
 
 		if(ability!=null)
@@ -160,7 +158,7 @@ public class Player extends Entity {
 		return false;
 	}
 
-	public void setDesign(Sprite sprite){
+	public void setDesign(SpriteManager sprite){
 		this.design = sprite;
 	}
 
@@ -185,7 +183,7 @@ public class Player extends Entity {
 		return currentLife;
 	}
 
-	public Sprite getDesign(){
+	public SpriteManager getDesign(){
 		return design;
 	}
 

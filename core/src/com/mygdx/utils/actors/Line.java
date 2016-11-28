@@ -1,9 +1,7 @@
 package com.mygdx.utils.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGame;
 import com.mygdx.managers.SpriteManager;
@@ -15,7 +13,7 @@ import com.mygdx.utils.MathUtility;
 
 public class Line extends AnimatableActor{
 
-	private Sprite line;
+	private SpriteManager line;
 	private float angle,length,thickness,rawThickness;
 	private boolean adjustValues, adjustThickness;
 
@@ -33,7 +31,7 @@ public class Line extends AnimatableActor{
 
 	private void init(){
 		super.setColor(Color.WHITE);
-		line = SpriteManager.BOX.getSprite();
+		line = SpriteManager.BOX;
 		adjustValues = true;
 		setThickness(.1f);
 	}
@@ -49,7 +47,7 @@ public class Line extends AnimatableActor{
 		adjustThickness();
 		if(!(this.getWidth()==0&&this.getHeight()==0)){
 			batch.setColor(this.getColor().r,this.getColor().g,this.getColor().b,opacity);
-			batch.draw(line,getX(),getY()-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
+			batch.draw(line.getSprite(),getX(),getY()-thickness/2f,0,thickness/2f,length,thickness,1,1,angle);
 		}
 	}
 

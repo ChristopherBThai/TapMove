@@ -24,9 +24,13 @@ public enum SpriteManager {
 	TARGET("sprites/design/target.png"),
 	NO_SYMBOL("sprites/design/no_symbol.png"),
 	PAW("sprites/design/paw.png"),
+	LOTUS("sprites/design/lotus.png"),
+	STAR("sprites/design/star.png"),
 
 	BOMB("sprites/ability/bomb.png"),
-	SHIELD("sprites/ability/shield.png");
+	SHIELD("sprites/ability/shield.png"),
+	BOOST("sprites/ability/boost.png"),
+	MAGNET("sprites/ability/magnet.png");
 
 	private final String loc;
 	private Sprite sprite;
@@ -46,5 +50,13 @@ public enum SpriteManager {
 	public void dispose(){
 		for(SpriteManager spriteManager : SpriteManager.values())
 			spriteManager.sprite = null;
+	}
+
+	public static String getActiveCount(){
+		int count = 0;
+		for(SpriteManager spriteManager:SpriteManager.values())
+			if(spriteManager.sprite!=null)
+				count++;
+		return "Active: " + count + "/" + SpriteManager.values().length;
 	}
 }

@@ -2,19 +2,18 @@ package com.mygdx.particles.light;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGame;
-
 import box2dLight.RayHandler;
 
 /**
- * Created by Mono on 7/18/2016.
+ * Created by Christopher Thai on 7/18/2016.
  */
 public class WorldLighting {
     public RayHandler rayHandler;
-    float aLightLevel,aspeed;
-    int animationTime;
-    float cLightLevel;
+    private float aLightLevel,aspeed;
+    private int animationTime;
+    private float cLightLevel;
 
-    float defaultLight;
+    private float defaultLight;
 
     public WorldLighting(World world){
         rayHandler = new RayHandler(world);

@@ -1,7 +1,6 @@
 package com.mygdx.ui.menu.shop.ShopItems;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.AnimatableActor;
 

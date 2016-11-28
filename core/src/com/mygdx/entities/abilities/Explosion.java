@@ -3,7 +3,6 @@ package com.mygdx.entities.abilities;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.entities.enemies.Enemy;
-import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 
@@ -16,7 +15,7 @@ public class Explosion extends ActiveAbility{
     private static Sprite sprite = SpriteManager.OUTER_CIRCLE.getSprite();
 
     public Explosion(){
-        super(SpriteManager.BOMB.getSprite(),30,.3f);
+        super(SpriteManager.BOMB,30,.3f);
         radius = 0;
         growthRate = 8f;
         power = 1500f;

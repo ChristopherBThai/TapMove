@@ -37,7 +37,7 @@ public class MoneyDisplay{
 		money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+ Save.getMoney());
 		money.setFontSize(Gdx.app.getGraphics().getWidth()/24f);
 		money.setColor(ColorManager.NORMAL);
-		moneyImage = new Image(SpriteManager.CIRCLE.getSprite());
+		moneyImage = new Image(SpriteManager.CIRCLE);
 		moneyImage.setColor(ColorManager.NORMAL);
 	}
 

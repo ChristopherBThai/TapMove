@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.ParticleTypes;
-import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;

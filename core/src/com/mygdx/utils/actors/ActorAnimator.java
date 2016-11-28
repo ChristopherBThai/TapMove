@@ -1,11 +1,9 @@
 package com.mygdx.utils.actors;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 import java.util.ArrayList;
 
 /**
- * Created by Mono on 6/17/2016.
+ * Created by Christopher Thai on 6/17/2016.
  */
 public class ActorAnimator {
 
@@ -56,8 +54,7 @@ public class ActorAnimator {
     }
 
     public Action getAction(){
-        Action action = new Action();
-        return action;
+        return new Action();
     }
 
     public ActionCommand getActionCommand(){

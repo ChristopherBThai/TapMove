@@ -1,6 +1,6 @@
 package com.mygdx.entities.abilities;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.managers.SpriteManager;
 
 /**
  * Created by Christopher Thai on 11/26/2016.
@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public abstract class ActiveAbility extends CooldownAbility{
 	protected float duration,currentDuration;
 
-	public ActiveAbility(Sprite visual, float cooldown, float duration){
+	public ActiveAbility(SpriteManager visual, float cooldown, float duration){
 		super(visual, cooldown);
 		this.duration = duration;
 		this.currentDuration = 0;

@@ -2,13 +2,10 @@ package com.mygdx.ui.menu.shop.ShopItems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.managers.AnimationManager;
-import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
-import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.AnimatableActor;
 import com.mygdx.utils.actors.BoxButton;
@@ -30,7 +27,7 @@ public class YesNoButton{
 
 	private ShopList shopList;
 	private ArrayList<AnimatableActor> removeList;
-	float iX,iY,iLength;
+	private float iX,iY,iLength;
 
 	private Button next,prev;
 	private Line next1,next2,next3,prev1,prev2,prev3;
@@ -237,7 +234,7 @@ public class YesNoButton{
 		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
 
 		cost = new Text(name.getFontSize(),"0");
-		moneySprite = new Image(SpriteManager.CIRCLE.getSprite(),0,0,cost.getHeight(),cost.getHeight());
+		moneySprite = new Image(SpriteManager.CIRCLE,0,0,cost.getHeight(),cost.getHeight());
 	}
 
 	private void touched(){

@@ -2,17 +2,14 @@ package com.mygdx.ui.menu.shop.cosmetics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.managers.ColorManager;
-import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
-import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
 
 /**
- * Created by Mono on 6/20/2016.
+ * Created by Christopher Thai on 6/20/2016.
  */
 public class CosmeticsMenu {
     private MenuScreen screen;

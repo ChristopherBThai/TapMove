@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
@@ -18,15 +16,19 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum ColorList implements ItemListInterface{
 	WHITE(0,"White",ColorManager.NORMAL,true),
-	BLUE(300,"Blue",ColorManager.BLUE,false),
-	RED(300,"Red",ColorManager.RED,false),
-	GREEN(300,"Green",ColorManager.GREEN,false);
+	RED(300,"Red",ColorManager.toColor(255,102,102,255),false),
+	ORANGE(300,"Orange",ColorManager.toColor(255,153,51,255),false),
+	YELLOW(300,"Yellow",ColorManager.toColor(255,255,102,255),false),
+	GREEN(300,"Green",ColorManager.toColor(102,255,102,255),false),
+	BLUE(300,"Blue",ColorManager.toColor(102,178,255,255),false),
+	PURPLE(300,"Purple",ColorManager.toColor(178,102,255,255),false),
+	PINK(300,"Pink",ColorManager.toColor(255,102,255,255),false);
 
 	private final int cost;
 	private final String name;
 	private final Color color;
 	private boolean isBought;
-	private final static Sprite sprite = SpriteManager.CIRCLE.getSprite();
+	private final static SpriteManager sprite = SpriteManager.CIRCLE;
 
 	private static ColorList current = WHITE;
 
@@ -49,7 +51,7 @@ public enum ColorList implements ItemListInterface{
 			@Override
 			public void render(Batch batch, float parentAlpha){
 				batch.setColor(color.r,color.g,color.b,opacity);
-				batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
+				batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 			}
 		};
 

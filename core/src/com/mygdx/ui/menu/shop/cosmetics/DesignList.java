@@ -16,27 +16,29 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum DesignList implements ItemListInterface{
 	NONE(0,"Blank",null,true),
-	SWIRL(1000,"Swirl",SpriteManager.SWIRL.getSprite(),false),
-	QUARTER_SLICE(1000,"Checkers", SpriteManager.CHECKER.getSprite(),false),
-	ARROW(1000,"Arrow",SpriteManager.ARROW.getSprite(),false),
-	BIOHAZARD(1000,"Biohazard",SpriteManager.BIOHAZARD.getSprite(),false),
-	HAZARD(1000,"Hazard",SpriteManager.HAZARD.getSprite(),false),
-	HEART(1000,"Heart",SpriteManager.HEART.getSprite(),false),
-	NEUTRON(1000,"Neutron",SpriteManager.NEUTRON.getSprite(),false),
-	STRIPES(1000,"Stripes",SpriteManager.STRIPES.getSprite(),false),
-	TARGET(1000,"Target",SpriteManager.TARGET.getSprite(),false),
-	NO_SYMBOL(1000,"No Symbol",SpriteManager.NO_SYMBOL.getSprite(),false),
-	PAW(1000,"Paw",SpriteManager.PAW.getSprite(),false);
+	SWIRL(1000,"Swirl",SpriteManager.SWIRL,false),
+	QUARTER_SLICE(1000,"Checkers", SpriteManager.CHECKER,false),
+	ARROW(1000,"Arrow",SpriteManager.ARROW,false),
+	BIOHAZARD(1000,"Biohazard",SpriteManager.BIOHAZARD,false),
+	HAZARD(1000,"Hazard",SpriteManager.HAZARD,false),
+	HEART(1000,"Heart",SpriteManager.HEART,false),
+	NEUTRON(1000,"Neutron",SpriteManager.NEUTRON,false),
+	STRIPES(1000,"Stripes",SpriteManager.STRIPES,false),
+	TARGET(1000,"Target",SpriteManager.TARGET,false),
+	NO_SYMBOL(1000,"No Symbol",SpriteManager.NO_SYMBOL,false),
+	PAW(1000,"Paw",SpriteManager.PAW,false),
+	LOTUS(1000,"Lotus",SpriteManager.LOTUS,false),
+	STAR(1000,"Star",SpriteManager.STAR,false);
 
 	private final int cost;
 	private final String name;
-	private final Sprite sprite;
-	private final static Sprite background = SpriteManager.CIRCLE.getSprite();
+	private final SpriteManager sprite;
+	private final static SpriteManager background = SpriteManager.CIRCLE;
 	private boolean isBought;
 
 	private static DesignList current = NONE;
 
-	DesignList(int cost, String name, Sprite sprite, boolean bought){
+	DesignList(int cost, String name, SpriteManager sprite, boolean bought){
 		this.cost = cost;
 		this.name = name;
 		this.sprite = sprite;
@@ -56,10 +58,10 @@ public enum DesignList implements ItemListInterface{
 			@Override
 			public void render(Batch batch, float parentAlpha){
 				batch.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
-				batch.draw(background,getX(),getY(),getWidth(),getHeight());
+				batch.draw(background.getSprite(),getX(),getY(),getWidth(),getHeight());
 				if(sprite!=null){
 					batch.setColor(ColorManager.PLAYER_DESIGN.r,ColorManager.PLAYER_DESIGN.g,ColorManager.PLAYER_DESIGN.b,opacity);
-					batch.draw(sprite,getX(),getY(),getWidth(),getHeight());
+					batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 				}
 			}
 		};

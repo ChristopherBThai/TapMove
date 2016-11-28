@@ -7,8 +7,8 @@ import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
 
 public class OtherMenu {
-    MenuScreen screen;
-    Stage stage;
+    private MenuScreen screen;
+    private Stage stage;
 
     private BackButton back;
     private MoneyDisplay money;

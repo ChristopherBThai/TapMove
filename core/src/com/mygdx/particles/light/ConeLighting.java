@@ -5,10 +5,10 @@ import com.mygdx.managers.ColorManager;
 import box2dLight.ConeLight;
 
 /**
- * Created by Mono on 7/18/2016.
+ * Created by Christopher Thai on 7/18/2016.
  */
 public class ConeLighting{
-    ConeLight coneLight;
+    private ConeLight coneLight;
 
 
     public ConeLighting(Player player, WorldLighting light){
