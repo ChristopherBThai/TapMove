@@ -89,7 +89,7 @@ public class Player extends Entity {
 
 	public void dashTo(float x, float y){
 		if(dash.fling(x,y))
-			currentLife -= life*.1f;
+			currentLife -= life*dash.getCostPercent();
 	}
 
 	public void push(float speed) {
@@ -129,13 +129,15 @@ public class Player extends Entity {
 
 	public boolean check(com.mygdx.entities.enemies.Enemy e){
 		boolean result1 =  isClose(e);
-		boolean result2 = ability.check(e);
+		boolean result2 = false;
+		if(ability != null)
+			result2 = ability.check(e);
 		return result1||result2;
 	}
 
 	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {
-		if(!(e instanceof LightBall)&&this.getPos().dst(e.getPos())<this.radius*2+e.getRadius())
-			return true;
+		//if(!(e instanceof LightBall)&&this.getPos().dst(e.getPos())<this.radius*2+e.getRadius())
+		//	return true;
 		return false;
 	}
 
@@ -187,6 +189,10 @@ public class Player extends Entity {
 		return design;
 	}
 
+	public Dash getDash(){
+		return dash;
+	}
+
 	public void giveLife(float lifeAmount){
 		currentLife += lifeAmount;
 		if(currentLife>life)
@@ -208,6 +214,8 @@ public class Player extends Entity {
 		trail = particleName.particle.getEffect();
 		ParticleTypes.PLAYER_TRAIL.particle.setColor(trail,ColorManager.PLAYER);
 		currentLife = life;
-		ability.reset();
+		dash.reset();
+		if(ability!=null)
+			ability.reset();
 	}
 }

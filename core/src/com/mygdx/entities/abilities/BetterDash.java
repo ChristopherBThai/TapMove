@@ -7,10 +7,14 @@ import com.mygdx.entities.enemies.Enemy;
  * Created by Christopher Thai on 11/27/2016.
  */
 
-public class EnchancedDash extends Ability{
+public class BetterDash extends Ability{
 
-	public EnchancedDash(){
+	private float newCostPercent,addedCooldown;
+
+	public BetterDash(){
 		super();
+		newCostPercent = 0;
+		addedCooldown = .9f;
 	}
 
 
@@ -31,6 +35,6 @@ public class EnchancedDash extends Ability{
 
 	@Override
 	public void reset(){
-
+		player.getDash().setBetterDash(true,newCostPercent,addedCooldown);
 	}
 }

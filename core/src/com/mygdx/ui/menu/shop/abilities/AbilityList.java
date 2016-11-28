@@ -1,9 +1,8 @@
 package com.mygdx.ui.menu.shop.abilities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.entities.abilities.Ability;
-import com.mygdx.entities.abilities.EnchancedDash;
+import com.mygdx.entities.abilities.BetterDash;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
 import com.mygdx.entities.abilities.Magnet;
@@ -22,7 +21,7 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 public enum AbilityList implements ItemListInterface{
 	EXPLOSION(3000,"Explosion",new Explosion(),SpriteManager.BOMB,true),
 	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SHIELD,false),
-	DASH_UPGRADE(3000,"Dash Upgrade",new EnchancedDash(),SpriteManager.BOOST,false),
+	DASH_UPGRADE(3000,"Dash Upgrade",new BetterDash(),SpriteManager.BOOST,false),
 	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false);
 
 	private final int cost;
@@ -65,6 +64,7 @@ public enum AbilityList implements ItemListInterface{
 	@Override
 	public void equip(){
 		player.setAbility(ability);
+		current = this;
 	}
 
 	@Override

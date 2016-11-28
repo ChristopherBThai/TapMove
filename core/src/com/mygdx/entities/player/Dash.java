@@ -1,5 +1,7 @@
 package com.mygdx.entities.player;
 
+import com.mygdx.entities.abilities.BetterDash;
+
 /**
  * Created by Christopher Thai on 8/30/2016
  */
@@ -7,17 +9,22 @@ package com.mygdx.entities.player;
 public class Dash {
     private Player player;
 
+    private float costPercent,newCostPercent;
+
     private float dashStrength;
-    private float currentDashTime,maxDashTime;
+    private float currentDashTime,maxDashTime,bufferDashTime;
     private float currentDashingTime,maxDashingTime;
+
+    boolean betterDash;
 
     public Dash(Player player){
         this.player = player;
         dashStrength = player.getPushStrength()*50;
-        maxDashTime = 1;
+        maxDashTime = .1f;
         currentDashTime = maxDashTime;
         maxDashingTime = .2f;
         currentDashingTime = -1;
+        costPercent = .1f;
     }
 
     public void update(float delta){
@@ -46,8 +53,27 @@ public class Dash {
             player.getBody().setLinearVelocity(0,0);
             player.push(dashStrength);
             currentDashingTime = maxDashingTime;
+            currentDashTime = maxDashTime;
+            if(betterDash)
+                currentDashTime += bufferDashTime;
             return true;
         }
         return false;
+    }
+
+    public float getCostPercent(){
+        if(betterDash)
+            return newCostPercent;
+        return costPercent;
+    }
+
+    public void setBetterDash(boolean isBetterDash,float newCost,float cooldownBuffer){
+        betterDash = isBetterDash;
+        this.newCostPercent = newCost;
+        this.bufferDashTime = cooldownBuffer;
+    }
+
+    public void reset(){
+        betterDash = false;
     }
 }
