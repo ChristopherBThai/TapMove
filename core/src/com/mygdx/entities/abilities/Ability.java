@@ -16,8 +16,9 @@ public abstract class Ability {
             player = GameScreen.entMan.player;
     }
 
-    public abstract void update(float delta);
-    public abstract void render(SpriteBatch sb);
-    public abstract boolean check(Enemy e);
-    public abstract void reset();
+    public void update(float delta){}
+    public void render(SpriteBatch sb){}
+    public boolean check(Enemy e){return false;}
+    public boolean playerHit(Enemy e){return false;}
+    public void reset(){}
 }

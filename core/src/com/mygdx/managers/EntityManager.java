@@ -269,12 +269,13 @@ public class EntityManager implements ContactListener{
 					e = ((Enemy) b.getUserData());
 
 				if (p != null && e != null) {
-					if (p.isDashing()||!e.isEnemy) {
+					if (p.isDashing()||p.hostile||!e.isEnemy) {
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
 						if(!e.isEnemy){
 							p.giveLife(8f);
 						}
+						p.hit(e);
 					}
 				}
 			}

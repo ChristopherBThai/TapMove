@@ -1,15 +1,13 @@
 package com.mygdx.entities.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.entities.Entity;
 import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.ActiveAbility;
-import com.mygdx.entities.enemies.LightBall;
+import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.utils.create.BodyCreater;
@@ -29,10 +27,12 @@ public class Player extends Entity {
 
 	private Dash dash;
 
-	public boolean invincible;
 	private float life,currentLife;
 
 	private Ability ability;
+
+
+	public boolean invincible,hostile;
 	
 	public Player(float x, float y, float radius, World world){
 		super(BodyCreater.createCircle(x, y, radius, false, true, world));
@@ -127,12 +127,16 @@ public class Player extends Entity {
 
 	}
 
-	public boolean check(com.mygdx.entities.enemies.Enemy e){
+	public boolean check(Enemy e){
 		boolean result1 =  isClose(e);
 		boolean result2 = false;
 		if(ability != null)
 			result2 = ability.check(e);
 		return result1||result2;
+	}
+
+	public boolean hit(Enemy e){
+		return ability.playerHit(e);
 	}
 
 	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {
@@ -208,6 +212,7 @@ public class Player extends Entity {
 	}
 
 	public void reset() {
+		hostile = false;
 		this.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
 		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);

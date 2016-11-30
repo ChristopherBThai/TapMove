@@ -6,6 +6,7 @@ import com.mygdx.entities.abilities.BetterDash;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
 import com.mygdx.entities.abilities.Magnet;
+import com.mygdx.entities.abilities.Shield;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -20,9 +21,10 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum AbilityList implements ItemListInterface{
 	EXPLOSION(3000,"Explosion",new Explosion(),SpriteManager.BOMB,true),
-	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SHIELD,false),
+	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SPIKEY_CIRCLE,false),
 	DASH_UPGRADE(3000,"Dash Upgrade",new BetterDash(),SpriteManager.BOOST,false),
-	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false);
+	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false),
+	SHIELD(3000,"Shield",new Shield(),SpriteManager.SHIELD,false);
 
 	private final int cost;
 	private final String name;

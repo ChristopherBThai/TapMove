@@ -11,23 +11,25 @@ public class Invincible extends ActiveAbility{
 
     private float radius;
 
-    private static Sprite sprite = SpriteManager.OUTER_CIRCLE.getSprite();
+    private static SpriteManager sprite = SpriteManager.SPIKEY_CIRCLE;
 
     public Invincible(){
-        super(SpriteManager.SHIELD,30,10);
-        radius = player.getRadius()*1.3f;
+        super(SpriteManager.SPIKEY_CIRCLE,30,10);
+        radius = player.getRadius()*1.5f;
     }
 
     @Override
     protected void justActivated() {
         super.justActivated();
         player.invincible = true;
+        player.hostile = true;
     }
 
     @Override
     protected void justEnded() {
         super.justEnded();
         player.invincible = false;
+        player.hostile = false;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class Invincible extends ActiveAbility{
         super.render(sb);
         if(isActive()) {
             sb.setColor(ColorManager.NORMAL.r,ColorManager.NORMAL.g,ColorManager.NORMAL.b,currentDuration/duration);
-            sb.draw(sprite,player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
+            sb.draw(sprite.getSprite(),player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
         }
     }
 

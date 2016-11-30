@@ -12,9 +12,9 @@ public abstract class CooldownAbility extends Ability{
 
 	protected float cooldown,currentCooldown;
 
-	private SpriteManager visual;
-	private float opacity;
-	private float visualBuffer,visualLength;
+	protected SpriteManager visual;
+	protected float opacity;
+	protected float visualBuffer,visualLength;
 
 	public CooldownAbility(SpriteManager visual, float cooldown){
 		this.cooldown = cooldown;
@@ -38,8 +38,12 @@ public abstract class CooldownAbility extends Ability{
 			currentCooldown -= delta;
 			opacity = ((cooldown-currentCooldown)/cooldown) * .5f;
 			if(isReady())
-				opacity = 1f;
+				justReady();
 		}
+	}
+
+	public void justReady(){
+		opacity = 1f;
 	}
 
 	public boolean isReady(){

@@ -8,6 +8,7 @@ public enum SpriteManager {
 	TITLE("sprites/title.png"),
 	CIRCLE("sprites/circle.png"),
 	OUTER_CIRCLE("sprites/outer_circle.png"),
+	SPIKEY_CIRCLE("sprites/ability/spikey_circle.png"),
 	CORNER("sprites/corner.png"),
 	BOX("sprites/box.png"),
 	PAUSE("sprites/pause.png"),
