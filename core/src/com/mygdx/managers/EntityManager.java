@@ -273,7 +273,7 @@ public class EntityManager implements ContactListener{
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
 						if(!e.isEnemy){
-							p.giveLife(8f);
+							p.orbGained();
 						}
 						p.hit(e);
 					}

@@ -28,6 +28,7 @@ public class Player extends Entity {
 	private Dash dash;
 
 	private float life,currentLife;
+	private float orbAmount;
 
 	private Ability ability;
 
@@ -45,14 +46,21 @@ public class Player extends Entity {
 	}
 
 	private void init(float radius){
+		initValues();
 		this.body.setLinearDamping(.3f);
 		this.body.setAngularDamping(10f);
 		this.radius = radius;
-		pushStrength = 400;
-		life = 20;
-		currentLife = life;
 		dash = new Dash(this);
 		particleName = ParticleTypes.PLAYER_TRAIL;
+	}
+
+	private void initValues(){
+		life = 20;
+		currentLife = life;
+		invincible = false;
+		hostile = false;
+		pushStrength = 400;
+		orbAmount = 8;
 	}
 	
 	@Override
@@ -172,6 +180,14 @@ public class Player extends Entity {
 		this.ability = ability;
 	}
 
+	public void setMaxLife(float life){
+		this.life = life;
+	}
+
+	public void setOrbAmount(float amount){
+		this.orbAmount = amount;
+	}
+
 	public void abilityActivate(float x, float y){
 		if(ability instanceof ActiveAbility)
 			((ActiveAbility)ability).activate(x,y);
@@ -184,6 +200,8 @@ public class Player extends Entity {
 	public float getMaxLife(){
 		return life;
 	}
+
+	public float getOrbAmount() { return orbAmount; }
 
 	public float getCurrentLife(){
 		return currentLife;
@@ -203,6 +221,10 @@ public class Player extends Entity {
 			currentLife = life;
 	}
 
+	public void orbGained(){
+		giveLife(orbAmount);
+	}
+
 	public float getRadius(){
 		return radius;
 	}
@@ -212,13 +234,12 @@ public class Player extends Entity {
 	}
 
 	public void reset() {
-		hostile = false;
+		initValues();
 		this.setPos(MyGame.WIDTH/2f, MyGame.HEIGHT/2f);
 		this.setVelocity(0,0);
 		this.getBody().setLinearVelocity(0f,0f);
 		trail = particleName.particle.getEffect();
 		ParticleTypes.PLAYER_TRAIL.particle.setColor(trail,ColorManager.PLAYER);
-		currentLife = life;
 		dash.reset();
 		if(ability!=null)
 			ability.reset();
