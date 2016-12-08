@@ -12,6 +12,8 @@ public class Explosion extends ActiveAbility{
     private float growthRate;
     private float power;
 
+    private ColorManager color = ColorManager.NORMAL;
+
     private static Sprite sprite = SpriteManager.OUTER_CIRCLE.getSprite();
 
     public Explosion(){
@@ -25,7 +27,7 @@ public class Explosion extends ActiveAbility{
     public void render(SpriteBatch sb) {
         super.render(sb);
         if(isActive()) {
-            sb.setColor(ColorManager.NORMAL);
+            sb.setColor(color.getColor());
             sb.draw(sprite,player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
         }
     }

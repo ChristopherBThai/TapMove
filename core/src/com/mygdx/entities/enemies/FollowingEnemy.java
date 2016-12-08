@@ -17,6 +17,7 @@ public class FollowingEnemy extends Enemy{
 	private float angle,visualAngle;
 	private static Sprite line = SpriteManager.BOX.getSprite();
 	private float lineThickness;
+	private ColorManager lineColor = ColorManager.NORMAL;
 
 	private float pushSpeed;
 	private float currentPushTime,maxPushTime;
@@ -34,7 +35,7 @@ public class FollowingEnemy extends Enemy{
 	@Override
 	public void render(SpriteBatch sb){
 		super.render(sb);
-		sb.setColor(ColorManager.NORMAL);
+		sb.setColor(lineColor.getColor());
 		sb.draw(line,body.getPosition().x,body.getPosition().y-lineThickness/2,0,lineThickness/2,radius,lineThickness,1f,1f,visualAngle);
 	}
 

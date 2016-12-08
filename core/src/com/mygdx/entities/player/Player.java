@@ -16,6 +16,7 @@ import com.mygdx.managers.SpriteManager;
 
 public class Player extends Entity {
 
+	private ColorManager playerColor, designColor;
 	private SpriteManager design;
 	private ParticleEffectPool.PooledEffect trail;
 	private ParticleTypes particleName;
@@ -32,7 +33,6 @@ public class Player extends Entity {
 
 	private Ability ability;
 
-
 	public boolean invincible,hostile;
 	
 	public Player(float x, float y, float radius, World world){
@@ -47,6 +47,8 @@ public class Player extends Entity {
 
 	private void init(float radius){
 		initValues();
+		playerColor = ColorManager.PLAYER;
+		designColor = ColorManager.PLAYER_DESIGN;
 		this.body.setLinearDamping(.3f);
 		this.body.setAngularDamping(10f);
 		this.radius = radius;
@@ -65,10 +67,10 @@ public class Player extends Entity {
 	
 	@Override
 	public void render(SpriteBatch sb){
-		sb.setColor(ColorManager.PLAYER);
+		sb.setColor(playerColor.getColor());
 		sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
 		if(design!=null){
-			sb.setColor(ColorManager.PLAYER_DESIGN);
+			sb.setColor(designColor.getColor());
 			sb.draw(design.getSprite(),body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
 		}
 

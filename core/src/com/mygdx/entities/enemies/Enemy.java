@@ -23,7 +23,7 @@ public class Enemy extends Entity {
 
     public static float NORMAL_RADIUS;
 
-    protected Color color;
+    protected ColorManager color;
     protected float radius;
 
     protected float speed,speedBuffer;
@@ -48,7 +48,7 @@ public class Enemy extends Entity {
 
     @Override
     public void render(SpriteBatch sb){
-        sb.setColor(color);
+        sb.setColor(color.getColor());
         sb.draw(SpriteManager.CIRCLE.getSprite(), body.getPosition().x-radius, body.getPosition().y-radius, radius*2, radius*2);
     }
 
@@ -82,7 +82,7 @@ public class Enemy extends Entity {
         return radius;
     }
 
-    public Color getColor(){
+    public ColorManager getColor(){
         return color;
     }
 

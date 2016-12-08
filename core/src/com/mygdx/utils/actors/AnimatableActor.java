@@ -3,6 +3,7 @@ package com.mygdx.utils.actors;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mygdx.managers.ColorManager;
 
 /**
  * Created by Christopher Thai on 7/27/2016 at 4:06 PM.
@@ -113,6 +114,10 @@ public abstract class AnimatableActor extends Actor {
         this.x = x;
         this.y = y;
         super.setBounds(x+bufferX,y+bufferY,width,height);
+    }
+
+    public void setColor(ColorManager color){
+        super.setColor(color.getColor());
     }
 
     public float getXWithoutBuffer(){

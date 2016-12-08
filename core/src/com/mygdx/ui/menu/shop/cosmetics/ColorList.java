@@ -15,7 +15,7 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
  */
 
 public enum ColorList implements ItemListInterface{
-	WHITE(0,"White",ColorManager.NORMAL,true),
+	WHITE(0,"White",ColorManager.NORMAL.getColor(),true),
 	RED(300,"Red",ColorManager.toColor(255,102,102,255),false),
 	ORANGE(300,"Orange",ColorManager.toColor(255,153,51,255),false),
 	YELLOW(300,"Yellow",ColorManager.toColor(255,255,102,255),false),

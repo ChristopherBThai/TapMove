@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGame;
+import com.mygdx.managers.ColorManager;
 
 /**
  * Created by Christopher Thai on 9/7/2016 at 9:50 PM.
@@ -112,7 +113,7 @@ public class Particle {
         angle.setLow(angleLowMin+degrees,angleLowMax+degrees);
     }
 
-    public void setColor(ParticleEffectPool.PooledEffect effect, Color color){
+    public void setColor(ParticleEffectPool.PooledEffect effect, ColorManager color){
         float[] floatColor = {color.r,color.g,color.b};
         effect.getEmitters().first().getTint().setColors(floatColor);
     }

@@ -41,7 +41,6 @@ public class MyGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		new ColorManager();
 		float ratio = Gdx.app.getGraphics().getHeight()/((float)Gdx.app.getGraphics().getWidth());
 		WIDTH = 50;
 		HEIGHT = (int) (WIDTH*ratio);

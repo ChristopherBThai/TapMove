@@ -12,14 +12,14 @@ public class FollowLight{
     private PointLight pointLight;
 
     public FollowLight(Player player,WorldLighting light){
-        pointLight = new PointLight(light.rayHandler, 200, ColorManager.PLAYER_LIGHT, 40, 0, 0);
+        pointLight = new PointLight(light.rayHandler, 200, ColorManager.PLAYER_LIGHT.getColor(), 40, 0, 0);
         pointLight.setSoftnessLength(5f);
         if(player!=null)
             pointLight.attachToBody(player.getBody());
     }
 
     public FollowLight(Body body, WorldLighting light, boolean xray){
-        pointLight = new PointLight(light.rayHandler, 50, ColorManager.NORMAL, 5, 0, 0);
+        pointLight = new PointLight(light.rayHandler, 50, ColorManager.NORMAL.getColor(), 5, 0, 0);
         pointLight.setSoftnessLength(5f);
         pointLight.setXray(xray);
         if(body!=null)
