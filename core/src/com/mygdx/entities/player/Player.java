@@ -10,6 +10,7 @@ import com.mygdx.entities.abilities.ActiveAbility;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.game.MyGame;
 import com.mygdx.particles.ParticleTypes;
+import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -73,6 +74,7 @@ public class Player extends Entity {
 			sb.setColor(designColor.getColor());
 			sb.draw(design.getSprite(),body.getPosition().x-radius,body.getPosition().y-radius,radius,radius,radius*2,radius*2,1f,1f, designAngle);
 		}
+		GameScreen.entMan.pLighting.setColor(ColorManager.PLAYER_LIGHT.getColor());
 
 		if(ability!=null)
 			ability.render(sb);

@@ -15,24 +15,25 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
  */
 
 public enum ColorList implements ItemListInterface{
-	WHITE(0,"White",ColorManager.NORMAL.getColor(),true),
-	RED(300,"Red",ColorManager.toColor(255,102,102,255),false),
-	ORANGE(300,"Orange",ColorManager.toColor(255,153,51,255),false),
-	YELLOW(300,"Yellow",ColorManager.toColor(255,255,102,255),false),
-	GREEN(300,"Green",ColorManager.toColor(102,255,102,255),false),
-	BLUE(300,"Blue",ColorManager.toColor(102,178,255,255),false),
-	PURPLE(300,"Purple",ColorManager.toColor(178,102,255,255),false),
-	PINK(300,"Pink",ColorManager.toColor(255,102,255,255),false);
+	WHITE(0,"White",ColorManager.NORMAL,true),
+	RED(300,"Red",ColorManager.RED,false),
+	ORANGE(300,"Orange",ColorManager.ORANGE,false),
+	YELLOW(300,"Yellow",ColorManager.YELLOW,false),
+	GREEN(300,"Green",ColorManager.GREEN,false),
+	BLUE(300,"Blue",ColorManager.BLUE,false),
+	PURPLE(300,"Purple",ColorManager.PURPLE,false),
+	PINK(300,"Pink",ColorManager.PINK,false),
+	RAINBOW(2000,"Rainbow",ColorManager.RAINBOW,false);
 
 	private final int cost;
 	private final String name;
-	private final Color color;
+	private final ColorManager color;
 	private boolean isBought;
 	private final static SpriteManager sprite = SpriteManager.CIRCLE;
 
 	private static ColorList current = WHITE;
 
-	ColorList(int cost,String name,Color color, boolean bought){
+	ColorList(int cost,String name,ColorManager color, boolean bought){
 		this.cost = cost;
 		this.name = name;
 		this.color = color;
@@ -50,7 +51,7 @@ public enum ColorList implements ItemListInterface{
 
 			@Override
 			public void render(Batch batch, float parentAlpha){
-				batch.setColor(color.r,color.g,color.b,opacity);
+				batch.setColor(color.getColor().r,color.g,color.b,opacity);
 				batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 			}
 		};
