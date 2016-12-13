@@ -37,6 +37,7 @@ public enum DesignList implements ItemListInterface{
 	private boolean isBought;
 
 	private static DesignList current = NONE;
+	private static ShopList shopList = new ShopList("Designs",DesignList.values());
 
 	DesignList(int cost, String name, SpriteManager sprite, boolean bought){
 		this.cost = cost;
@@ -57,10 +58,10 @@ public enum DesignList implements ItemListInterface{
 
 			@Override
 			public void render(Batch batch, float parentAlpha){
-				batch.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
+				batch.setColor(ColorManager.PLAYER.getColor().r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
 				batch.draw(background.getSprite(),getX(),getY(),getWidth(),getHeight());
 				if(sprite!=null){
-					batch.setColor(ColorManager.PLAYER_DESIGN.r,ColorManager.PLAYER_DESIGN.g,ColorManager.PLAYER_DESIGN.b,opacity);
+					batch.setColor(ColorManager.PLAYER_DESIGN.getColor().r,ColorManager.PLAYER_DESIGN.g,ColorManager.PLAYER_DESIGN.b,opacity);
 					batch.draw(sprite.getSprite(),getX(),getY(),getWidth(),getHeight());
 				}
 			}
@@ -87,6 +88,7 @@ public enum DesignList implements ItemListInterface{
 		for(DesignList item : DesignList.values())
 			if(item.name.equals(name))
 				item.equip();
+		shopList.setCurrent(name);
 	}
 
 	public void setBought(boolean isBought){
@@ -100,4 +102,6 @@ public enum DesignList implements ItemListInterface{
 	public String getName(){
 		return name;
 	}
+
+	public static ShopList getShopList(){return shopList;}
 }

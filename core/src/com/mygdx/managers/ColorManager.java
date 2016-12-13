@@ -100,16 +100,19 @@ public enum ColorManager {
 
 	public void setColor(Color color){
 		this.color = color;
+		isGradient = false;
 		syncColor();
 	}
 
 	public void setColor(int r, int g, int b, int a){
 		this.color.set(r/255f,g/255f,b/255f,a/255f);
+		isGradient = false;
 		syncColor();
 	}
 
 	public void setColor(float r, float g, float b, float a){
 		this.color.set(r,g,b,a);
+		isGradient = false;
 		syncColor();
 	}
 
@@ -137,6 +140,7 @@ public enum ColorManager {
 			this.syncColor();
 		}else{
 			this.setColor(color.color);
+			this.isGradient = false;
 		}
 	}
 	

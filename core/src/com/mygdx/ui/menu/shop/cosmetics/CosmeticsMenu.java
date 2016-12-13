@@ -55,18 +55,11 @@ public class CosmeticsMenu {
             }
         };
 
+        playerColor = new YesNoButton(ColorList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
 
-        ShopList list1 = new ShopList("Color");
-        list1.add(ColorList.values());
-        playerColor = new YesNoButton(list1,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        playerDesign = new YesNoButton(DesignList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.8f,stage);
 
-        ShopList list2 = new ShopList("Design");
-        list2.add(DesignList.values());
-        playerDesign = new YesNoButton(list2,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.8f,stage);
-
-        ShopList list3 = new ShopList("Trails");
-        list3.add(ParticleList.values());
-        playerTrail = new YesNoButton(list3,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.2f,stage);
+        playerTrail = new YesNoButton(ParticleList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.2f,stage);
 
         money = new MoneyDisplay();
     }

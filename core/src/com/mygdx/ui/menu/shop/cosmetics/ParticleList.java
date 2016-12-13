@@ -28,6 +28,7 @@ public enum ParticleList implements ItemListInterface{
 	private final SpriteManager sprite;
 
 	private static ParticleList current = CIRCLE;
+	private static ShopList shopList = new ShopList("Particles",ParticleList.values());
 
 	ParticleList(int cost,String name,SpriteManager sprite, boolean bought){
 		this.cost = cost;
@@ -46,7 +47,7 @@ public enum ParticleList implements ItemListInterface{
 
 			@Override
 			public void render(Batch batch, float parentAlpha){
-				batch.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
+				batch.setColor(ColorManager.PLAYER.getColor().r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
 				batch.draw(sprite.getSprite(),getX()+getWidth()/2f-getWidth()*.15f,getY()+getHeight()/2f-getHeight()*.15f,getWidth()*.3f,getHeight()*.3f);
 			}
 		};
@@ -72,6 +73,7 @@ public enum ParticleList implements ItemListInterface{
 		for(ParticleList item : ParticleList.values())
 			if(item.name.equals(name))
 				item.equip();
+		shopList.setCurrent(name);
 	}
 
 	public void setBought(boolean isBought){
@@ -85,4 +87,6 @@ public enum ParticleList implements ItemListInterface{
 	public String getName(){
 		return name;
 	}
+
+	public static ShopList getShopList(){return shopList;}
 }

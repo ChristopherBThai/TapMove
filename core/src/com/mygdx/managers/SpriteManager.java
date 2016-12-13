@@ -32,7 +32,8 @@ public enum SpriteManager {
 	SHIELD("sprites/ability/shield.png"),
 	BOOST("sprites/ability/boost.png"),
 	MAGNET("sprites/ability/magnet.png"),
-	HEALTH("sprites/ability/health.png");
+	HEALTH("sprites/ability/health.png"),
+	TELEPORT("sprites/ability/teleport.png");
 
 	private final String loc;
 	private Sprite sprite;

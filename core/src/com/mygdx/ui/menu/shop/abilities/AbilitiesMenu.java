@@ -53,9 +53,7 @@ public class AbilitiesMenu {
 
         money = new MoneyDisplay();
 
-        ShopList list1 = new ShopList("Abilities");
-        list1.add(AbilityList.values());
-        abilities = new YesNoButton(list1,Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        abilities = new YesNoButton(AbilityList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
     }
 
     public void setActions(){

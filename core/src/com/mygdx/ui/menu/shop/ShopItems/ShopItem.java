@@ -38,6 +38,10 @@ public class ShopItem extends AnimatableActor{
 		return item.isBought();
 	}
 
+	public boolean isEqual(String name){
+		return item.getName().equals(name);
+	}
+
 	public int getPrice(){
 		return item.getPrice();
 	}

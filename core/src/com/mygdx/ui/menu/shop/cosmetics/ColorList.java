@@ -34,6 +34,7 @@ public enum ColorList implements ItemListInterface{
 	private final static SpriteManager sprite = SpriteManager.CIRCLE;
 
 	private static ColorList current = WHITE;
+	private static ShopList shopList = new ShopList("Colors",ColorList.values());
 
 	ColorList(int cost,String name,ColorManager color, boolean bought){
 		this.cost = cost;
@@ -78,7 +79,7 @@ public enum ColorList implements ItemListInterface{
 		for(ColorList item : ColorList.values())
 			if(item.name.equals(name))
 				item.equip();
-
+		shopList.setCurrent(name);
 	}
 
 	public void setBought(boolean isBought){
@@ -92,4 +93,6 @@ public enum ColorList implements ItemListInterface{
 	public String getName(){
 		return name;
 	}
+
+	public static ShopList getShopList(){return shopList;}
 }

@@ -8,6 +8,7 @@ import com.mygdx.entities.abilities.Invincible;
 import com.mygdx.entities.abilities.LongerLife;
 import com.mygdx.entities.abilities.Magnet;
 import com.mygdx.entities.abilities.Shield;
+import com.mygdx.entities.abilities.Teleport;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -15,6 +16,7 @@ import com.mygdx.screen.GameScreen;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
+import com.mygdx.ui.menu.shop.cosmetics.ColorList;
 
 /**
  * Created by Christopher Thai on 11/26/2016.
@@ -26,7 +28,8 @@ public enum AbilityList implements ItemListInterface{
 	DASH_UPGRADE(3000,"Dash Upgrade",new BetterDash(),SpriteManager.BOOST,false),
 	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false),
 	SHIELD(3000,"Shield",new Shield(),SpriteManager.SHIELD,false),
-	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false);
+	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false),
+	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false);
 
 	private final int cost;
 	private final String name;
@@ -36,6 +39,7 @@ public enum AbilityList implements ItemListInterface{
 
 	private static AbilityList current = EXPLOSION;
 	private static Player player = GameScreen.entMan.player;
+	private static ShopList shopList = new ShopList("Abilities", AbilityList.values());
 
 	AbilityList(int cost, String name, Ability ability, SpriteManager sprite, boolean bought){
 		this.cost = cost;
@@ -86,6 +90,7 @@ public enum AbilityList implements ItemListInterface{
 		for(AbilityList item : AbilityList.values())
 			if(item.name.equals(name))
 				item.equip();
+		shopList.setCurrent(name);
 	}
 
 	@Override
@@ -102,4 +107,6 @@ public enum AbilityList implements ItemListInterface{
 	public String getName(){
 		return name;
 	}
+
+	public static ShopList getShopList(){return shopList;}
 }

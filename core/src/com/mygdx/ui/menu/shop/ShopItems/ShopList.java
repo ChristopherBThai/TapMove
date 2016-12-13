@@ -17,6 +17,13 @@ public class ShopList{
 		items = new ArrayList<ShopItem>();
 	}
 
+	public ShopList(String name,ItemListInterface[] items){
+		this.name = name;
+		current = 0;
+		this.items = new ArrayList<ShopItem>();
+		this.add(items);
+	}
+
 	public void add(ShopItem item){
 		items.add(item);
 	}
@@ -30,6 +37,15 @@ public class ShopList{
 	public void setBounds(float x, float y, float width, float height){
 		for(ShopItem item:items)
 			item.setBounds(x,y,width,height);
+	}
+
+	public void setCurrent(String name){
+		for(int i=0;i<items.size();i++){
+			if(items.get(i).isEqual(name)){
+				current = i;
+				return;
+			}
+		}
 	}
 
 	public ShopItem getCurrent(){
