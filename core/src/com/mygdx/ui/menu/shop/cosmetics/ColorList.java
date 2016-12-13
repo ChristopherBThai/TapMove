@@ -23,7 +23,9 @@ public enum ColorList implements ItemListInterface{
 	BLUE(300,"Blue",ColorManager.BLUE,false),
 	PURPLE(300,"Purple",ColorManager.PURPLE,false),
 	PINK(300,"Pink",ColorManager.PINK,false),
-	RAINBOW(2000,"Rainbow",ColorManager.RAINBOW,false);
+	RAINBOW(2000,"Rainbow",ColorManager.RAINBOW,false),
+	DISCO(2000,"Disco",ColorManager.DISCO,false),
+	CHRISTMAS(2000,"Christmas",ColorManager.CHRISTMAS,false);
 
 	private final int cost;
 	private final String name;

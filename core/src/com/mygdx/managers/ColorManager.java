@@ -25,7 +25,9 @@ public enum ColorManager {
 	PINK(255,102,255,255),
 
 	GREEN_YELLOW(new Color[]{GREEN.color,YELLOW.color},5),
-	RAINBOW(new Color[]{RED.color,ORANGE.color,YELLOW.color,GREEN.color,BLUE.color,PURPLE.color,PINK.color},3);
+	RAINBOW(new Color[]{RED.color,ORANGE.color,YELLOW.color,GREEN.color,BLUE.color,PURPLE.color,PINK.color},3),
+	DISCO(new Color[]{RED.color,ORANGE.color,YELLOW.color,GREEN.color,BLUE.color,PURPLE.color,PINK.color},.5f),
+	CHRISTMAS(new Color[]{GREEN.color,RED.color},2);
 
 	private Color color;
 	public float r,g,b,a;
