@@ -28,6 +28,10 @@ public class Entity {
 	public void setPos(double x, double y) {
 		this.body.setTransform((float)x, (float)y, this.body.getAngle());
 	}
+
+	public void setPos(Vector2 pos) {
+		setPos(pos.x,pos.y);
+	}
 	
 	public void setVelocity(double x, double y){
 		this.body.applyForceToCenter((float)(x*weight), (float)(y*weight), true);

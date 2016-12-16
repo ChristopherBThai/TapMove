@@ -1,5 +1,6 @@
 package com.mygdx.entities.abilities;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.managers.SpriteManager;
 
 /**
@@ -18,7 +19,7 @@ public abstract class ActiveAbility extends CooldownAbility{
 	@Override
 	public void update(float delta){
 		super.update(delta);
-		if(currentDuration>0){
+		if(isActive()){
 			currentDuration -= delta;
 			if(!isActive())
 				justEnded();

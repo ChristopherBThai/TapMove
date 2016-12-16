@@ -34,7 +34,7 @@ public class Player extends Entity {
 
 	private Ability ability;
 
-	public boolean invincible,hostile;
+	public boolean invincible,hostile,stasis;
 	
 	public Player(float x, float y, float radius, World world){
 		super(BodyCreater.createCircle(x, y, radius, false, true, world));
@@ -62,6 +62,7 @@ public class Player extends Entity {
 		currentLife = life;
 		invincible = false;
 		hostile = false;
+		stasis = false;
 		pushStrength = 400;
 		orbAmount = 8;
 	}
@@ -95,12 +96,14 @@ public class Player extends Entity {
 	}
 
 	public void moveTo(float x, float y) {
-		lookAtPoint(x,y);
-		push(pushStrength);
+		if(!stasis){
+			lookAtPoint(x,y);
+			push(pushStrength);
+		}
 	}
 
 	public void dashTo(float x, float y){
-		if(dash.fling(x,y))
+		if(dash.fling(x,y)&&!stasis)
 			currentLife -= life*dash.getCostPercent();
 	}
 
@@ -164,7 +167,7 @@ public class Player extends Entity {
 	}
 
 	public boolean isDead(){
-		if(isDashing())
+		if(isDashing()||stasis)
 			return false;
 		if(currentLife<=0)
 			return true;

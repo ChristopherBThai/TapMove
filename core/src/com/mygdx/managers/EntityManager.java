@@ -228,7 +228,7 @@ public class EntityManager implements ContactListener{
 				e = ((Enemy)b.getUserData());
 
 			if(p!=null&&e!=null){
-				if(p.isDashing()||!e.isEnemy) {
+				if(p.isDashing()||p.stasis||!e.isEnemy) {
 					//contact.setEnabled(false);
 					//System.out.println(enemies.indexOf(e));
 					//e.getBody().setActive(false);

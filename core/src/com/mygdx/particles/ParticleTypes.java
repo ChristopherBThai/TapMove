@@ -9,7 +9,8 @@ public enum ParticleTypes{
 	PLAYER_TRAIL("particle/PlayerTrail",false),
 	ENEMY_TRAIL("particle/EnemyTrail",false),
 	ENEMY_SMOKE("particle/EnemySmoke",true),
-	ENEMY_ABSORB("particle/EnemyAbsorb",false);
+	ENEMY_ABSORB("particle/EnemyAbsorb",false),
+	TELEPORT("particle/Teleport",true);
 
 	public final Particle particle;
 
