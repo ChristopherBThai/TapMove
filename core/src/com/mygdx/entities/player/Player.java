@@ -79,6 +79,9 @@ public class Player extends Entity {
 
 		if(ability!=null)
 			ability.render(sb);
+
+		if(dash != null)
+			dash.render(sb);
 	}
 	
 	@Override
@@ -226,6 +229,10 @@ public class Player extends Entity {
 		currentLife += lifeAmount;
 		if(currentLife>life)
 			currentLife = life;
+	}
+
+	public float getDesignTargetAngle(){
+		return designTargetAngle;
 	}
 
 	public void orbGained(){

@@ -1,6 +1,12 @@
 package com.mygdx.entities.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entities.abilities.BetterDash;
+import com.mygdx.managers.ColorManager;
+import com.mygdx.managers.SpriteManager;
 
 /**
  * Created by Christopher Thai on 8/30/2016
@@ -17,6 +23,11 @@ public class Dash {
 
     boolean betterDash;
 
+    private SpriteManager trail = SpriteManager.BOX;
+    private float angle,radius;
+    private Vector2 startPos;
+
+
     public Dash(Player player){
         this.player = player;
         dashStrength = player.getPushStrength()*50;
@@ -25,6 +36,15 @@ public class Dash {
         maxDashingTime = .2f;
         currentDashingTime = -1;
         costPercent = .1f;
+        startPos = new Vector2();
+        radius = player.getRadius();
+    }
+
+    public void render(SpriteBatch sb){
+        if(isDashing()){
+            sb.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER_LIGHT.g,ColorManager.PLAYER.b,.8f);
+            sb.draw(trail.getSprite(), startPos.x, startPos.y-radius, 0, radius, startPos.dst(player.getPos()),radius * 2, 1, 1, angle);
+        }
     }
 
     public void update(float delta){
@@ -56,6 +76,9 @@ public class Dash {
             currentDashTime = maxDashTime;
             if(betterDash)
                 currentDashTime += bufferDashTime;
+            angle = player.getDesignTargetAngle();
+            startPos.set(player.getPos());
+            Gdx.app.log("tap",""+angle);
             return true;
         }
         return false;
