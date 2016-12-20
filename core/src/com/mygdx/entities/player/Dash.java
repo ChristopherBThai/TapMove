@@ -26,6 +26,8 @@ public class Dash {
     private SpriteManager trail = SpriteManager.BOX;
     private float angle,radius;
     private Vector2 startPos;
+    private float finalDst;
+    private float opacity,opacityDecay;
 
 
     public Dash(Player player){
@@ -38,12 +40,17 @@ public class Dash {
         costPercent = .1f;
         startPos = new Vector2();
         radius = player.getRadius();
+        opacity = .8f;
+        opacityDecay = 1.1f;
     }
 
     public void render(SpriteBatch sb){
-        if(isDashing()){
-            sb.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER_LIGHT.g,ColorManager.PLAYER.b,.8f);
-            sb.draw(trail.getSprite(), startPos.x, startPos.y-radius, 0, radius, startPos.dst(player.getPos()),radius * 2, 1, 1, angle);
+        if(opacity > 0){
+            sb.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER_LIGHT.g,ColorManager.PLAYER.b,opacity);
+            if(isDashing())
+                sb.draw(trail.getSprite(), startPos.x, startPos.y-radius, 0, radius, startPos.dst(player.getPos()),radius * 2, 1, 1, angle);
+            else
+                sb.draw(trail.getSprite(), startPos.x, startPos.y-radius, 0, radius, finalDst,radius * 2, 1, 1, angle);
         }
     }
 
@@ -54,6 +61,10 @@ public class Dash {
             currentDashingTime -= delta;
             if(currentDashingTime<=0)
                 player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x*.1f,player.getBody().getLinearVelocity().y*.1f);
+            if(!isDashing())
+                finalDst = startPos.dst(player.getPos());
+        }else if(opacity > 0 ){
+            opacity -= delta * opacityDecay;
         }
     }
 
@@ -78,7 +89,7 @@ public class Dash {
                 currentDashTime += bufferDashTime;
             angle = player.getDesignTargetAngle();
             startPos.set(player.getPos());
-            Gdx.app.log("tap",""+angle);
+            opacity = .8f;
             return true;
         }
         return false;
