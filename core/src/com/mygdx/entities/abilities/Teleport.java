@@ -63,4 +63,10 @@ public class Teleport extends ActiveAbility{
 		currentPos.x = dst.x * temp + startPos.x;
 		currentPos.y = dst.y * temp + startPos.y;
 	}
+
+	@Override
+	public void reset(){
+		super.reset();
+		particle = null;
+	}
 }

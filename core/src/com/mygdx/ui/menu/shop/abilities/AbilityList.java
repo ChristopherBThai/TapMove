@@ -2,6 +2,7 @@ package com.mygdx.ui.menu.shop.abilities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.entities.abilities.Ability;
+import com.mygdx.entities.abilities.Absorb;
 import com.mygdx.entities.abilities.BetterDash;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
@@ -31,7 +32,8 @@ public enum AbilityList implements ItemListInterface{
 	SHIELD(3000,"Shield",new Shield(),SpriteManager.SHIELD,false),
 	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false),
 	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false),
-	SLOW_MOTION(3000,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false);
+	SLOW_MOTION(3000,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false),
+	ABSORB(3000,"Absorb",new Absorb(),SpriteManager.ABSORB,false);
 
 	private final int cost;
 	private final String name;
