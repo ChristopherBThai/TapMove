@@ -8,6 +8,7 @@ import com.mygdx.entities.abilities.Invincible;
 import com.mygdx.entities.abilities.LongerLife;
 import com.mygdx.entities.abilities.Magnet;
 import com.mygdx.entities.abilities.Shield;
+import com.mygdx.entities.abilities.SlowTime;
 import com.mygdx.entities.abilities.Teleport;
 import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
@@ -29,7 +30,8 @@ public enum AbilityList implements ItemListInterface{
 	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false),
 	SHIELD(3000,"Shield",new Shield(),SpriteManager.SHIELD,false),
 	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false),
-	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false);
+	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false),
+	SLOW_MOTION(3000,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false);
 
 	private final int cost;
 	private final String name;
