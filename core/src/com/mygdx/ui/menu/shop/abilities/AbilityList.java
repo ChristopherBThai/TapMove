@@ -6,6 +6,7 @@ import com.mygdx.entities.abilities.Absorb;
 import com.mygdx.entities.abilities.BetterDash;
 import com.mygdx.entities.abilities.Explosion;
 import com.mygdx.entities.abilities.Invincible;
+import com.mygdx.entities.abilities.LastStance;
 import com.mygdx.entities.abilities.LongerLife;
 import com.mygdx.entities.abilities.Magnet;
 import com.mygdx.entities.abilities.Shield;
@@ -33,7 +34,8 @@ public enum AbilityList implements ItemListInterface{
 	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false),
 	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false),
 	SLOW_MOTION(3000,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false),
-	ABSORB(3000,"Absorb",new Absorb(),SpriteManager.ABSORB,false);
+	ABSORB(3000,"Absorb",new Absorb(),SpriteManager.ABSORB,false),
+	LAST_STANCE(3000,"Last Stance",new LastStance(),SpriteManager.OUTER_CIRCLE,false);
 
 	private final int cost;
 	private final String name;
