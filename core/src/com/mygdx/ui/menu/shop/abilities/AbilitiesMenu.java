@@ -1,20 +1,24 @@
 package com.mygdx.ui.menu.shop.abilities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
+import com.mygdx.utils.actors.Text;
 
 
 public class AbilitiesMenu {
     private MenuScreen screen;
     private Stage stage;
 
-
     private YesNoButton abilities;
+    private Text description;
+    private Vector2 descLoc;
 
     private MoneyDisplay money;
 
@@ -36,10 +40,12 @@ public class AbilitiesMenu {
         money.doAnimation();
         abilities.addActor(stage);
         abilities.doAnimation();
+        stage.addActor(description);
+        description.animateToVisible();
     }
 
     public void setBounds(){
-
+        descLoc = new Vector2(Gdx.app.getGraphics().getWidth()/2,Gdx.app.getGraphics().getHeight()*.6f);
     }
 
     public void setActors(){
@@ -53,7 +59,15 @@ public class AbilitiesMenu {
 
         money = new MoneyDisplay();
 
-        abilities = new YesNoButton(AbilityList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        abilities = new YesNoButton(AbilityList.getShopList(),0,0,stage){
+            @Override
+            public void changedItem(){
+                updateDescription();
+            }
+        };
+        abilities.setPos(Gdx.graphics.getWidth()*.5f-abilities.getWidth()/2,Gdx.graphics.getHeight()*.8f-abilities.getHeight()/2);
+
+        description = new Text(Gdx.graphics.getWidth()*.05f,"");
     }
 
     public void setActions(){
@@ -63,11 +77,18 @@ public class AbilitiesMenu {
         back.resetScreen();
         money.resetScreen();
         abilities.resetScreen();
+        updateDescription();
     }
 
     public void dispose(){
         back.dispose();
         money.dispose();
         abilities.dispose();
+        description.dispose();
+    }
+
+    private void updateDescription(){
+        description.setText(AbilityList.values()[abilities.getShopeList().getCurrentLoc()].getAbility().getDescription());
+        description.setPosition(descLoc.x-description.getWidth()/2,descLoc.y-description.getHeight()/2);
     }
 }

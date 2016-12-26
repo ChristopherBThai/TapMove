@@ -30,6 +30,7 @@ public class Explosion extends ActiveAbility{
             sb.setColor(color.getColor());
             sb.draw(sprite,player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
         }
+        desc = "Activate to push away all enemies";
     }
 
     @Override

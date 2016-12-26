@@ -22,6 +22,7 @@ public class Teleport extends ActiveAbility{
 		currentPos = new Vector2();
 		startPos = new Vector2();
 		distance = new Vector2();
+		desc = "Activate to teleport to that location";
 	}
 
 	@Override

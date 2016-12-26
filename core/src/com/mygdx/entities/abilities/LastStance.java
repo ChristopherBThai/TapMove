@@ -25,6 +25,7 @@ public class LastStance extends Ability{
 		radiusVel = extendedRadius - retractedRadius;
 		opacity = 0f;
 		opacityVel = 1;
+		desc = "Become invincible when you're low on health";
 	}
 
 	@Override

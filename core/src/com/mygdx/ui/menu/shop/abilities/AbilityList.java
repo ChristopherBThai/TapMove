@@ -114,5 +114,9 @@ public enum AbilityList implements ItemListInterface{
 		return name;
 	}
 
+	public Ability getAbility(){
+		return ability;
+	}
+
 	public static ShopList getShopList(){return shopList;}
 }

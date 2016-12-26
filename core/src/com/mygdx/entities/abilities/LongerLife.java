@@ -12,6 +12,7 @@ public class LongerLife extends Ability{
 		super();
 		life = player.getMaxLife() * 1.5f;
 		orbAmount = player.getOrbAmount() * 1.2f;
+		desc = "Your total health is increased";
 	}
 
 	@Override

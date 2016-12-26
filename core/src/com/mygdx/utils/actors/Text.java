@@ -2,17 +2,19 @@ package com.mygdx.utils.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.utils.Align;
 
 public class Text extends AnimatableActor{
 	
 	private BitmapFont bitFont;
-	private GlyphLayout size;
+	private GlyphLayout layout;
 
 	private String string;
 
@@ -22,19 +24,21 @@ public class Text extends AnimatableActor{
 		string = text;
 		bitFont = createFonts(bitFont);
 		bitFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		this.size = new GlyphLayout(bitFont, text);
+		this.layout = new GlyphLayout(bitFont, text);
 		this.setFontSize(size);
 		this.fontSize = size;
 	}
 	
-	public void updateSize(){
-		this.size.setText(bitFont, string);
-		this.setSize(this.size.width, this.size.height);
+	public void updateLayout(){
+		layout.setText(bitFont,string,getColor(),1080,Align.left,false);
+		this.setSize(this.layout.width, this.layout.height);
 	}
 	
 	@Override
 	public void render(Batch batch, float parentAlpha){
-		bitFont.setColor(getColor().r,getColor().g,getColor().b,opacity);
+		getColor().a = opacity;
+		bitFont.setColor(getColor());
+		batch.setColor(getColor());
 		bitFont.draw(batch, string, this.getX(), this.getY());
 	}
 
@@ -56,7 +60,13 @@ public class Text extends AnimatableActor{
 	
 	public void setText(String text){
 		string = text;
-		this.updateSize();
+		this.updateLayout();
+	}
+
+	public void setTextCentered(String text,float width){
+		string = text;
+		this.layout.setText(bitFont, string,getColor(),width, Align.center,true);
+		this.setSize(this.layout.width, this.layout.height);
 	}
 	
 	public void setFontSize(float size){
@@ -65,7 +75,7 @@ public class Text extends AnimatableActor{
 		bitFont.getData().setScale(.02f*size);
 		bitFont.getData().scaleX *= .8f;
 		this.fontSize = size;
-		updateSize();
+		updateLayout();
 	}
 	
 	public float getFontSize(){
@@ -74,7 +84,7 @@ public class Text extends AnimatableActor{
 
 	@Override
 	protected void sizeChanged(){
-		updateSize();
+		updateLayout();
 	}
 
 	public void dispose(){

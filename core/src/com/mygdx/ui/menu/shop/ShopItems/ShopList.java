@@ -52,6 +52,8 @@ public class ShopList{
 		return items.get(current);
 	}
 
+	public int getCurrentLoc(){ return current; }
+
 	public void next(){
 		current++;
 		if(current>=items.size())

@@ -116,7 +116,7 @@ public class YesNoButton{
 		cost.animateToVisible();
 	}
 
-	public void setBounds(float x, float y){
+	private void setBounds(float x, float y){
 		oLength = Gdx.graphics.getHeight()*.09f;
 		oX = x;
 		oY = y;
@@ -125,6 +125,11 @@ public class YesNoButton{
 		iLength = oLength*(1-symbolBorder*2);
 		shopList.setBounds(iX,iY,iLength,iLength);
 		gapBetweenSpriteAndCost = oLength * .14f;
+	}
+
+	public void setPos(float x, float y){
+		setBounds(x,y);
+		setPositions();
 	}
 
 	public void setActors(){
@@ -213,28 +218,35 @@ public class YesNoButton{
 		yes1 = new Line();
 		yes2 = new Line();
 
-		next.setBounds(oX+oLength+oLength*symbolBorder,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
-		prev.setBounds(oX-oLength*symbolBorder-oLength*.5f,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
-
 		next1 = new Line();
-		next1.setBounds(next.getX(),next.getY(),0,-next.getHeight());
 		next2 = new Line();
-		next2.setBounds(next.getX(),next.getY(),next.getWidth(),next.getHeight()/2);
 		next3 = new Line();
-		next3.setBounds(next.getX(),next.getY()+next.getHeight(),next.getWidth(),-next.getHeight()/2);
 		prev1 = new Line();
-		prev1.setBounds(prev.getX()+prev.getWidth(),prev.getY(),0,-prev.getHeight());
 		prev2 = new Line();
-		prev2.setBounds(prev.getX()+prev.getWidth(),prev.getY(),-prev.getWidth(),prev.getHeight()/2);
 		prev3 = new Line();
-		prev3.setBounds(prev.getX()+prev.getWidth(),prev.getY()+prev.getHeight(),-prev.getWidth(),-prev.getHeight()/2);
 
 		prev.setRotation(180);
-		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
-		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
 
 		cost = new Text(name.getFontSize(),"0");
 		moneySprite = new Image(SpriteManager.CIRCLE,0,0,cost.getHeight(),cost.getHeight());
+		setPositions();
+	}
+
+	private void setPositions(){
+		button.setPosition(oX+oLength/2,oY+oLength/2);
+		yes.setPosition(oX+oLength/2,oY);
+		no.setPosition(oX-oLength/2,oY);
+		next.setBounds(oX+oLength+oLength*symbolBorder,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
+		prev.setBounds(oX-oLength*symbolBorder-oLength*.5f,oY+oLength*symbolBorder,oLength*.5f,oLength*(1-symbolBorder*2));
+		next1.setBounds(next.getX(),next.getY(),0,-next.getHeight());
+		next2.setBounds(next.getX(),next.getY(),next.getWidth(),next.getHeight()/2);
+		next3.setBounds(next.getX(),next.getY()+next.getHeight(),next.getWidth(),-next.getHeight()/2);
+		prev1.setBounds(prev.getX()+prev.getWidth(),prev.getY(),0,-prev.getHeight());
+		prev2.setBounds(prev.getX()+prev.getWidth(),prev.getY(),-prev.getWidth(),prev.getHeight()/2);
+		prev3.setBounds(prev.getX()+prev.getWidth(),prev.getY()+prev.getHeight(),-prev.getWidth(),-prev.getHeight()/2);
+		question.setPosition(oX+oLength/2-question.getWidth()/2,oY+oLength*1.2f+question.getHeight());
+		bought.setPosition(oX+oLength/2-bought.getWidth()/2,oY-oLength*.2f);
+		setActions();
 	}
 
 	private void touched(){
@@ -357,6 +369,10 @@ public class YesNoButton{
 		});
 	}
 
+	public ShopList getShopeList(){
+		return shopList;
+	}
+
 	public void addActor(Stage stage){
 		this.stage = stage;
 		stage.addActor(act);
@@ -417,7 +433,7 @@ public class YesNoButton{
 	}
 
 	public float getWidth(){
-		return oLength*2;
+		return oLength;
 	}
 
 	public float getHeight(){
@@ -454,6 +470,10 @@ public class YesNoButton{
 			cost.setPosition(oX+oLength/2f-cost.getWidth()/2f,oY-cost.getHeight()-oLength*.2f+cost.getHeight());
 			moneySprite.hide();
 		}
+		changedItem();
 	}
 
+	public void changedItem(){
+
+	}
 }

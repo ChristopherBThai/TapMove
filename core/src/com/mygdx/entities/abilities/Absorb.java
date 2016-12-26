@@ -36,6 +36,8 @@ public class Absorb extends Ability{
 		};
 
 		particles = new ArrayList<OrbParticle>();
+
+		desc = "Dashing into enemies will\nreplenish your health";
 	}
 
 	@Override

@@ -16,16 +16,7 @@ public class Magnet extends Ability{
 		super();
 		pullStrength = 16f;
 		pullRadius = player.getRadius() * 15;
-	}
-
-	@Override
-	public void update(float delta){
-
-	}
-
-	@Override
-	public void render(SpriteBatch sb){
-
+		desc = "All white orbs are attracted to you";
 	}
 
 	@Override
