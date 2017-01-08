@@ -15,7 +15,7 @@ public class SlowTime extends Ability{
 	public SlowTime(){
 		super();
 		radius = player.getRadius() * 2;
-		desc = "Time is slowed when near an enemy";
+		desc = "Time is slowed when\nnear an enemy";
 	}
 
 	@Override

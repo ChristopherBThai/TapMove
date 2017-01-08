@@ -16,7 +16,7 @@ public class Magnet extends Ability{
 		super();
 		pullStrength = 16f;
 		pullRadius = player.getRadius() * 15;
-		desc = "All white orbs are attracted to you";
+		desc = "All white orbs are\nattracted to you";
 	}
 
 	@Override

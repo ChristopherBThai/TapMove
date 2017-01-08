@@ -16,7 +16,7 @@ public class Invincible extends ActiveAbility{
     public Invincible(){
         super(SpriteManager.SPIKEY_CIRCLE,30,10);
         radius = player.getRadius()*1.5f;
-        desc = "Activate to become invincible for a couple of seconds.";
+        desc = "Activate to become\ninvincible for a couple of\nseconds.";
     }
 
     @Override

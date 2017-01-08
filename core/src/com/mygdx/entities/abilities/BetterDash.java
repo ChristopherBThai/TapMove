@@ -15,7 +15,7 @@ public class BetterDash extends Ability{
 		super();
 		newCostPercent = 0;
 		addedCooldown = .9f;
-		desc = "Dashing no longer costs health but the cooldown per dash is increased.";
+		desc = "Dashing no longer costs \nhealth but the cooldown per\ndash is increased.";
 	}
 
 

@@ -65,9 +65,9 @@ public class AbilitiesMenu {
                 updateDescription();
             }
         };
-        abilities.setPos(Gdx.graphics.getWidth()*.5f-abilities.getWidth()/2,Gdx.graphics.getHeight()*.8f-abilities.getHeight()/2);
+        abilities.setPos(Gdx.graphics.getWidth()*.5f-abilities.getWidth()/2,Gdx.graphics.getHeight()*.7f-abilities.getHeight()/2);
 
-        description = new Text(Gdx.graphics.getWidth()*.05f,"");
+        description = new Text(Gdx.graphics.getWidth()*.04f,"");
     }
 
     public void setActions(){

@@ -283,6 +283,7 @@ public class YesNoButton{
 			moneySprite.setAnimateOpacity(0f);
 			boughtOpacityTimer = 2.3f;
 			shopList.getCurrent().equipItem();
+			setCostText();
 		}
 	}
 

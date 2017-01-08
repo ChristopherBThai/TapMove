@@ -7,6 +7,7 @@ import com.mygdx.ui.menu.BackButton;
 import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
+import com.mygdx.utils.actors.Text;
 
 /**
  * Created by Christopher Thai on 6/20/2016.
@@ -16,8 +17,9 @@ public class CosmeticsMenu {
     private Stage stage;
 
     private BackButton back;
-    private YesNoButton playerColor,playerDesign,playerTrail;
     private MoneyDisplay money;
+    private YesNoButton playerColor,playerDesign,playerTrail;
+    private Text colorText,designText,trailText;
 
     public CosmeticsMenu(MenuScreen screen){
         this.screen = screen;

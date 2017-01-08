@@ -16,7 +16,7 @@ public class Shield extends CooldownAbility{
 	public Shield(){
 		super(SpriteManager.OUTER_CIRCLE,20);
 		radius = player.getRadius()*1.3f;
-		desc = "Every couple of seconds, get a shield";
+		desc = "Create a shield every\ncouple of seconds";
 	}
 
 	@Override

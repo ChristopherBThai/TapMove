@@ -25,12 +25,14 @@ public class LastStance extends Ability{
 		radiusVel = extendedRadius - retractedRadius;
 		opacity = 0f;
 		opacityVel = 1;
-		desc = "Become invincible when you're low on health";
+		desc = "Become invincible when\nyou're low on health";
 	}
 
 	@Override
 	public void render(SpriteBatch sb){
 		if(opacity>0){
+			if(opacity>1)
+				opacity = 1;
 			sb.setColor(ColorManager.PLAYER.r,ColorManager.PLAYER.g,ColorManager.PLAYER.b,opacity);
 			sb.draw(sprite.getSprite(),player.getPos().x-currentRadius,player.getPos().y-currentRadius,currentRadius*2f,currentRadius*2f);
 		}

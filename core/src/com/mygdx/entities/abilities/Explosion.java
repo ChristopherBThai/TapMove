@@ -21,6 +21,7 @@ public class Explosion extends ActiveAbility{
         radius = 0;
         growthRate = 8f;
         power = 1500f;
+        desc = "Activate to push away all\nenemies";
     }
 
     @Override
@@ -30,7 +31,6 @@ public class Explosion extends ActiveAbility{
             sb.setColor(color.getColor());
             sb.draw(sprite,player.getPos().x-radius,player.getPos().y-radius,radius*2f,radius*2f);
         }
-        desc = "Activate to push away all enemies";
     }
 
     @Override
