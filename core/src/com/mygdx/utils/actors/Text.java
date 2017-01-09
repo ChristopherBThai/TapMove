@@ -38,7 +38,7 @@ public class Text extends AnimatableActor{
 	public void render(Batch batch, float parentAlpha){
 		getColor().a = opacity;
 		bitFont.setColor(getColor());
-		batch.setColor(getColor());
+		//batch.setColor(getColor());
 		bitFont.draw(batch, string, this.getX(), this.getY());
 	}
 

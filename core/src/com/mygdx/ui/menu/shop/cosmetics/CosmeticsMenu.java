@@ -41,6 +41,12 @@ public class CosmeticsMenu {
         playerTrail.addActor(stage);
         money.addToStage(stage);
         money.doAnimation();
+        stage.addActor(colorText);
+        colorText.animateToVisible();
+        stage.addActor(designText);
+        designText.animateToVisible();
+        stage.addActor(trailText);
+        trailText.animateToVisible();
     }
 
     public void setBounds(){
@@ -57,11 +63,22 @@ public class CosmeticsMenu {
             }
         };
 
-        playerColor = new YesNoButton(ColorList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.5f,stage);
+        float textGap = Gdx.graphics.getWidth()*.14f;
 
-        playerDesign = new YesNoButton(DesignList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.8f,stage);
+        playerColor = new YesNoButton(ColorList.getShopList(),0,0,stage);
+        playerColor.setPos(Gdx.graphics.getWidth()*.7f-playerColor.getWidth()/2,Gdx.graphics.getHeight()*.78f-playerColor.getHeight()/2);
+        colorText = new Text(Gdx.graphics.getWidth()*.06f,"Color");
+        colorText.setPosition(playerColor.getX()-textGap-colorText.getWidth(),playerColor.getY()+playerColor.getHeight()/2+colorText.getHeight()/2);
 
-        playerTrail = new YesNoButton(ParticleList.getShopList(),Gdx.graphics.getWidth()*.5f,Gdx.graphics.getHeight()*.2f,stage);
+        playerDesign = new YesNoButton(DesignList.getShopList(),0,0,stage);
+        playerDesign.setPos(Gdx.graphics.getWidth()*.7f-playerDesign.getWidth()/2,Gdx.graphics.getHeight()*.55f-playerDesign.getHeight()/2);
+        designText = new Text(Gdx.graphics.getWidth()*.06f,"Design");
+        designText.setPosition(playerDesign.getX()-textGap-designText.getWidth(),playerDesign.getY()+playerDesign.getHeight()/2+designText.getHeight()/2);
+
+        playerTrail = new YesNoButton(ParticleList.getShopList(),0,0,stage);
+        playerTrail.setPos(Gdx.graphics.getWidth()*.7f-playerTrail.getWidth()/2,Gdx.graphics.getHeight()*.32f-playerTrail.getHeight()/2);
+        trailText = new Text(Gdx.graphics.getWidth()*.06f,"Trail");
+        trailText.setPosition(playerTrail.getX()-textGap-trailText.getWidth(),playerTrail.getY()+playerTrail.getHeight()/2+trailText.getHeight()/2);
 
         money = new MoneyDisplay();
     }

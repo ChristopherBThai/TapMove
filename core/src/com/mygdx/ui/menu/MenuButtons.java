@@ -3,6 +3,7 @@ package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.utils.MathUtility;
 import com.mygdx.utils.actors.ActorAnimator;

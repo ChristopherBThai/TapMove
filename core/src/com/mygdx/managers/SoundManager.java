@@ -7,16 +7,16 @@ import com.mygdx.audio.SoundEffect;
 public class SoundManager{
 
 
-    static SoundEffect thunk;
+    static SoundEffect menuClick;
 
     static Bgm menuBgm;
 
-    public static void playThunk(float volume){
-        if(thunk==null)
-            thunk = new SoundEffect("audios/thunk.ogg");
+    public static void orb(float volume){
+        if(menuClick==null)
+            menuClick = new SoundEffect("audios/effects/orb_collect.wav");
         else if(volume>=0f)
-            thunk.setVolume(volume);
-        thunk.play();
+            menuClick.setVolume(volume);
+        menuClick.play();
     }
 
     public static void loopMenuBgm(float volume, boolean play){
@@ -35,9 +35,9 @@ public class SoundManager{
     }
 
     public static void dispose() {
-        if (thunk != null) {
-            thunk.dispose();
-            thunk = null;
+        if (menuClick != null) {
+            menuClick.dispose();
+            menuClick = null;
         }
 
         if (menuBgm != null){

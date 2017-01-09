@@ -45,7 +45,7 @@ public class AbilitiesMenu {
     }
 
     public void setBounds(){
-        descLoc = new Vector2(Gdx.app.getGraphics().getWidth()/2,Gdx.app.getGraphics().getHeight()*.6f);
+        descLoc = new Vector2(Gdx.app.getGraphics().getWidth()/2,Gdx.app.getGraphics().getHeight()*.56f);
     }
 
     public void setActors(){
@@ -89,6 +89,6 @@ public class AbilitiesMenu {
 
     private void updateDescription(){
         description.setText(AbilityList.values()[abilities.getShopeList().getCurrentLoc()].getAbility().getDescription());
-        description.setPosition(descLoc.x-description.getWidth()/2,descLoc.y-description.getHeight()/2);
+        description.setPosition(descLoc.x-description.getWidth()/2,descLoc.y);
     }
 }

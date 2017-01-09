@@ -9,6 +9,7 @@ import com.mygdx.entities.abilities.Ability;
 import com.mygdx.entities.abilities.ActiveAbility;
 import com.mygdx.entities.enemies.Enemy;
 import com.mygdx.game.MyGame;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.create.BodyCreater;
@@ -237,6 +238,7 @@ public class Player extends Entity {
 
 	public void orbGained(){
 		giveLife(orbAmount);
+		SoundManager.orb(1f);
 	}
 
 	public float getRadius(){
