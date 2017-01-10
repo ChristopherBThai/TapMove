@@ -1,6 +1,7 @@
 package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.utils.actors.BoxButton;
 
@@ -12,6 +13,8 @@ public class BackButton {
     private BoxButton back;
     private float backLength,backX,backY;
 
+    private static float backed;
+
     public BackButton(){
         this.setBounds();
         this.setActors();
@@ -22,6 +25,14 @@ public class BackButton {
         back.setOpacity(0f);
         back.setAnimateOpacity(1f);
         back.setAnimateInsideOpacity(1f);
+    }
+
+    public void checkBack(float delta){
+        if (backed<=0&&Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            back();
+            backed = .5f;
+        }else if(backed>0)
+            backed -= delta;
     }
 
     public void moveToReset(){
@@ -47,6 +58,11 @@ public class BackButton {
             @Override
             public void justTouched(){
                 back();
+            }
+            @Override
+            public void act(float delta){
+                super.act(delta);
+                checkBack(delta);
             }
         };
         back.setThickness(.1f);

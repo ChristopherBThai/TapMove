@@ -61,6 +61,8 @@ public class MyGame extends ApplicationAdapter {
 		Save.load();
 
 		this.showAd();
+
+		Gdx.input.setCatchBackKey(true);
 	}
 
 	@Override
@@ -97,12 +99,14 @@ public class MyGame extends ApplicationAdapter {
 	public void pause(){
 		ScreenManager.pause();
 		Save.save();
+		Gdx.input.setCatchBackKey(false);
 	}
 	
 	@Override
 	public void resume(){
 		ScreenManager.resume();
 		Save.load();
+		Gdx.input.setCatchBackKey(true);
 	}
 	
 	@Override
