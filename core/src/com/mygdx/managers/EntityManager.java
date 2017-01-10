@@ -142,7 +142,6 @@ public class EntityManager implements ContactListener{
 		//System.out.println("KilledByOutOfBounds");
 		enemy.disable();
 		enemyPool.add(enemy);
-		Score.addMoney(1);
 		return enemies.remove(enemy);
 	}
 
@@ -155,7 +154,7 @@ public class EntityManager implements ContactListener{
 		ParticleTypes.ENEMY_SMOKE.particle.setScale(effect, enemy.getRadius()/enemy.NORMAL_RADIUS);
 		enemy.disable();
 		enemyPool.add(enemy);
-		Score.addMoney(2);
+		Score.addScore(25);
 		return enemiesKilled.remove(enemy);
 	}
 

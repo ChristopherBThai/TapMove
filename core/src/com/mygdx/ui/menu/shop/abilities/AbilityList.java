@@ -26,16 +26,16 @@ import com.mygdx.ui.menu.shop.cosmetics.ColorList;
  */
 
 public enum AbilityList implements ItemListInterface{
-	EXPLOSION(3000,"Explosion",new Explosion(),SpriteManager.BOMB,true),
-	INVINCIBLE(3000,"Invincible",new Invincible(),SpriteManager.SPIKEY_CIRCLE,false),
-	DASH_UPGRADE(3000,"Dash Upgrade",new BetterDash(),SpriteManager.BOOST,false),
-	MAGNET(3000,"Magnet",new Magnet(),SpriteManager.MAGNET,false),
-	SHIELD(3000,"Shield",new Shield(),SpriteManager.SHIELD,false),
-	HEALTH(3000,"Health",new LongerLife(),SpriteManager.HEALTH,false),
-	TELEPORT(3000,"Teleport", new Teleport(),SpriteManager.TELEPORT,false),
-	SLOW_MOTION(3000,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false),
-	ABSORB(3000,"Absorb",new Absorb(),SpriteManager.ABSORB,false),
-	LAST_STANCE(3000,"Last Stance",new LastStance(),SpriteManager.OUTER_CIRCLE,false);
+	EXPLOSION(500,"Explosion",new Explosion(),SpriteManager.BOMB,true),
+	INVINCIBLE(500,"Invincible",new Invincible(),SpriteManager.SPIKEY_CIRCLE,false),
+	DASH_UPGRADE(500,"Dash Upgrade",new BetterDash(),SpriteManager.BOOST,false),
+	MAGNET(500,"Magnet",new Magnet(),SpriteManager.MAGNET,false),
+	SHIELD(500,"Shield",new Shield(),SpriteManager.SHIELD,false),
+	HEALTH(500,"Health",new LongerLife(),SpriteManager.HEALTH,false),
+	TELEPORT(500,"Teleport", new Teleport(),SpriteManager.TELEPORT,false),
+	SLOW_MOTION(500,"Slow Motion",new SlowTime(),SpriteManager.STOPWATCH,false),
+	ABSORB(500,"Absorb",new Absorb(),SpriteManager.ABSORB,false),
+	LAST_STANCE(500,"Last Stance",new LastStance(),SpriteManager.OUTER_CIRCLE,false);
 
 	private final int cost;
 	private final String name;

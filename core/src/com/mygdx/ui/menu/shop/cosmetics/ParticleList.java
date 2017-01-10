@@ -17,10 +17,10 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum ParticleList implements ItemListInterface{
 	CIRCLE(0,"Circles",SpriteManager.CIRCLE,true),
-	HEART(1000,"Hearts",SpriteManager.HEART,false),
-	SWIRL(1000,"Swirls",SpriteManager.SWIRL,false),
-	PAW(1000,"Paws",SpriteManager.PAW,false),
-	STAR(1000,"Star",SpriteManager.STAR,false);
+	HEART(250,"Hearts",SpriteManager.HEART,false),
+	SWIRL(250,"Swirls",SpriteManager.SWIRL,false),
+	PAW(250,"Paws",SpriteManager.PAW,false),
+	STAR(250,"Star",SpriteManager.STAR,false);
 
 	private final int cost;
 	private final String name;

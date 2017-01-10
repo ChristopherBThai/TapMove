@@ -108,12 +108,12 @@ public class MyGame extends ApplicationAdapter {
 	@Override
 	public void dispose(){
 		Save.save();
-		ScreenManager.dispose();
-		sb.dispose();
-		sr.dispose();
-		SoundManager.dispose();
-		menuScreen.dispose();
-		gameScreen.dispose();
+		//ScreenManager.dispose();
+		//sb.dispose();
+		//sr.dispose();
+		//SoundManager.dispose();
+		//menuScreen.dispose();
+		//gameScreen.dispose();
 	}
 	
 	public static void showAd(){

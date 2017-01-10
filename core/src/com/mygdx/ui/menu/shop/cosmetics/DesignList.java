@@ -16,19 +16,19 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum DesignList implements ItemListInterface{
 	NONE(0,"Blank",null,true),
-	SWIRL(1000,"Swirl",SpriteManager.SWIRL,false),
-	QUARTER_SLICE(1000,"Checkers", SpriteManager.CHECKER,false),
-	ARROW(1000,"Arrow",SpriteManager.ARROW,false),
-	BIOHAZARD(1000,"Biohazard",SpriteManager.BIOHAZARD,false),
-	HAZARD(1000,"Hazard",SpriteManager.HAZARD,false),
-	HEART(1000,"Heart",SpriteManager.HEART,false),
-	NEUTRON(1000,"Neutron",SpriteManager.NEUTRON,false),
-	STRIPES(1000,"Stripes",SpriteManager.STRIPES,false),
-	TARGET(1000,"Target",SpriteManager.TARGET,false),
-	NO_SYMBOL(1000,"No Symbol",SpriteManager.NO_SYMBOL,false),
-	PAW(1000,"Paw",SpriteManager.PAW,false),
-	LOTUS(1000,"Lotus",SpriteManager.LOTUS,false),
-	STAR(1000,"Star",SpriteManager.STAR,false);
+	SWIRL(200,"Swirl",SpriteManager.SWIRL,false),
+	QUARTER_SLICE(200,"Checkers", SpriteManager.CHECKER,false),
+	ARROW(200,"Arrow",SpriteManager.ARROW,false),
+	BIOHAZARD(200,"Biohazard",SpriteManager.BIOHAZARD,false),
+	HAZARD(200,"Hazard",SpriteManager.HAZARD,false),
+	HEART(200,"Heart",SpriteManager.HEART,false),
+	NEUTRON(200,"Neutron",SpriteManager.NEUTRON,false),
+	STRIPES(200,"Stripes",SpriteManager.STRIPES,false),
+	TARGET(200,"Target",SpriteManager.TARGET,false),
+	NO_SYMBOL(200,"No Symbol",SpriteManager.NO_SYMBOL,false),
+	PAW(200,"Paw",SpriteManager.PAW,false),
+	LOTUS(200,"Lotus",SpriteManager.LOTUS,false),
+	STAR(200,"Star",SpriteManager.STAR,false);
 
 	private final int cost;
 	private final String name;

@@ -16,7 +16,6 @@ public class Score {
     private Text finalScore,highScore;
     private boolean showScore;
     private static float scoreCount;
-    private static int moneyCount;
 
     public Score(Stage stage){
         this.stage = stage;
@@ -43,7 +42,7 @@ public class Score {
                 stage.addActor(highScore);
                 stage.addActor(mode);
                 Save.setHighScore(scoreCount);
-                Save.addMoney(moneyCount);
+                Save.addMoney((int)(scoreCount/10.0));
                 if(GameScreen.currentMode==GameScreen.DARK)
                     mode.setText("Dark mode");
                 else
@@ -60,19 +59,16 @@ public class Score {
 
     public void reset(){
         scoreCount = 0;
-        moneyCount = 0;
         showScore = false;
         stage.addActor(score);
-    }
-
-    public static void addMoney(int amount){
-        moneyCount += amount;
     }
 
     public static float getScore(){
         return scoreCount;
     }
 
-    public static int getMoney(){ return moneyCount; }
+    public static void addScore(float score){
+        scoreCount += score;
+    }
 
 }

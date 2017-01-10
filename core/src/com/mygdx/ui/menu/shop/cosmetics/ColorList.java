@@ -16,16 +16,16 @@ import com.mygdx.ui.menu.shop.ShopItems.ShopList;
 
 public enum ColorList implements ItemListInterface{
 	WHITE(0,"White",ColorManager.NORMAL,true),
-	RED(300,"Red",ColorManager.RED,false),
-	ORANGE(300,"Orange",ColorManager.ORANGE,false),
-	YELLOW(300,"Yellow",ColorManager.YELLOW,false),
-	GREEN(300,"Green",ColorManager.GREEN,false),
-	BLUE(300,"Blue",ColorManager.BLUE,false),
-	PURPLE(300,"Purple",ColorManager.PURPLE,false),
-	PINK(300,"Pink",ColorManager.PINK,false),
-	RAINBOW(2000,"Rainbow",ColorManager.RAINBOW,false),
-	DISCO(2000,"Disco",ColorManager.DISCO,false),
-	CHRISTMAS(2000,"Christmas",ColorManager.CHRISTMAS,false);
+	RED(100,"Red",ColorManager.RED,false),
+	ORANGE(100,"Orange",ColorManager.ORANGE,false),
+	YELLOW(100,"Yellow",ColorManager.YELLOW,false),
+	GREEN(100,"Green",ColorManager.GREEN,false),
+	BLUE(100,"Blue",ColorManager.BLUE,false),
+	PURPLE(100,"Purple",ColorManager.PURPLE,false),
+	PINK(100,"Pink",ColorManager.PINK,false),
+	RAINBOW(1500,"Rainbow",ColorManager.RAINBOW,false),
+	DISCO(1500,"Disco",ColorManager.DISCO,false),
+	CHRISTMAS(1500,"Christmas",ColorManager.CHRISTMAS,false);
 
 	private final int cost;
 	private final String name;
