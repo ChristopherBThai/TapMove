@@ -1,4 +1,4 @@
-package com.game.desktop;
+package com.christhai.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

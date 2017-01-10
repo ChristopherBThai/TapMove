@@ -27,7 +27,7 @@ public class Dash {
     private float angle,radius;
     private Vector2 startPos;
     private float finalDst;
-    private float opacity,opacityDecay;
+    private float opacity;
 
 
     public Dash(Player player){
@@ -41,7 +41,6 @@ public class Dash {
         startPos = new Vector2();
         radius = player.getRadius();
         opacity = .8f;
-        opacityDecay = 1.1f;
     }
 
     public void render(SpriteBatch sb){
@@ -57,15 +56,20 @@ public class Dash {
     public void update(float delta){
         if(!isReady())
             currentDashTime -= delta;
+
         if(isDashing()){
             currentDashingTime -= delta;
             if(currentDashingTime<=0)
                 player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x*.1f,player.getBody().getLinearVelocity().y*.1f);
             if(!isDashing())
                 finalDst = startPos.dst(player.getPos());
-        }else if(opacity > 0 ){
-            opacity -= delta * opacityDecay;
         }
+
+        if(opacity > 0 )
+            opacity = currentDashingTime/maxDashingTime;
+        else if(opacity<0)
+            opacity = 0;
+
     }
 
     public boolean isReady(){

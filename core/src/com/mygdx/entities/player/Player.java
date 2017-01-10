@@ -155,7 +155,9 @@ public class Player extends Entity {
 	}
 
 	public boolean hit(Enemy e){
-		return ability.playerHit(e);
+		if(ability!=null)
+			return ability.playerHit(e);
+		return false;
 	}
 
 	public boolean isClose(com.mygdx.entities.enemies.Enemy e) {

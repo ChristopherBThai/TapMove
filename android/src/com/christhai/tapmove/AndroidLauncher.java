@@ -1,4 +1,4 @@
-package com.game.android;
+package com.christhai.tapmove;
 
 import android.os.Bundle;
 import android.os.Handler;

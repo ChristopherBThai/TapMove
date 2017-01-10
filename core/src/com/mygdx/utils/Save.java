@@ -75,6 +75,8 @@ public class Save {
             darkHighScore = 0;
             money = 0;
             ads = true;
+            AbilityList.EXPLOSION.setEquipped(AbilityList.EXPLOSION.getCurrent());
+            ColorList.WHITE.setEquipped(ColorList.WHITE.getCurrent());
         }else{
             Json save = new Json();
             ArrayList<Object> saveObjects = save.fromJson(ArrayList.class,Gdx.files.local("save.json"));
@@ -161,7 +163,7 @@ public class Save {
         private void load(){
             Save.classicHighScore = classic;
             Save.darkHighScore = dark;
-            Save.money = 9999999;//money;
+            Save.money = money;
             Save.ads = ads;
             MoneyDisplay.setMoneyText(""+money);
         }
