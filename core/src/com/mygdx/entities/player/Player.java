@@ -12,6 +12,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.managers.SoundManager;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.ui.tutorial.TutorialScreen;
 import com.mygdx.utils.create.BodyCreater;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
@@ -91,7 +92,9 @@ public class Player extends Entity {
 			trail.setPosition(this.getPos().x, this.getPos().y);
 		if(dash!=null)
 			dash.update(delta);
-		currentLife -= delta;
+
+		if(!GameScreen.tutorial||(GameScreen.tutorial&& TutorialScreen.health))
+			currentLife -= delta;
 
 		designAngle = designAngle + (designTargetAngle - designAngle) * .1f;
 
@@ -240,7 +243,7 @@ public class Player extends Entity {
 
 	public void orbGained(){
 		giveLife(orbAmount);
-		SoundManager.orb(1f);
+		//SoundManager.orb(1f);
 	}
 
 	public float getRadius(){

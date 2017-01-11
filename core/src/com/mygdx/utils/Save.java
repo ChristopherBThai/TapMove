@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Save {
     private static float classicHighScore,darkHighScore;
     private static int money;
-    private static boolean ads = true;
+    private static boolean ads = true,tutorial = true;
 
     public static boolean setHighScore(float score){
         if(GameScreen.currentMode==GameScreen.DARK){
@@ -68,6 +68,14 @@ public class Save {
         return ads;
     }
 
+    public static boolean isTutorial(){
+        return tutorial;
+    }
+
+    public static void setTutorial(boolean tut){
+        tutorial = tut;
+    }
+
     @SuppressWarnings({"unchecked"})
     public static void load(){
         if(!Gdx.files.local("save.json").exists()) {
@@ -75,6 +83,7 @@ public class Save {
             darkHighScore = 0;
             money = 0;
             ads = true;
+            tutorial = true;
             AbilityList.EXPLOSION.setEquipped(AbilityList.EXPLOSION.getCurrent());
             ColorList.WHITE.setEquipped(ColorList.WHITE.getCurrent());
         }else{
@@ -99,7 +108,7 @@ public class Save {
         Json save = new Json();
 
         ArrayList<Object> saveObjects = new ArrayList<Object>();
-        saveObjects.add(new SaveValues(classicHighScore,darkHighScore,money,ads));
+        saveObjects.add(new SaveValues(classicHighScore,darkHighScore,money,ads,tutorial));
         saveObjects.add(new ShopValues(ColorList.values()));
         saveObjects.add(new ShopValues(DesignList.values()));
         saveObjects.add(new ShopValues(ParticleList.values()));
@@ -123,20 +132,22 @@ public class Save {
     static private class SaveValues implements Json.Serializable{
         private float classic,dark;
         private int money;
-        private boolean ads;
+        private boolean ads,tutorial;
 
         public SaveValues(){
             classic = 0;
             dark = 0;
             money = 0;
             ads = true;
+            tutorial = true;
         }
 
-        private SaveValues(float classic,float dark,int money, boolean ads){
+        private SaveValues(float classic,float dark,int money, boolean ads,boolean tutorial){
             this.classic = classic;
             this.dark = dark;
             this.money = money;
             this.ads = ads;
+            this.tutorial = tutorial;
         }
 
         @Override
@@ -145,6 +156,7 @@ public class Save {
             json.writeValue("dark",dark);
             json.writeValue("money",money);
             json.writeValue("ads",ads);
+            json.writeValue("tutorial",tutorial);
         }
 
         @Override
@@ -157,6 +169,8 @@ public class Save {
                 money = json.readValue("money", int.class, jsonData);
             if(jsonData.has("ads"))
                 ads = json.readValue("ads", boolean.class, jsonData);
+            if(jsonData.has("tutorial"))
+                ads = json.readValue("tutorial", boolean.class, jsonData);
 
         }
 
@@ -165,6 +179,7 @@ public class Save {
             Save.darkHighScore = dark;
             Save.money = money;
             Save.ads = ads;
+            Save.tutorial = tutorial;
             MoneyDisplay.setMoneyText(""+money);
         }
     }

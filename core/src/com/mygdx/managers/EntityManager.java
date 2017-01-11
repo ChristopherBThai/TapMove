@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class EntityManager implements ContactListener{
 	
-	GameScreen game;
+	public static GameScreen game;
 
 	public World world;
 	public Box2DDebugRenderer b2dr;
@@ -76,7 +76,7 @@ public class EntityManager implements ContactListener{
 			if(game.running){
 				//Gdx.app.log("Tap",enemies.size()+"|"+enemiesKilled.size()+"|"+enemyPool.size());
 				checkKilledByDash();
-				if(EnemyCreator.createEnemy(delta))
+				if(!game.tutorial&&EnemyCreator.createEnemy(delta))
 					checkDead();
 
 				player.update(delta);
@@ -97,7 +97,7 @@ public class EntityManager implements ContactListener{
 					slowTime = slowTemp;
 				}
 
-				if(player.isDead())
+				if(player.isDead()&&!game.tutorial)
 					game.end();
 			}
 		}
@@ -227,7 +227,7 @@ public class EntityManager implements ContactListener{
 				e = ((Enemy)b.getUserData());
 
 			if(p!=null&&e!=null){
-				if(p.isDashing()||p.stasis||!e.isEnemy) {
+				if(p.isDashing()||p.stasis||!e.isEnemy||game.tutorial) {
 					//contact.setEnabled(false);
 					//System.out.println(enemies.indexOf(e));
 					//e.getBody().setActive(false);

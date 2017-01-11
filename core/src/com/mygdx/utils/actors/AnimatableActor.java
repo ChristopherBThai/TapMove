@@ -41,6 +41,8 @@ public abstract class AnimatableActor extends Actor {
         if(animateOpacityTime>0){
             animateOpacityTime--;
             opacity = opacity + (aOpacity - opacity)*aOpacityspeed;
+            if(animateOpacityTime<=0)
+                opacity = aOpacity;
         }
         update(delta);
     }

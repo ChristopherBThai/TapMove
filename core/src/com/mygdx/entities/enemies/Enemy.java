@@ -82,6 +82,14 @@ public class Enemy extends Entity {
         return radius;
     }
 
+    public float getSpeed(){
+        return speed;
+    }
+
+    public float getSpeedBuffer(){
+        return speedBuffer;
+    }
+
     public ColorManager getColor(){
         return color;
     }

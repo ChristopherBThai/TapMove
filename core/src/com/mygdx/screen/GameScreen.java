@@ -14,6 +14,8 @@ import com.mygdx.managers.EntityManager;
 import com.mygdx.managers.HudManager;
 import com.mygdx.managers.ParticleManager;
 import com.mygdx.particles.ParticleTypes;
+import com.mygdx.ui.tutorial.TutorialScreen;
+import com.mygdx.utils.Save;
 
 public class GameScreen extends Screen implements GestureListener{
 
@@ -27,12 +29,16 @@ public class GameScreen extends Screen implements GestureListener{
 	public static boolean running;
 	public static boolean pause;
 
+	public static boolean tutorial;
+	public static TutorialScreen tutorialScreen;
+
 	private GestureDetector gesture;
 	@Override
 	public void create() {
 		partMan = new ParticleManager(this);
 		entMan = new EntityManager(this);
 		hudMan = new HudManager(this);
+		tutorialScreen = new TutorialScreen(this);
 
 		gesture = new GestureDetector(this);
 		Gdx.input.setInputProcessor(gesture);
@@ -48,7 +54,10 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public void update(float delta) {
-		float changedDelta = entMan.update(delta);
+		float changedDelta = delta;
+		if(tutorial)
+			changedDelta = tutorialScreen.update(delta);
+		changedDelta = entMan.update(changedDelta);
 		hudMan.update(delta);
 		partMan.update(changedDelta);
 	}
@@ -69,6 +78,8 @@ public class GameScreen extends Screen implements GestureListener{
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
 		hudMan.render(sb);
+		if(tutorial)
+			tutorialScreen.render(sb);
 		
 		entMan.renderDEBUG();
 	}
@@ -80,6 +91,10 @@ public class GameScreen extends Screen implements GestureListener{
 		hudMan.reset();
 		running = true;
 		pause = false;
+		tutorial = Save.isTutorial();
+		//Save.setTutorial(false);
+		if(tutorial)
+			tutorialScreen.reset();
 	}
 	
 	@Override
@@ -118,9 +133,13 @@ public class GameScreen extends Screen implements GestureListener{
 		}else{
 			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
 			if(running){
-				entMan.tap(pos.x, pos.y);
-				ParticleEffectPool.PooledEffect effect = ParticleTypes.PLAYER_CLICK.particle.getEffect();
-				effect.setPosition(pos.x,pos.y);
+				if(!tutorial||(tutorial&&TutorialScreen.tap)){
+					entMan.tap(pos.x, pos.y);
+					ParticleEffectPool.PooledEffect effect = ParticleTypes.PLAYER_CLICK.particle.getEffect();
+					effect.setPosition(pos.x,pos.y);
+				}
+				if(tutorial)
+					tutorialScreen.tap(x,y);
 			}
 		}
 
@@ -130,16 +149,21 @@ public class GameScreen extends Screen implements GestureListener{
 	@Override
 	public boolean longPress(float x, float y) {
 		if(running&&!pause){
-			Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
-			entMan.longPress(pos.x, pos.y);
+			if(!tutorial||(tutorial&&TutorialScreen.ability)){
+				Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
+				entMan.longPress(pos.x, pos.y);
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		if(Math.abs(velocityX)>600||Math.abs(velocityY)>600)
-			entMan.fling(velocityX, velocityY);
+		if(velocityX*velocityX+velocityY*velocityY>490000)
+			if(!tutorial||(tutorial&&TutorialScreen.dash))
+				entMan.fling(velocityX, velocityY);
+			if(tutorial)
+				tutorialScreen.fling(velocityX,velocityY);
 
 		return true;
 	}

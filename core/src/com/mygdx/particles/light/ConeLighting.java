@@ -12,7 +12,7 @@ public class ConeLighting{
 
 
     public ConeLighting(Player player, WorldLighting light){
-        coneLight = new ConeLight(light.rayHandler,100, ColorManager.PLAYER_LIGHT.getColor(),100,0,0,270,30);
+        coneLight = new ConeLight(light.rayHandler,200, ColorManager.PLAYER_LIGHT.getColor(),100,0,0,270,30);
         coneLight.setSoftnessLength(5f);
         if(player!=null)
             coneLight.attachToBody(player.getBody());

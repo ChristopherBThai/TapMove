@@ -10,6 +10,7 @@ import com.mygdx.ui.game.GameoverButtons;
 import com.mygdx.ui.game.LifeBar;
 import com.mygdx.ui.game.Pause;
 import com.mygdx.ui.game.Score;
+import com.mygdx.ui.tutorial.TutorialScreen;
 
 public class HudManager {
 	
@@ -52,7 +53,8 @@ public class HudManager {
 	public void update(float delta){
 		stage.act();
 		pause.update(delta);
-		score.update(delta);
+		if(!game.tutorial||(game.tutorial&&TutorialScreen.score))
+			score.update(delta);
 		lifeBar.update(delta);
 		//ability.update(delta);
 		gameover.update(delta);
