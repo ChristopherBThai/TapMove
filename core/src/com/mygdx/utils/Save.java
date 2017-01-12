@@ -170,7 +170,7 @@ public class Save {
             if(jsonData.has("ads"))
                 ads = json.readValue("ads", boolean.class, jsonData);
             if(jsonData.has("tutorial"))
-                ads = json.readValue("tutorial", boolean.class, jsonData);
+                tutorial = json.readValue("tutorial", boolean.class, jsonData);
 
         }
 

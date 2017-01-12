@@ -14,6 +14,7 @@ import com.mygdx.managers.EntityManager;
 import com.mygdx.managers.HudManager;
 import com.mygdx.managers.ParticleManager;
 import com.mygdx.particles.ParticleTypes;
+import com.mygdx.ui.menu.shop.abilities.AbilityList;
 import com.mygdx.ui.tutorial.TutorialScreen;
 import com.mygdx.utils.Save;
 
@@ -92,9 +93,10 @@ public class GameScreen extends Screen implements GestureListener{
 		running = true;
 		pause = false;
 		tutorial = Save.isTutorial();
-		//Save.setTutorial(false);
-		if(tutorial)
+		if(tutorial){
+			AbilityList.EXPLOSION.setEquipped(AbilityList.EXPLOSION.getName());
 			tutorialScreen.reset();
+		}
 	}
 	
 	@Override
@@ -153,6 +155,8 @@ public class GameScreen extends Screen implements GestureListener{
 				Vector2 pos = MyGame.camera.unprojectCoordinates(x, y);
 				entMan.longPress(pos.x, pos.y);
 			}
+			if(tutorial)
+				tutorialScreen.longpress(x,y);
 		}
 		return true;
 	}

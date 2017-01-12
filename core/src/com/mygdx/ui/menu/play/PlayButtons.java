@@ -7,6 +7,7 @@ import com.mygdx.managers.ScreenManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
+import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
 
@@ -43,9 +44,6 @@ public class PlayButtons{
 			classic.setAnimateOpacity(1f);
 			classic.setAnimateInsideOpacity(1f);
 			stage.addActor(dark);
-			dark.setOpacity(0f);
-			dark.setAnimateOpacity(1f);
-			dark.setAnimateInsideOpacity(1f);
 		}else{
 			stage.addActor(back.getActor());
 			stage.addActor(classic);
@@ -146,7 +144,17 @@ public class PlayButtons{
 		classic.addTouch();
 		dark.setBounds(darkX,darkY,width,height);
 		dark.lockText(false);
-		dark.addTouch();
+		if(Save.isTutorial()){
+			dark.removeTouch();
+			dark.setOpacity(0f);
+			dark.setAnimateOpacity(.3f);
+			dark.setAnimateInsideOpacity(.3f);
+		}else{
+			dark.addTouch();
+			dark.setOpacity(0f);
+			dark.setAnimateOpacity(1f);
+			dark.setAnimateInsideOpacity(1f);
+		}
 	}
 
 	public void dispose(){

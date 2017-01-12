@@ -1,5 +1,6 @@
 package com.mygdx.ui.tutorial;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,11 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.entities.enemies.Enemy;
+import com.mygdx.entities.enemies.LightBall;
 import com.mygdx.entities.enemies.NormalEnemy;
 import com.mygdx.game.MyGame;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.Image;
 import com.mygdx.utils.actors.Text;
 
@@ -71,6 +74,9 @@ public class TutorialScreen{
 	}
 
 	public float update(float delta){
+
+		if(game.pause)
+			return delta;
 
 		stage.act(delta);
 		if(timer > 0)
@@ -197,7 +203,7 @@ public class TutorialScreen{
 					step = 1;
 					stage.addActor(background);
 					background.setAnimateOpacity(0f);
-					scene = 3;
+					scene = 4;
 					game.partMan.reset();
 					game.entMan.reset();
 				}
@@ -259,7 +265,7 @@ public class TutorialScreen{
 					step = 1;
 					stage.addActor(background);
 					background.setAnimateOpacity(0f);
-					scene = 4;
+					scene = 5;
 					game.partMan.reset();
 					game.entMan.reset();
 				}
@@ -267,10 +273,216 @@ public class TutorialScreen{
 			case 4:
 				if(step == 1 && background.getOpacity()<=0f){
 					stage.clear();
-
+					stage.addActor(texts[0]);
+					texts[0].setText("You also have a health bar");
+					texts[0].setOpacity(0f);
+					texts[0].setAnimateOpacity(1f);
+					texts[0].setPosition(WIDTH/2-texts[0].getWidth()/2,game.hudMan.lifeBar.getY()+game.hudMan.lifeBar.getHeight()+texts[0].getHeight()*1.2f);
+					step++;
+					timer = 2.7f;
+				}else if(step == 2 && timer <= 0){
+					pause = false;
+					stage.addActor(texts[1]);
+					texts[1].setText("As time passes, your");
+					texts[1].setOpacity(0f);
+					texts[1].setAnimateOpacity(1f);
+					texts[1].setPosition(WIDTH/2-texts[1].getWidth()/2,HEIGHT*.85f+texts[0].getHeight()/2);
+					stage.addActor(texts[2]);
+					texts[2].setText("health will deplete");
+					texts[2].setOpacity(0f);
+					texts[2].setAnimateOpacity(1f);
+					texts[2].setPosition(WIDTH/2-texts[2].getWidth()/2,HEIGHT*.79f+texts[2].getHeight()/2);
+					Enemy enemy = new LightBall(0,0,GameScreen.entMan.world);
+					enemy.randomize();
+					enemy.setPos(-1000,-1000);
+					enemy.getBody().setLinearVelocity(0,0);
+					GameScreen.entMan.enemies.add(enemy);
+					step++;
+					timer = 3f;
+					health = true;
+				}else if(step == 3 && timer <= 0){
+					GameScreen.entMan.enemies.get(0).setPos(GameScreen.entMan.player.getPos().x,MyGame.HEIGHT+GameScreen.entMan.enemies.get(0).getRadius());
+					GameScreen.entMan.enemies.get(0).getBody().setLinearVelocity(0,-GameScreen.entMan.enemies.get(0).getRadius()*3);
+					texts[0].setAnimateOpacity(0f);
+					texts[1].setAnimateOpacity(0f);
+					texts[2].setAnimateOpacity(0f);
+					timer = 2.5f;
+					step++;
+				}else if(step == 4 && timer <= 0){
+					stage.addActor(texts[3]);
+					texts[3].setText("Collect white orbs");
+					texts[3].setOpacity(0f);
+					texts[3].setAnimateOpacity(1f);
+					texts[3].setPosition(WIDTH/2-texts[3].getWidth()/2,HEIGHT*.8f+texts[3].getHeight()/2);
+					stage.addActor(texts[4]);
+					texts[4].setFontSize(fontSize);
+					texts[4].setText("to replenish your health");
+					texts[4].setOpacity(0f);
+					texts[4].setAnimateOpacity(1f);
+					texts[4].setPosition(WIDTH/2-texts[4].getWidth()/2,HEIGHT*.74f+texts[4].getHeight()/2);
+					step++;
+					timer = 10f;
+				}else if(step == 5 && (timer <= 0 || game.entMan.enemies.size() <= 0)){
+					stage.addActor(texts[5]);
+					texts[5].setText("Nice!");
+					texts[5].setOpacity(0f);
+					texts[5].setAnimateOpacity(1f);
+					texts[5].setPosition(WIDTH/2-texts[5].getWidth()/2,HEIGHT*.4f+texts[5].getHeight()/2);
+					step++;
+					timer = 3.5f;
+				}else if(step == 6 && timer <= 0){
+					stage.addActor(background);
+					background.setOpacity(0f);
+					background.setAnimateOpacity(1f);
+					step = 7;
+				}else if(step == 7 && background.getOpacity()>=1f){
+					stage.clear();
+					step = 1;
+					stage.addActor(background);
+					background.setAnimateOpacity(0f);
+					pause = false;
+					health = false;
+					scene = 3;
+					game.partMan.reset();
+					game.entMan.reset();
 				}
 				break;
 			case 5:
+				if(step == 1 && background.getOpacity()<=0f){
+					stage.clear();
+					stage.addActor(texts[0]);
+					texts[0].setText("There are several abilities");
+					texts[0].setOpacity(0f);
+					texts[0].setAnimateOpacity(1f);
+					texts[0].setPosition(WIDTH/2-texts[0].getWidth()/2,HEIGHT*.8f+texts[0].getHeight()/2);
+					stage.addActor(texts[1]);
+					texts[1].setText("you can buy!");
+					texts[1].setOpacity(0f);
+					texts[1].setAnimateOpacity(1f);
+					texts[1].setPosition(WIDTH/2-texts[1].getWidth()/2,HEIGHT*.74f+texts[1].getHeight()/2);
+					step++;
+					timer = 2.5f;
+				}else if(step == 2 && timer <= 0){
+					stage.addActor(texts[2]);
+					texts[2].setText("You currently have");
+					texts[2].setOpacity(0f);
+					texts[2].setAnimateOpacity(1f);
+					texts[2].setPosition(WIDTH/2-texts[2].getWidth()/2,HEIGHT*.43f+texts[2].getHeight()/2);
+					stage.addActor(texts[3]);
+					texts[3].setFontSize(fontSize);
+					texts[3].setText("the bomb ability");
+					texts[3].setOpacity(0f);
+					texts[3].setAnimateOpacity(1f);
+					texts[3].setPosition(WIDTH/2-texts[3].getWidth()/2,HEIGHT*.37f+texts[3].getHeight()/2);
+					Enemy enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
+					enemy.randomize();
+					enemy.setPos(-1000,-1000);
+					enemy.getBody().setLinearVelocity(0,0);
+					GameScreen.entMan.enemies.add(enemy);
+					enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
+					enemy.randomize();
+					enemy.setPos(-1000,-1000);
+					enemy.getBody().setLinearVelocity(0,0);
+					GameScreen.entMan.enemies.add(enemy);
+					enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
+					enemy.randomize();
+					enemy.setPos(-1000,-1000);
+					enemy.getBody().setLinearVelocity(0,0);
+					GameScreen.entMan.enemies.add(enemy);
+					enemy = new NormalEnemy(0,0,GameScreen.entMan.world);
+					enemy.randomize();
+					enemy.setPos(-1000,-1000);
+					enemy.getBody().setLinearVelocity(0,0);
+					GameScreen.entMan.enemies.add(enemy);
+					step++;
+					timer = 3f;
+				}else if(step == 3 && timer <= 0){
+					texts[0].setAnimateOpacity(0f);
+					texts[1].setAnimateOpacity(0f);
+					texts[2].setAnimateOpacity(0f);
+					texts[3].setAnimateOpacity(0f);
+					Enemy enemy = GameScreen.entMan.enemies.get(0);
+					enemy.setPos(GameScreen.entMan.player.getPos().x,MyGame.HEIGHT+enemy.getRadius());
+					enemy.getBody().setLinearVelocity(0,-enemy.getRadius()*4);
+					enemy = GameScreen.entMan.enemies.get(1);
+					enemy.setPos(GameScreen.entMan.player.getPos().x,-enemy.getRadius());
+					enemy.getBody().setLinearVelocity(0,enemy.getRadius()*4);
+					enemy = GameScreen.entMan.enemies.get(2);
+					enemy.setPos(MyGame.WIDTH+enemy.getRadius(),GameScreen.entMan.player.getPos().y);
+					enemy.getBody().setLinearVelocity(-enemy.getRadius()*2.3f,0);
+					enemy = GameScreen.entMan.enemies.get(3);
+					enemy.setPos(-enemy.getRadius(),GameScreen.entMan.player.getPos().y);
+					enemy.getBody().setLinearVelocity(enemy.getRadius()*2.3f,0);
+					step++;
+					timer = 2f;
+				}else if(step == 4 && timer <= 0){
+					pause = true;
+					texts[0].setText("Oh No!");
+					texts[0].setOpacity(0f);
+					texts[0].setAnimateOpacity(1f);
+					texts[0].setPosition(WIDTH/2-texts[0].getWidth()/2,HEIGHT*.8f+texts[0].getHeight()/2);
+					texts[1].setText("Tap and hold the");
+					texts[1].setOpacity(0f);
+					texts[1].setAnimateOpacity(1f);
+					texts[1].setPosition(WIDTH/2-texts[1].getWidth()/2,HEIGHT*.43f+texts[1].getHeight()/2);
+					texts[2].setText("screen to use your ability!");
+					texts[2].setOpacity(0f);
+					texts[2].setAnimateOpacity(1f);
+					texts[2].setPosition(WIDTH/2-texts[2].getWidth()/2,HEIGHT*.37f+texts[2].getHeight()/2);
+					step++;
+				}else if(step == 5 && !pause){
+					texts[0].setAnimateOpacity(0f);
+					texts[1].setAnimateOpacity(0f);
+					texts[2].setAnimateOpacity(0f);
+					texts[3].setText("Wow!");
+					texts[3].setOpacity(0f);
+					texts[3].setAnimateOpacity(1f);
+					texts[3].setPosition(WIDTH/2-texts[3].getWidth()/2,HEIGHT*.75f+texts[3].getHeight()/2);
+					step++;
+					timer = 3.8f;
+				}else if(step == 6 && timer <= 0){
+					stage.addActor(background);
+					background.setOpacity(0f);
+					background.setAnimateOpacity(1f);
+					step = 7;
+				}else if(step == 7 && background.getOpacity()>=1f){
+					stage.clear();
+					step = 1;
+					stage.addActor(background);
+					pause = false;
+					health = false;
+					scene = 6;
+					game.partMan.reset();
+					game.entMan.reset();
+				}
+				break;
+			case 6:
+				if(step == 1){
+					stage.addActor(texts[0]);
+					texts[0].setFontSize(largeFontSize);
+					texts[0].setText("Now lets play");
+					texts[0].setOpacity(0f);
+					texts[0].setAnimateOpacity(1f);
+					texts[0].setPosition(WIDTH/2-texts[0].getWidth()/2,HEIGHT*.54f+texts[0].getHeight()/2);
+					stage.addActor(texts[1]);
+					texts[1].setFontSize(largeFontSize);
+					texts[1].setText("a real game!");
+					texts[1].setOpacity(0f);
+					texts[1].setAnimateOpacity(1f);
+					texts[1].setPosition(WIDTH/2-texts[1].getWidth()/2,HEIGHT*.46f+texts[1].getHeight()/2);
+					step++;
+					timer = 3.4f;
+				}else if(step == 2 && timer <= 0){
+					texts[0].setAnimateOpacity(0f);
+					texts[1].setAnimateOpacity(0f);
+					background.setAnimateOpacity(0f);
+					step++;
+				}else if(step == 3 && background.getOpacity()<=0){
+					stage.clear();
+					GameScreen.tutorial = false;
+					Save.setTutorial(false);
+					game.restart();
+				}
 				break;
 			default:
 				GameScreen.tutorial = false;
@@ -293,8 +505,15 @@ public class TutorialScreen{
 	}
 
 	public void fling(float velx, float vely){
-		if(scene == 3 && step == 4){
+		if(scene == 3 && step == 4 && pause){
 			game.entMan.player.dashTo(0,100);
+			pause = false;
+		}
+	}
+
+	public void longpress(float x, float y){
+		if(scene == 5 && step == 5 && pause){
+			game.entMan.longPress(x,y);
 			pause = false;
 		}
 	}
