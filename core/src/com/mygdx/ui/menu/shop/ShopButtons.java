@@ -2,6 +2,7 @@ package com.mygdx.ui.menu.shop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.MyGame;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.BackButton;
 import com.mygdx.utils.actors.ActorAnimator;
@@ -177,6 +178,7 @@ public class ShopButtons {
         otherClicked.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
+                MyGame.buyMoney();
                 other.removeTouch();
                 other.lockText(true);
                 cosmetics.lockText(false);

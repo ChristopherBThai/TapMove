@@ -62,7 +62,7 @@ public class MoneyDisplay{
 	}
 
 	public void resetScreen(){
-		MoneyDisplay.setMoneyText(""+Save.getMoney());
+		resetMoneyDisplayAmount();
 		money.setPosition(moneyX + moneyLength + moneyGap,moneyY+moneyLength);
 		moneyImage.setBounds(moneyX,moneyY,moneyLength,moneyLength);
 	}
@@ -74,4 +74,6 @@ public class MoneyDisplay{
 	public static void setMoneyText(String text){
 		money.setText(text);
 	}
+
+	public static void resetMoneyDisplayAmount(){MoneyDisplay.setMoneyText(""+Save.getMoney());}
 }

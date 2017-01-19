@@ -5,21 +5,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.managers.SpriteManager;
+import com.mygdx.handler.BillingHandler;
+import com.mygdx.handler.ReturnBillingHandler;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.ads.AdHandler;
+import com.mygdx.handler.AdHandler;
+import com.mygdx.ui.menu.MoneyDisplay;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.camera.OrthoCamera;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.ScreenManager;
-import com.mygdx.managers.SoundManager;
 
-public class MyGame extends ApplicationAdapter {
+public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	public static boolean DEBUG = false;
 	
-	private static AdHandler handler;
-	boolean toggle;
+	private static AdHandler adHandler;
+	private static BillingHandler billingHandler;
 	
 	public static int WIDTH,HEIGHT;
 	
@@ -31,12 +32,13 @@ public class MyGame extends ApplicationAdapter {
 	public static MenuScreen menuScreen;
 	public static GameScreen gameScreen;
 	
-	public MyGame(AdHandler handler){
-		this.handler = handler;
+	public MyGame(AdHandler handler1,BillingHandler handler2){
+		this.adHandler = handler1;
+		this.billingHandler = handler2;
 	}
 	
 	public MyGame(){
-		this.handler = null;
+		this.adHandler = null;
 	}
 	
 	@Override
@@ -121,12 +123,37 @@ public class MyGame extends ApplicationAdapter {
 	}
 	
 	public static void showAd(){
-		if(handler!=null&&Save.adsEnabled())
-			handler.showAds(true);
+		if(adHandler!=null&&Save.adsEnabled())
+			adHandler.showAds(true);
 	}
 	
 	public static void hideAd(){
-		if(handler!=null)
-			handler.showAds(false);
+		if(adHandler!=null)
+			adHandler.showAds(false);
+	}
+
+	public static void buyAds(){
+		if(billingHandler!=null)
+			billingHandler.buyAds();
+	}
+
+
+
+	public static void buyMoney(){
+		if(billingHandler!=null)
+			billingHandler.buyMoney();
+	}
+
+	@Override
+	public void returnBuyAds(boolean bought){
+		Save.setAds(!bought);
+		if(bought)
+			this.hideAd();
+	}
+
+	@Override
+	public void returnBuyMoney(){
+		Save.addMoney(1000);
+		MoneyDisplay.resetMoneyDisplayAmount();
 	}
 }

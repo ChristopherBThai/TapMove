@@ -68,6 +68,10 @@ public class Save {
         return ads;
     }
 
+    public static void setAds(boolean ads){
+        Save.ads = ads;
+    }
+
     public static boolean isTutorial(){
         return tutorial;
     }
