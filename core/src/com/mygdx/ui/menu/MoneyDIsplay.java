@@ -75,5 +75,8 @@ public class MoneyDisplay{
 		money.setText(text);
 	}
 
-	public static void resetMoneyDisplayAmount(){MoneyDisplay.setMoneyText(""+Save.getMoney());}
+	public static void resetMoneyDisplayAmount(){
+		if(money!=null)
+			MoneyDisplay.setMoneyText(""+Save.getMoney());
+	}
 }

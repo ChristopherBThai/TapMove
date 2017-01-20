@@ -286,6 +286,12 @@ public class BoxButton extends AnimatableActor {
     }
 
     @Override
+    public void animateToVisible(){
+        super.animateToVisible();
+        setAnimateInsideOpacity(1f);
+    }
+
+    @Override
     public void setBuffers(float x, float y){
         if(text!=null)
             text.setBuffers(x,y);

@@ -73,9 +73,6 @@ public class OptionsButtons {
     }
 
     public void setActions(){
-
-
-
         tutorialClicked = new ActorAnimator();
         tutorialClicked.addCommand(new ActorAnimator.ActionCommand(){
             @Override

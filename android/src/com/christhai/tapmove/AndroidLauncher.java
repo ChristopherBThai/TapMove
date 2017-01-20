@@ -1,5 +1,6 @@
 package com.christhai.tapmove;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,8 +49,10 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 					break;
 				case BUY_ADS:
 					purchaseAds();
+					returnPurchaseAdsRequest(true);
 					break;
 				case BUY_MONEY:
+					returnPurchaseMoneyRequest();
 					purchaseMoney();
 					break;
 			}
@@ -96,7 +99,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 		//-----------------------------------------------BILLING---------------------------------//
 		//-----------Establish mHelper------------------------//
 
-		String base64EncodedPublicKey = "";
+		String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnkHkSu1Y6NSgk9SHEkg/X6Gt6B/d4msRSX3iEKL+28ickjceVaqdJhg0dgVkyQRhXp+FP/jXbcyePyzFYhHumJV+75Js5QsWEfxwz2ChePW9kTy2vSCs/qt5CNut6mzgdDW50g9d4GI339a28MBXWOK5Y63Exbq278VS6bPHs6Z92dIoTL77NpyiPjN1R6OqyyjlL4t+1I/zugH7v57HvgICkrlzUjKKszkv/k46w43EMPR7W+kcho0wOME3NFDOGwQY7dWDRGYDlHCbrYrnT0w0hbEfKLD0oU3rK82kVMBIK6zHx9FKbUfbohxOYoFrQ4pyz+LeEtPVNLybaayrKQIDAQAB";
 		//Creates an instance
 		mHelper = new IabHelper(this,base64EncodedPublicKey);
 		mHelper.enableDebugLogging(true);
@@ -104,14 +107,14 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 			public void onIabSetupFinished(IabResult result) {
 				if (!result.isSuccess())
-					Gdx.app.log("taplog", "Problem setting up In-app Billing: " + result);
+					error("Problem setting up In-app Billing: " + result);
 				if(mHelper==null)
 					return;
 
 				try {
 					mHelper.queryInventoryAsync(mQueryFinishedListener);
 				} catch (IabHelper.IabAsyncInProgressException e) {
-					Gdx.app.log("taplog","Error querying inventory. Another async operation in progress.");
+					error("Error querying inventory. Another async operation in progress.");
 				}
 			}
 		});
@@ -123,11 +126,13 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
 			new IabHelper.OnConsumeFinishedListener() {
 				public void onConsumeFinished(Purchase purchase, IabResult result) {
+					log("Consuming...");
 					if (result.isSuccess()) {
+						log("Consuming success!");
 						returnPurchaseMoneyRequest();
 					}
 					else {
-						Gdx.app.log("taplog","Could not consume purchase.");
+						error("Error Consuming: "+result);
 					}
 				}
 			};
@@ -138,7 +143,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 		public void onQueryInventoryFinished(IabResult result, Inventory inventory)
 		{
 			if (result.isFailure()) {
-				Gdx.app.log("taplog", "Could not get Google Play Billing stuff");
+				error("Error"+result);
 			}else {
 				returnPurchaseAdsRequest(inventory.hasPurchase(SKU_ADS));
 
@@ -147,7 +152,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 					try {
 						mHelper.consumeAsync(inventory.getPurchase(SKU_MONEY), mConsumeFinishedListener);
 					} catch (IabHelper.IabAsyncInProgressException e) {
-						Gdx.app.log("taplog","Error consuming gas. Another async operation in progress.");
+						error("Error purchasing. Another async operation in progress.");
 					}
 					return;
 				}
@@ -162,44 +167,67 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
 		public void onIabPurchaseFinished(IabResult result, Purchase purchase)
 		{
-			if (result.isFailure()) {
-				Gdx.app.log("taplog", "Error purchasing: " + result);
+			if (result.isFailure()||purchase==null||mHelper==null) {
+				error("Error purchasing: "+result);
 				return;
 			}else if (purchase.getSku().equals(SKU_MONEY)) {
+				log("Purchasing money...");
 				try {
 					mHelper.consumeAsync(purchase,mConsumeFinishedListener);
 				} catch (IabHelper.IabAsyncInProgressException e) {
-					Gdx.app.log("taplog","Error consuming gas. Another async operation in progress.");
+					error("Error purchasing. Another async operation in progress.");
 					return;
 				}
 			}else if (purchase.getSku().equals(SKU_ADS)) {
+				log("Purchasing Ads...");
 				returnPurchaseAdsRequest(true);
 			}
 		}
 	};
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		log( "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+		if (mHelper == null) return;
+
+		// Pass on the activity result to the helper for handling
+		if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+			// not handled, so handle it ourselves (here's where you'd
+			// perform any handling of activity results not related to in-app
+			// billing...
+			super.onActivityResult(requestCode, resultCode, data);
+		}
+		else {
+			log( "onActivityResult handled by IABUtil.");
+		}
+	}
+
 
 	private void purchaseMoney(){
+		log("Launching purchase flow...");
 		try{
 			mHelper.launchPurchaseFlow(this, SKU_MONEY, 92602, mPurchaseFinishedListener, "ThisIsAPurchaseRequestFromTapMove!");
-		}catch(Exception e){
-			Gdx.app.log("taplog","Could not send purchase request");
+		}catch(IabHelper.IabAsyncInProgressException e){
+			error("Error launching purchase flow. Another async operation in progress.");
 		}
 	}
 
 	private void purchaseAds(){
+		log("Launching purchase flow...");
 		try{
 			mHelper.launchPurchaseFlow(this, SKU_ADS, 92602, mPurchaseFinishedListener, "ThisIsAPurchaseRequestFromTapMove");
-		}catch(Exception e){
-			Gdx.app.log("taplog","Could not send purchase request");
+		}catch(IabHelper.IabAsyncInProgressException e){
+			error("Error launching purchase flow. Another async operation in progress.");
 		}
 	}
 
 	private void returnPurchaseMoneyRequest(){
+		log("Success! Adding funds!");
 		returnBillingHandler.returnBuyMoney();
 	}
 
 	private void returnPurchaseAdsRequest(boolean bought){
+		log("Success! Removing Ads!");
 		returnBillingHandler.returnBuyAds(bought);
 	}
 
@@ -210,7 +238,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 			try{
 				mHelper.dispose();
 			}catch(Exception e){
-				Gdx.app.log("taplog","Could not destroy mHelper");
+				error("Could not destroy mHelper");
 			}
 		}
 		mHelper = null;
@@ -229,5 +257,13 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	@Override
 	public void buyAds(){
 		handler.sendEmptyMessage(BUY_ADS);
+	}
+
+	private void log(String text){
+		Gdx.app.log("TapMove",text);
+	}
+
+	private void error(String text){
+		Gdx.app.error("TapMove",text);
 	}
 }

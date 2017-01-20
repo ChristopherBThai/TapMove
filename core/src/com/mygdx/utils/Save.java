@@ -85,7 +85,6 @@ public class Save {
         if(!Gdx.files.local("save.json").exists()) {
             classicHighScore = 0;
             darkHighScore = 0;
-            money = 0;
             ads = true;
             tutorial = true;
             AbilityList.EXPLOSION.setEquipped(AbilityList.EXPLOSION.getCurrent());
@@ -181,7 +180,7 @@ public class Save {
         private void load(){
             Save.classicHighScore = classic;
             Save.darkHighScore = dark;
-            Save.money = money;
+            Save.money += money;
             Save.ads = ads;
             Save.tutorial = tutorial;
             MoneyDisplay.setMoneyText(""+money);
