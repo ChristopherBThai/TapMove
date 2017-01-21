@@ -1,4 +1,4 @@
-package com.mygdx.ui.menu;
+package com.mygdx.ui.menu.extra.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;

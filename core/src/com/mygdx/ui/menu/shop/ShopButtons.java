@@ -3,7 +3,7 @@ package com.mygdx.ui.menu.shop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.ui.menu.BackButton;
+import com.mygdx.ui.menu.extra.actors.BackButton;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
 
@@ -92,7 +92,7 @@ public class ShopButtons {
         other.setText("Other");
         other.setTextScale(.8f);
 
-        back = new com.mygdx.ui.menu.BackButton(){
+        back = new BackButton(){
             @Override
             public void back(){
                 stage.clear();

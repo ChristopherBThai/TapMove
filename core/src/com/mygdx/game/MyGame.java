@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.handler.BillingHandler;
+import com.mygdx.handler.GooglePlayHandler;
 import com.mygdx.handler.ReturnBillingHandler;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.handler.AdHandler;
-import com.mygdx.ui.menu.MoneyDisplay;
+import com.mygdx.ui.menu.extra.actors.MoneyDisplay;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.camera.OrthoCamera;
 import com.mygdx.managers.ColorManager;
@@ -21,6 +22,7 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	
 	private static AdHandler adHandler;
 	private static BillingHandler billingHandler;
+	private static GooglePlayHandler googlePlayHandler;
 	
 	public static int WIDTH,HEIGHT;
 	
@@ -32,9 +34,10 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	public static MenuScreen menuScreen;
 	public static GameScreen gameScreen;
 	
-	public MyGame(AdHandler handler1,BillingHandler handler2){
+	public MyGame(AdHandler handler1,BillingHandler handler2,GooglePlayHandler handler3){
 		this.adHandler = handler1;
 		this.billingHandler = handler2;
+		this.googlePlayHandler = handler3;
 	}
 	
 	public MyGame(){
@@ -147,7 +150,7 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	@Override
 	public void returnBuyAds(boolean bought){
 		Save.setAds(!bought);
-		if(bought)
+		if(bought&&!Save.adsEnabled())
 			this.hideAd();
 	}
 
@@ -155,5 +158,13 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	public void returnBuyMoney(){
 		Save.addMoney(1000);
 		MoneyDisplay.resetMoneyDisplayAmount();
+	}
+
+	public static void signIn(){
+		googlePlayHandler.signIn();
+	}
+
+	public static void signOut(){
+		googlePlayHandler.signOut();
 	}
 }

@@ -1,9 +1,13 @@
 package com.christhai.tapmove;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.multidex.MultiDex;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,19 +16,25 @@ import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.christhai.tapmove.basegameutil.BaseGameUtils;
 import com.christhai.tapmove.util.IabHelper;
 import com.christhai.tapmove.util.IabResult;
 import com.christhai.tapmove.util.Inventory;
 import com.christhai.tapmove.util.Purchase;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 import com.mygdx.game.MyGame;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.mygdx.handler.AdHandler;
 import com.mygdx.handler.BillingHandler;
+import com.mygdx.handler.GooglePlayHandler;
 import com.mygdx.handler.ReturnBillingHandler;
+import com.mygdx.ui.menu.extra.actors.SignInButton;
 
-public class AndroidLauncher extends AndroidApplication implements AdHandler,BillingHandler{
+public class AndroidLauncher extends AndroidApplication implements AdHandler,BillingHandler,GooglePlayHandler, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
 	private final int SHOW_ADS = 1;
 	private final int HIDE_ADS = 0;
@@ -36,6 +46,14 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	private final String SKU_ADS = "com.christhai.tapmove.ads";
 	private final String SKU_MONEY = "com.christhai.tapmove.money.1000";
 	ReturnBillingHandler returnBillingHandler;
+
+	private final int SIGN_IN = 4;
+	private final int SIGN_OUT = 5;
+	private static int RC_SIGN_IN = 9001;
+	private GoogleApiClient mGoogleApiClient;
+	private boolean mResolvingConnectionFailure = false;
+	private boolean mSignInClicked = false;
+	private boolean mAutoStartSignInFlow = true;
 
 	Handler handler = new Handler(){
 		@Override
@@ -49,11 +67,19 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 					break;
 				case BUY_ADS:
 					purchaseAds();
-					returnPurchaseAdsRequest(true);
 					break;
 				case BUY_MONEY:
-					returnPurchaseMoneyRequest();
 					purchaseMoney();
+					break;
+				case SIGN_IN:
+					mSignInClicked = true;
+					mGoogleApiClient.connect();
+					break;
+				case SIGN_OUT:
+					mSignInClicked = false;
+					Games.signOut(mGoogleApiClient);
+					mGoogleApiClient.disconnect();
+					signedOut();
 					break;
 			}
 		}
@@ -67,6 +93,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 
 		RelativeLayout layout = new RelativeLayout(this);
 
+
 		//--------------------------------------------------ADS---------------------------------//
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -74,7 +101,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-		MyGame game = new MyGame(this,this);
+		MyGame game = new MyGame(this,this,this);
 		View gameView = initializeForView(game, config);
 		returnBillingHandler = game;
 
@@ -92,6 +119,14 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 		adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
 		layout.addView(adView, adParams);
+
+		//---------------------------------------------Google Play Game Services -----------------------//
+
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this)
+				.addApi(Games.API).addScope(Games.SCOPE_GAMES)
+				.build();
 
 		// Hook it all up
 		setContentView(layout);
@@ -145,7 +180,8 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 			if (result.isFailure()) {
 				error("Error"+result);
 			}else {
-				returnPurchaseAdsRequest(inventory.hasPurchase(SKU_ADS));
+				if(inventory.hasPurchase(SKU_ADS))
+					returnPurchaseAdsRequest(true);
 
 				Purchase purchase = inventory.getPurchase(SKU_MONEY);
 				if (purchase != null) {
@@ -189,6 +225,19 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		log( "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 		if (mHelper == null) return;
+
+		if(requestCode == RC_SIGN_IN){
+			log("onActivityResult with requestCode == RC_SIGN_IN, responseCode="
+					+ resultCode + ", intent=" + data);
+			mSignInClicked = false;
+			mResolvingConnectionFailure = false;
+			if (resultCode == RESULT_OK) {
+				mGoogleApiClient.connect();
+			} else {
+				error("OnActivityResult GPGS error");
+				BaseGameUtils.showActivityResultError(this,requestCode,resultCode, 0);
+			}
+		}
 
 		// Pass on the activity result to the helper for handling
 		if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
@@ -265,5 +314,75 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 
 	private void error(String text){
 		Gdx.app.error("TapMove",text);
+	}
+
+	@Override
+	public void signIn(){
+		log("Sign in button clicked!");
+		handler.sendEmptyMessage(SIGN_IN);
+	}
+
+	@Override
+	public void signOut(){
+		log("Sign out button clicked!");
+		handler.sendEmptyMessage(SIGN_OUT);
+	}
+
+	@Override
+	public void onConnected(@Nullable Bundle bundle){
+		log("Sign in successful!");
+		signedIn();
+	}
+
+	@Override
+	public void onConnectionSuspended(int i){
+		log("Trying to reconnect.");
+		mGoogleApiClient.connect();
+	}
+
+	@Override
+	public void onConnectionFailed(@NonNull ConnectionResult connectionResult){
+		error("Connection failed: "+connectionResult);
+
+		if(mResolvingConnectionFailure){
+			log("Ignoring connection failure. Already resolving.");
+			return;
+		}
+
+		if(mSignInClicked || mAutoStartSignInFlow){
+			mAutoStartSignInFlow = false;
+			mSignInClicked = false;
+			mResolvingConnectionFailure = BaseGameUtils.resolveConnectionFailure(this,mGoogleApiClient,connectionResult,RC_SIGN_IN,"Sign in other error");
+		}
+	}
+
+	@Override
+	protected void onStart(){
+		super.onStart();
+		log("Connecting to GPGS");
+		mGoogleApiClient.connect();
+	}
+
+	@Override
+	protected void onStop(){
+		super.onStop();
+		if(mGoogleApiClient.isConnected()){
+			log("Disconnecting from GPGS");
+			mGoogleApiClient.disconnect();
+		}
+	}
+
+	private void signedIn(){
+		SignInButton.signedIn();
+	}
+
+	private void signedOut(){
+		SignInButton.signedOut();
+	}
+
+	@Override
+	protected void attachBaseContext(Context base){
+		super.attachBaseContext(base);
+		MultiDex.install(this);
 	}
 }

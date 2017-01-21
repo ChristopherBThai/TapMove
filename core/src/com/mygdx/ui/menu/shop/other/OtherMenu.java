@@ -1,12 +1,11 @@
 package com.mygdx.ui.menu.shop.other;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGame;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.ui.menu.BackButton;
-import com.mygdx.ui.menu.MoneyDisplay;
+import com.mygdx.ui.menu.extra.actors.BackButton;
+import com.mygdx.ui.menu.extra.actors.MoneyDisplay;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
@@ -63,7 +62,7 @@ public class OtherMenu {
     }
 
     public void setActors(){
-        back = new com.mygdx.ui.menu.BackButton(){
+        back = new BackButton(){
             @Override
             public void back(){
                 stage.clear();

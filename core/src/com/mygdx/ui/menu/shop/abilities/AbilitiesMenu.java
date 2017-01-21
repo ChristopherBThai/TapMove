@@ -1,13 +1,11 @@
 package com.mygdx.ui.menu.shop.abilities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.ui.menu.BackButton;
-import com.mygdx.ui.menu.MoneyDisplay;
-import com.mygdx.ui.menu.shop.ShopItems.ShopList;
+import com.mygdx.ui.menu.extra.actors.BackButton;
+import com.mygdx.ui.menu.extra.actors.MoneyDisplay;
 import com.mygdx.ui.menu.shop.ShopItems.YesNoButton;
 import com.mygdx.utils.actors.Text;
 
@@ -49,7 +47,7 @@ public class AbilitiesMenu {
     }
 
     public void setActors(){
-        back = new com.mygdx.ui.menu.BackButton(){
+        back = new BackButton(){
             @Override
             public void back(){
                 stage.clear();

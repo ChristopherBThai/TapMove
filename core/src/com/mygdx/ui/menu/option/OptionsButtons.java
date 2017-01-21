@@ -2,11 +2,8 @@ package com.mygdx.ui.menu.option;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.MyGame;
-import com.mygdx.managers.ScreenManager;
-import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
-import com.mygdx.ui.menu.BackButton;
+import com.mygdx.ui.menu.extra.actors.BackButton;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
@@ -54,7 +51,7 @@ public class OptionsButtons {
     }
 
     public void setActors(){
-        back = new com.mygdx.ui.menu.BackButton(){
+        back = new BackButton(){
             @Override
             public void back(){
                 stage.clear();

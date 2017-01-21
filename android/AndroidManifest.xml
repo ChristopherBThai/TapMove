@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.christhai.tapmove"
-    android:versionCode="6"
-    android:versionName="1.0.2.3" >
+    android:versionCode="8"
+    android:versionName="1.0.3.1" >
 
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="23" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,6 +18,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data android:name="com.google.android.gms.games.APP_ID"
+                   android:value="@string/app_id" />
 
         <activity
             android:name="com.christhai.tapmove.AndroidLauncher"

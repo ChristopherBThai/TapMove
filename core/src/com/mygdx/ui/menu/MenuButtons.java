@@ -3,8 +3,8 @@ package com.mygdx.ui.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.extra.actors.SignInButton;
 import com.mygdx.utils.MathUtility;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
@@ -19,13 +19,14 @@ public class MenuButtons {
     private static Image title;
     private static float titleWidth,titleHeight,titleX,titleY;
 
+    private static SignInButton signInButton;
     private static BoxButton play,store,options;
-    private static float width, height;
+    private static float width, height, gap;
     private static float playX,storeX,optionsX;
     private static float playY,storeY,optionsY;
     private static ActorAnimator playClicked,storeClicked,optionsClicked;
 
-    public static MoneyDisplay money;
+    public static com.mygdx.ui.menu.extra.actors.MoneyDisplay money;
 
     public MenuButtons(MenuScreen screen){
         this.screen = screen;
@@ -69,18 +70,21 @@ public class MenuButtons {
         title.setSize(titleWidth,titleHeight);
         title.setPosition(titleX,titleY);
 
-        money = new MoneyDisplay();
+        money = new com.mygdx.ui.menu.extra.actors.MoneyDisplay();
+
+        signInButton = new SignInButton(playX,optionsY-height-gap,width,height,gap);
     }
 
     private void setBounds(){
         width = Gdx.graphics.getWidth()*.47f;
         height = Gdx.graphics.getHeight()*.08f;
+        gap = height*.3f;
         playX = Gdx.graphics.getWidth()*.5f-width*.5f;
-        playY = Gdx.graphics.getHeight()*.35f;
+        playY = Gdx.graphics.getHeight()*.48f;
         storeX = playX;
-        storeY = playY-height*1.3f;
+        storeY = playY-height-gap;
         optionsX = storeX;
-        optionsY = storeY-height*1.3f;
+        optionsY = storeY-height-gap;
         titleWidth = MathUtility.getSpriteWidth(SpriteManager.TITLE.getSprite(),.18f);
         titleHeight = MathUtility.getSpriteHeight(.18f);
         titleX = Gdx.app.getGraphics().getWidth()/2f-titleWidth/2f;
@@ -101,6 +105,7 @@ public class MenuButtons {
                 options.moveTo(options.getX(),-store.getHeight(),width,height,.1f);
                 title.moveTo(title.getX(),Gdx.graphics.getHeight()+title.getHeight(),.1f);
                 money.moveToHide();
+                signInButton.moveToHide();
 
             }
         });
@@ -116,6 +121,7 @@ public class MenuButtons {
                 store.moveTo(storeX,storeY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
                 money.moveToReset();
+                signInButton.moveToReset();
             }
         });
         playClicked.animateTo(playX,playY,width,height,.1f);
@@ -133,6 +139,7 @@ public class MenuButtons {
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 options.moveTo(options.getX(),-options.getHeight(),width,height,.1f);
                 money.moveToHide();
+                signInButton.moveToHide();
             }
         });
         storeClicked.animateTo(-store.getThickness()*1.2f,-store.getThickness()*1.2f,Gdx.graphics.getWidth()+store.getThickness()*1.2f,Gdx.graphics.getHeight()+store.getThickness()*1.2f,.1f);
@@ -147,6 +154,7 @@ public class MenuButtons {
                 options.moveTo(optionsX,optionsY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
                 money.moveToReset();
+                signInButton.moveToReset();
             }
         });
         storeClicked.animateTo(storeX,storeY,width,height,.1f);
@@ -164,6 +172,7 @@ public class MenuButtons {
                 play.moveTo(play.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 store.moveTo(options.getX(),Gdx.graphics.getHeight(),width,height,.1f);
                 money.moveToHide();
+                signInButton.moveToHide();
             }
         });
         optionsClicked.animateTo(-store.getThickness()*1.2f,-store.getThickness()*1.2f,Gdx.graphics.getWidth()+store.getThickness()*1.2f,Gdx.graphics.getHeight()+store.getThickness()*1.2f,.1f);
@@ -178,6 +187,7 @@ public class MenuButtons {
                 store.moveTo(storeX,storeY,width,height,.1f);
                 title.moveTo(titleX,titleY,.1f);
                 money.moveToReset();
+                signInButton.moveToReset();
             }
         });
         optionsClicked.animateTo(optionsX,optionsY,width,height,.1f);
@@ -189,6 +199,7 @@ public class MenuButtons {
         stage.addActor(store);
         stage.addActor(options);
         money.addToStage(stage);
+        signInButton.addActor(stage);
     }
 
     public void resetScreen(){
@@ -210,6 +221,7 @@ public class MenuButtons {
         options.addTouch();
 
         money.resetScreen();
+        signInButton.resetScreen();
 
         this.set();
     }
@@ -219,5 +231,6 @@ public class MenuButtons {
         store.dispose();
         options.dispose();
         money.dispose();
+        signInButton.dispose();
     }
 }
