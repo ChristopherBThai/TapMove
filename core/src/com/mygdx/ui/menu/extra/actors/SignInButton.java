@@ -66,20 +66,20 @@ public class SignInButton{
 					prevSignedInState = signedIn;
 					if(signedIn){
 						signInOut.setText("Sign out");
-						achievement.setAnimateOpacity(.3f);
-						achievement.setAnimateInsideOpacity(.3f);
-						leaderboard.setAnimateOpacity(.3f);
-						leaderboard.setAnimateInsideOpacity(.3f);
-						achievement.removeTouch();
-						leaderboard.removeTouch();
+						achievement.setAnimateOpacity(1f);
+						achievement.setAnimateInsideOpacity(1f);
+						leaderboard.setAnimateOpacity(1f);
+						leaderboard.setAnimateInsideOpacity(1f);
+						achievement.addTouch();
+						leaderboard.addTouch();
 					}else{
 						signInOut.setText("Sign In");
 						achievement.setAnimateOpacity(.3f);
 						achievement.setAnimateInsideOpacity(.3f);
 						leaderboard.setAnimateOpacity(.3f);
 						leaderboard.setAnimateInsideOpacity(.3f);
-						achievement.addTouch();
-						leaderboard.addTouch();
+						achievement.removeTouch();
+						leaderboard.removeTouch();
 					}
 				}
 			}
@@ -91,7 +91,7 @@ public class SignInButton{
 		achievement = new BoxButton(){
 			@Override
 			public void justTouched(){
-				//OPEN ACHIEVEMENTS
+				MyGame.getGooglePlayHandler().displayAchievements();
 			}
 			@Override
 			public void act(float delta){

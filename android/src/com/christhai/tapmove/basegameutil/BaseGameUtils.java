@@ -103,11 +103,11 @@ public class BaseGameUtils {
 					// get fallback dialog
 					Log.e("BaseGamesUtils",
 							"No standard error dialog available. Making fallback dialog.");
-					errorDialog = makeSimpleDialog(activity, activity.getString(errorDescription));
+					//errorDialog = makeSimpleDialog(activity, activity.getString(errorDescription));
 				}
 		}
-
-		errorDialog.show();
+		if(errorDialog!=null)
+			errorDialog.show();
 	}
 	public static Dialog makeSimpleDialog(Activity activity, String text) {
 		return (new AlertDialog.Builder(activity)).setMessage(text)

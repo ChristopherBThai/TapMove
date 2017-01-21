@@ -19,8 +19,8 @@ import java.util.ArrayList;
  */
 public class Save {
     private static float classicHighScore,darkHighScore;
-    private static int money;
-    private static boolean ads = true,tutorial = true;
+    private static int money,uMoney = -1;
+    private static boolean ads = true,tutorial = true,loaded = false;
 
     public static boolean setHighScore(float score){
         if(GameScreen.currentMode==GameScreen.DARK){
@@ -43,6 +43,14 @@ public class Save {
     public static int addMoney(int amount){
         money += amount;
         return money;
+    }
+
+    public static void addPurchasedMoney(int amount){
+        if(loaded){
+            money += amount;
+        }else{
+            uMoney += amount;
+        }
     }
 
     public static boolean take(int amount){
@@ -105,6 +113,7 @@ public class Save {
                 ((ShopValues) saveObjects.get(4)).load(AbilityList.values());
 
         }
+        loaded = true;
     }
 
     public static void save(){
@@ -116,6 +125,7 @@ public class Save {
         saveObjects.add(new ShopValues(DesignList.values()));
         saveObjects.add(new ShopValues(ParticleList.values()));
         saveObjects.add(new ShopValues(AbilityList.values()));
+
 
         String saveText = save.prettyPrint(save.toJson(saveObjects));
         //Gdx.app.log("Tap",saveText);
@@ -180,9 +190,13 @@ public class Save {
         private void load(){
             Save.classicHighScore = classic;
             Save.darkHighScore = dark;
-            Save.money += money;
+            Save.money = money;
             Save.ads = ads;
             Save.tutorial = tutorial;
+            if(uMoney>0){
+                Save.money += uMoney;
+                uMoney = -1;
+            }
             MoneyDisplay.setMoneyText(""+money);
         }
     }

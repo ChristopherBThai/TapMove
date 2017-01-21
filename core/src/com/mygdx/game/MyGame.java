@@ -156,8 +156,12 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 
 	@Override
 	public void returnBuyMoney(){
-		Save.addMoney(1000);
+		Save.addPurchasedMoney(1000);
 		MoneyDisplay.resetMoneyDisplayAmount();
+	}
+
+	public static GooglePlayHandler getGooglePlayHandler(){
+		return googlePlayHandler;
 	}
 
 	public static void signIn(){

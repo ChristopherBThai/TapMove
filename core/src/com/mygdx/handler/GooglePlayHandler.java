@@ -7,4 +7,7 @@ package com.mygdx.handler;
 public interface GooglePlayHandler{
 	public void signIn();
 	public void signOut();
+	public void achieve(String id);
+	public void incAchieve(String id, int amount);
+	public void displayAchievements();
 }

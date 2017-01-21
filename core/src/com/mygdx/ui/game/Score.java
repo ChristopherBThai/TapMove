@@ -4,6 +4,7 @@ package com.mygdx.ui.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.services.Achievements;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.Text;
 
@@ -53,6 +54,13 @@ public class Score {
                 mode.setPosition(Gdx.graphics.getWidth()/2f-mode.getWidth()/2f,finalScore.getY()+mode.getHeight()*1.5f);
                 highScore.setPosition(Gdx.graphics.getWidth()/2f-highScore.getWidth()/2f, finalScore.getY()-((highScore.getHeight())*1.1f)-finalScore.getHeight());
                 showScore = true;
+                if(scoreCount>=10000)
+                    Achievements.TEN_K_SCORE.achieve();
+                if(scoreCount>=5000)
+                    Achievements.FIVE_K_SCORE.achieve();
+                if(scoreCount>=1000)
+                    Achievements.ONE_K_SCORE.achieve();
+
             }
         }
     }

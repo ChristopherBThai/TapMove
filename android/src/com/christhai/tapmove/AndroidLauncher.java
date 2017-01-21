@@ -50,6 +50,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	private final int SIGN_IN = 4;
 	private final int SIGN_OUT = 5;
 	private static int RC_SIGN_IN = 9001;
+	private static int REQUEST_ACHIEVEMENTS = 9002;
 	private GoogleApiClient mGoogleApiClient;
 	private boolean mResolvingConnectionFailure = false;
 	private boolean mSignInClicked = false;
@@ -121,6 +122,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 		layout.addView(adView, adParams);
 
 		//---------------------------------------------Google Play Game Services -----------------------//
+
 
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
 				.addConnectionCallbacks(this)
@@ -384,5 +386,28 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	protected void attachBaseContext(Context base){
 		super.attachBaseContext(base);
 		MultiDex.install(this);
+	}
+
+	@Override
+	public void achieve(String id){
+		if(mGoogleApiClient!=null&&mGoogleApiClient.isConnected()){
+			Games.Achievements.unlock(mGoogleApiClient,id);
+		}else{
+			log("Achievement not earned (id: "+id+")");
+		}
+	}
+
+	@Override
+	public void incAchieve(String id, int amount){
+		if(mGoogleApiClient!=null&&mGoogleApiClient.isConnected()){
+			Games.Achievements.increment(mGoogleApiClient,id,amount);
+		}else{
+			log("Achievement not incremented (id: "+id+")");
+		}
+	}
+
+	@Override
+	public void displayAchievements(){
+		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),REQUEST_ACHIEVEMENTS);
 	}
 }
