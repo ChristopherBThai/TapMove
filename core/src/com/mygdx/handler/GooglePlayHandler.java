@@ -10,4 +10,6 @@ public interface GooglePlayHandler{
 	public void achieve(String id);
 	public void incAchieve(String id, int amount);
 	public void displayAchievements();
+	public void submitLeaderboard(String id,long score);
+	public void displayLeaderboards();
 }

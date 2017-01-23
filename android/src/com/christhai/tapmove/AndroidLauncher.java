@@ -51,6 +51,7 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	private final int SIGN_OUT = 5;
 	private static int RC_SIGN_IN = 9001;
 	private static int REQUEST_ACHIEVEMENTS = 9002;
+	private static int REQUEST_LEADERBOARD = 9003;
 	private GoogleApiClient mGoogleApiClient;
 	private boolean mResolvingConnectionFailure = false;
 	private boolean mSignInClicked = false;
@@ -409,5 +410,15 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 	@Override
 	public void displayAchievements(){
 		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),REQUEST_ACHIEVEMENTS);
+	}
+
+	@Override
+	public void submitLeaderboard(String id, long score){
+		Games.Leaderboards.submitScore(mGoogleApiClient,id,score);
+	}
+
+	@Override
+	public void displayLeaderboards(){
+		startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), REQUEST_LEADERBOARD);
 	}
 }

@@ -103,7 +103,7 @@ public class SignInButton{
 		leaderboard = new BoxButton(){
 			@Override
 			public void justTouched(){
-				//OPEN LEADERBOARDS
+				MyGame.getGooglePlayHandler().displayLeaderboards();
 			}
 			@Override
 			public void act(float delta){

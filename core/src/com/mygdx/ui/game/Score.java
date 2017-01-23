@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.services.Achievements;
+import com.mygdx.services.Leaderboards;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.Text;
 
@@ -44,22 +45,20 @@ public class Score {
                 stage.addActor(mode);
                 Save.setHighScore(scoreCount);
                 Save.addMoney((int)(scoreCount/10.0));
-                if(GameScreen.currentMode==GameScreen.DARK)
+                if(GameScreen.currentMode==GameScreen.DARK){
                     mode.setText("Dark mode");
-                else
+                    Leaderboards.DARK.submit((long)scoreCount);
+                }else{
                     mode.setText("Classic mode");
+                    Leaderboards.CLASSIC.submit((long)scoreCount);
+                }
                 finalScore.setText("Score: "+(int)scoreCount);
                 highScore.setText("Highscore: "+(int)Save.getHighScore());
                 finalScore.setPosition(Gdx.graphics.getWidth()/2f-finalScore.getWidth()/2f, Gdx.graphics.getHeight()*.75f+finalScore.getHeight()/2f);
                 mode.setPosition(Gdx.graphics.getWidth()/2f-mode.getWidth()/2f,finalScore.getY()+mode.getHeight()*1.5f);
                 highScore.setPosition(Gdx.graphics.getWidth()/2f-highScore.getWidth()/2f, finalScore.getY()-((highScore.getHeight())*1.1f)-finalScore.getHeight());
                 showScore = true;
-                if(scoreCount>=10000)
-                    Achievements.TEN_K_SCORE.achieve();
-                if(scoreCount>=5000)
-                    Achievements.FIVE_K_SCORE.achieve();
-                if(scoreCount>=1000)
-                    Achievements.ONE_K_SCORE.achieve();
+                Achievements.newScore(scoreCount);
 
             }
         }

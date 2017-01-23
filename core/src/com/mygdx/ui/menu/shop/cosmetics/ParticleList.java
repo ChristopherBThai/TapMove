@@ -7,6 +7,7 @@ import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.services.Achievements;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
@@ -43,6 +44,7 @@ public enum ParticleList implements ItemListInterface{
 			@Override
 			public void equipItem(){
 				equip();
+				Achievements.boughtCosmetic(0);
 			}
 
 			@Override

@@ -12,8 +12,9 @@ public enum Achievements{
 	FIRST_GAME("CgkIuOXQ5dkCEAIQAQ",false),
 	TEN_GAMES("CgkIuOXQ5dkCEAIQAg",true),
 	FIFTY_GAMES("CgkIuOXQ5dkCEAIQCQ",true),
+	HUNDRED_GAMES("CgkIuOXQ5dkCEAIQDA",true),
 	FIRST_COSMETIC("CgkIuOXQ5dkCEAIQAw",false),
-	ONE_OF_EACH_COSMETIC("CgkIuOXQ5dkCEAIQBA",false),
+	THREE_COSMETIC("CgkIuOXQ5dkCEAIQBA",false),
 	FIRST_ABILITY("CgkIuOXQ5dkCEAIQBQ",false),
 	ONE_K_SCORE("CgkIuOXQ5dkCEAIQBg",false),
 	FIVE_K_SCORE("CgkIuOXQ5dkCEAIQBw",false),
@@ -30,18 +31,39 @@ public enum Achievements{
 	}
 
 	public void achieve(){
-		if(!inc){
-			handler.achieve(id);
-		}
+		handler.achieve(id);
+
 	}
 
 	public void increment(int amount){
-		if(inc){
-			handler.incAchieve(id,amount);
-		}
+		handler.incAchieve(id,amount);
+
 	}
 
 	public static void displayAchievements(){
 		handler.displayAchievements();
+	}
+
+	public static void newScore(float score){
+		if(score>=1000)
+			Achievements.ONE_K_SCORE.achieve();
+		if(score>=5000)
+			Achievements.FIVE_K_SCORE.achieve();
+		if(score>=10000)
+			Achievements.TEN_K_SCORE.achieve();
+		FIRST_GAME.achieve();
+		TEN_GAMES.increment(1);
+		FIFTY_GAMES.increment(1);
+		HUNDRED_GAMES.increment(1);
+	}
+
+	public static void boughtCosmetic(int catagory){
+		FIRST_COSMETIC.achieve();
+		THREE_COSMETIC.increment(1);
+
+	}
+
+	public static void boughtAbility(){
+		FIRST_ABILITY.achieve();
 	}
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
+import com.mygdx.services.Achievements;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
@@ -50,6 +51,7 @@ public enum ColorList implements ItemListInterface{
 			@Override
 			public void equipItem(){
 				equip();
+				Achievements.boughtCosmetic(1);
 			}
 
 			@Override

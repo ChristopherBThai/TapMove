@@ -16,6 +16,7 @@ import com.mygdx.entities.player.Player;
 import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.GameScreen;
+import com.mygdx.services.Achievements;
 import com.mygdx.ui.menu.shop.ShopItems.ItemListInterface;
 import com.mygdx.ui.menu.shop.ShopItems.ShopItem;
 import com.mygdx.ui.menu.shop.ShopItems.ShopList;
@@ -60,6 +61,7 @@ public enum AbilityList implements ItemListInterface{
 		ShopItem temp = new ShopItem(this){
 			@Override
 			public void equipItem(){
+				Achievements.boughtAbility();
 				equip();
 			}
 
