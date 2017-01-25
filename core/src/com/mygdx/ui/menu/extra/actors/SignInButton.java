@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGame;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.utils.actors.BoxButton;
+import com.mygdx.utils.actors.Image;
 
 /**
  * Created by Christopher Thai on 1/20/2017.
@@ -13,6 +14,7 @@ import com.mygdx.utils.actors.BoxButton;
 public class SignInButton{
 
 	private BoxButton signInOut,achievement,leaderboard;
+	private Image no;
 	private float length,y;
 	private float signX,achievementX,leaderboardX;
 	public static boolean noResponse = true;
@@ -28,18 +30,27 @@ public class SignInButton{
 		signInOut.moveTo(signX,y,length,length,.1f);
 		achievement.moveTo(achievementX,y,length,length,.1f);
 		leaderboard.moveTo(leaderboardX,y,length,length,.1f);
+		if(no.getOpacity()>0){
+			float size = length *.3f;
+			no.moveTo(signX+length-size*1.3f,y+size*.3f,size,size,.1f);
+		}
 	}
 
 	public void moveToHide(){
 		signInOut.moveTo(signX,-length,length,length,.1f);
 		achievement.moveTo(achievementX,-length,length,length,.1f);
 		leaderboard.moveTo(leaderboardX,-length,length,length,.1f);
+		if(no.getOpacity()>0){
+			float size = length *.3f;
+			no.moveTo(signX+length-size*1.3f,-length+size*.3f,size,size,.1f);
+		}
 	}
 
 	public void addActor(Stage stage){
 		stage.addActor(signInOut);
 		stage.addActor(achievement);
 		stage.addActor(leaderboard);
+		stage.addActor(no);
 	}
 
 	public void setBounds(float x, float y, float width, float height,float gap){
@@ -65,19 +76,19 @@ public class SignInButton{
 				if(prevSignedInState!=signedIn){
 					prevSignedInState = signedIn;
 					if(signedIn){
-						signInOut.setText("Sign out");
 						achievement.setAnimateOpacity(1f);
 						achievement.setAnimateInsideOpacity(1f);
 						leaderboard.setAnimateOpacity(1f);
 						leaderboard.setAnimateInsideOpacity(1f);
+						no.setAnimateOpacity(0f);
 						achievement.addTouch();
 						leaderboard.addTouch();
 					}else{
-						signInOut.setText("Sign In");
 						achievement.setAnimateOpacity(.3f);
 						achievement.setAnimateInsideOpacity(.3f);
 						leaderboard.setAnimateOpacity(.3f);
 						leaderboard.setAnimateInsideOpacity(.3f);
+						no.setAnimateOpacity(1f);
 						achievement.removeTouch();
 						leaderboard.removeTouch();
 					}
@@ -85,8 +96,8 @@ public class SignInButton{
 			}
 		};
 		signInOut.setThickness(.1f);
-		//signInOut.setInside(SpriteManager.BACK);
-		//back.setInsideScale(.7f);
+		signInOut.setInside(SpriteManager.PLAY_BUTTON);
+		signInOut.setInsideScale(.7f);
 
 		achievement = new BoxButton(){
 			@Override
@@ -99,6 +110,8 @@ public class SignInButton{
 			}
 		};
 		achievement.setThickness(.1f);
+		achievement.setInside(SpriteManager.ACHIEVEMENT);
+		achievement.setInsideScale(.7f);
 
 		leaderboard = new BoxButton(){
 			@Override
@@ -111,20 +124,28 @@ public class SignInButton{
 			}
 		};
 		leaderboard.setThickness(.1f);
+		leaderboard.setInside(SpriteManager.LEADERBOARD);
+		leaderboard.setInsideScale(.7f);
+
+		no = new Image(SpriteManager.NO_SYMBOL);
 	}
 
 	public void resetScreen(){
 		signInOut.setBounds(signX,y,length,length);
 		achievement.setBounds(achievementX,y,length,length);
 		leaderboard.setBounds(leaderboardX,y,length,length);
+		float size = length *.3f;
+		no.setBounds(signX+length-size*1.3f,y+size*.3f,size,size);
 		if(signedIn){
 			achievement.setOpacity(1f);
 			leaderboard.setOpacity(1f);
+			no.setOpacity(0f);
 			achievement.addTouch();
 			leaderboard.addTouch();
 		}else{
 			achievement.setOpacity(.3f);
 			leaderboard.setOpacity(.3f);
+			no.setOpacity(1f);
 			achievement.removeTouch();
 			leaderboard.removeTouch();
 		}

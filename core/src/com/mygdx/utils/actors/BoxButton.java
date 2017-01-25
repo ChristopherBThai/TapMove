@@ -93,13 +93,13 @@ public class BoxButton extends AnimatableActor {
 
     public void drawButton(Batch batch, float parentAlpha){
         if(isPressed()) {
-            batch.setColor(.7f, .7f, .7f, opacity);
+            this.setColor(.7f, .7f, .7f, opacity);
             if(text!=null)
                 text.setColor(.7f, .7f, .7f,opacity);
             if(inside!=null)
                 inside.setColor(.7f,.7f,.7f,opacity);
         }else {
-            batch.setColor(1f, 1f, 1f, opacity);
+            this.setColor(1f, 1f, 1f, opacity);
             if(text!=null)
                 text.setColor(1f, 1f, 1f, opacity);
             if(inside!=null)
@@ -110,6 +110,8 @@ public class BoxButton extends AnimatableActor {
             inside.draw(batch,parentAlpha);
         if(text!=null)
             text.draw(batch,parentAlpha);
+
+        batch.setColor(this.getColor().r,this.getColor().g,this.getColor().b,opacity);
 
         batch.draw(corner.getSprite(), bufferX+xCorner1, bufferY+yCorner1, orginXCorner, orginYCorner, cornerSize, cornerSize, 1f, 1f, 270);
         batch.draw(corner.getSprite(), bufferX+xCorner2, bufferY+yCorner2, cornerSize, cornerSize);
@@ -272,6 +274,13 @@ public class BoxButton extends AnimatableActor {
     @Override
     public void setOpacity(float opacity){
         super.setOpacity(opacity);
+        if(text!=null)
+            text.setOpacity(opacity);
+        if(inside!=null)
+            inside.setOpacity(opacity);
+    }
+
+    public void setInsideOpacity(float opacity){
         if(text!=null)
             text.setOpacity(opacity);
         if(inside!=null)

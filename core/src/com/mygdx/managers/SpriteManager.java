@@ -11,8 +11,12 @@ public enum SpriteManager {
 	SPIKEY_CIRCLE("sprites/ability/spikey_circle.png"),
 	CORNER("sprites/corner.png"),
 	BOX("sprites/box.png"),
-	PAUSE("sprites/pause.png"),
-	BACK("sprites/back.png"),
+
+	BACK("sprites/button/back.png"),
+	PAUSE("sprites/button/pause.png"),
+	ACHIEVEMENT("sprites/button/achievement.png"),
+	LEADERBOARD("sprites/button/leaderboard.png"),
+	PLAY_BUTTON("sprites/button/playgame.png"),
 
 	CHECKER("sprites/design/checker.png"),
 	SWIRL("sprites/design/swirl.png"),
