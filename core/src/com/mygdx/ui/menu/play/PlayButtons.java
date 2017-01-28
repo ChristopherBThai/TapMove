@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGame;
 import com.mygdx.managers.ScreenManager;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.ui.menu.extra.actors.BackButton;

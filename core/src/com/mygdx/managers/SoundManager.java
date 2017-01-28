@@ -1,48 +1,49 @@
 package com.mygdx.managers;
 
-import com.mygdx.audio.Bgm;
-import com.mygdx.audio.SoundEffect;
+import com.mygdx.audio.Sound;
 
 
-public class SoundManager{
+public enum SoundManager{
+    BGM_MENU("audios/bgm/title.wav",true),
+    BGM_GAME("audios/bgm/game.wav",true);
 
+    private Sound sound;
+    private boolean loop;
 
-    static SoundEffect menuClick;
-
-    static Bgm menuBgm;
-
-    public static void orb(float volume){
-        if(menuClick==null)
-            menuClick = new SoundEffect("audios/effects/orb_collect.wav");
-        else if(volume>=0f)
-            menuClick.setVolume(volume);
-        menuClick.play();
+    SoundManager(String loc, boolean loop){
+        sound = new Sound(loc,loop);
+        this.loop = loop;
     }
 
-    public static void loopMenuBgm(float volume, boolean play){
-        if(menuBgm==null)
-            menuBgm = new Bgm("audios/bgm/Easy Lemon 60 second.mp3");
-        else if(volume>=0f)
-            menuBgm.setVolume(volume);
-        if(play)
-            menuBgm.play();
-        else
-            menuBgm.stop();
+    public static void update(float delta){
+        Sound.updateAssets(delta);
+        for(SoundManager sound:SoundManager.values())
+            sound.sound.updateLoad(delta);
     }
 
-    public void update(float delta){
-
+    public void load(){
+        sound.load();
     }
 
-    public static void dispose() {
-        if (menuClick != null) {
-            menuClick.dispose();
-            menuClick = null;
-        }
+    public void play(){
+        sound.play();
+    }
 
-        if (menuBgm != null){
-            menuBgm.dispose();
-            menuBgm = null;
-        }
+    public void stop(){
+        sound.stop();
+    }
+
+    public void setVolume(float volume){
+        sound.setVolume(volume);
+    }
+
+    public void dispose() {
+        sound.dispose();
+    }
+
+    public static void disposeAll(){
+        for(SoundManager sound:SoundManager.values())
+            sound.dispose();
+        Sound.disposeAssetManager();
     }
 }

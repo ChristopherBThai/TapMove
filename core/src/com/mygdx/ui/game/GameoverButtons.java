@@ -3,6 +3,7 @@ package com.mygdx.ui.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.MyGame;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.managers.ScreenManager;
@@ -48,6 +49,8 @@ public class GameoverButtons {
             game.restart();
         }
         if(menu.tap(x,y)) {
+            SoundManager.BGM_GAME.stop();
+            SoundManager.BGM_MENU.play();
             result = true;
             ScreenManager.setScreen(MyGame.menuScreen,false, false);
         }

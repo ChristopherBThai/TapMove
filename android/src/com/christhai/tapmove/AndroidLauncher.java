@@ -409,16 +409,19 @@ public class AndroidLauncher extends AndroidApplication implements AdHandler,Bil
 
 	@Override
 	public void displayAchievements(){
-		startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),REQUEST_ACHIEVEMENTS);
+		if(mGoogleApiClient!=null&&mGoogleApiClient.isConnected())
+			startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),REQUEST_ACHIEVEMENTS);
 	}
 
 	@Override
 	public void submitLeaderboard(String id, long score){
-		Games.Leaderboards.submitScore(mGoogleApiClient,id,score);
+		if(mGoogleApiClient!=null&&mGoogleApiClient.isConnected())
+			Games.Leaderboards.submitScore(mGoogleApiClient,id,score);
 	}
 
 	@Override
 	public void displayLeaderboards(){
-		startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), REQUEST_LEADERBOARD);
+		if(mGoogleApiClient!=null&&mGoogleApiClient.isConnected())
+			startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), REQUEST_LEADERBOARD);
 	}
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.background.Background;
 import com.mygdx.ui.menu.option.OptionsButtons;
@@ -31,7 +32,9 @@ public class MenuScreen extends Screen {
 	public void create() {
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
-		//SoundManager.loopMenuBgm(.7f,true);
+		SoundManager.BGM_MENU.load();
+		SoundManager.BGM_GAME.load();
+		SoundManager.BGM_MENU.play();
 		play = new PlayButtons(this);
 		menu = new MenuButtons(this);
 		shop = new ShopButtons(this);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.handler.BillingHandler;
 import com.mygdx.handler.GooglePlayHandler;
 import com.mygdx.handler.ReturnBillingHandler;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
 import com.mygdx.handler.AdHandler;
@@ -86,6 +87,7 @@ public class MyGame extends ApplicationAdapter implements ReturnBillingHandler{
 	public void update(){
 		float delta = Gdx.graphics.getDeltaTime();
 		ScreenManager.update(delta);
+		SoundManager.update(delta);
 		camera.update();
 
 		//Gdx.app.log("Tap", SpriteManager.getActiveCount());

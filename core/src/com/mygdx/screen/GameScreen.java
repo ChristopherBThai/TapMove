@@ -13,6 +13,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.managers.EntityManager;
 import com.mygdx.managers.HudManager;
 import com.mygdx.managers.ParticleManager;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.particles.ParticleTypes;
 import com.mygdx.ui.menu.shop.abilities.AbilityList;
 import com.mygdx.ui.tutorial.TutorialScreen;
@@ -86,6 +87,8 @@ public class GameScreen extends Screen implements GestureListener{
 	}
 	
 	public void restart(){
+		SoundManager.BGM_GAME.play();
+		SoundManager.BGM_MENU.stop();
 		MyGame.hideAd();
 		partMan.reset();
 		entMan.reset();
