@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.MyGame;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.managers.SpriteManager;
 
 public class BoxButton extends AnimatableActor {
@@ -56,6 +57,7 @@ public class BoxButton extends AnimatableActor {
         addListener(new ClickListener() {
             public void clicked (InputEvent event, float x, float y) {
                 justTouched();
+                SoundManager.TAP.play();
                 down = .15f;
             }
         });
@@ -224,6 +226,7 @@ public class BoxButton extends AnimatableActor {
                 y<=this.getY()+this.getHeight()) {
             justTouched();
             down = .15f;
+            SoundManager.TAP.play();
             return true;
         }
         return false;

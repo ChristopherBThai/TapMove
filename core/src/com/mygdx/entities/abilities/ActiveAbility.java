@@ -1,6 +1,7 @@
 package com.mygdx.entities.abilities;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.managers.SpriteManager;
 
 /**
@@ -38,6 +39,7 @@ public abstract class ActiveAbility extends CooldownAbility{
 
 	public void activate(float x, float y){
 		if(isReady()){
+			SoundManager.ABILITY.play();
 			currentDuration = duration;
 			super.activate();
 			justActivated();

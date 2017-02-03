@@ -82,6 +82,7 @@ public class EntityManager implements ContactListener{
 				player.update(delta);
 				pLighting.setLightLength(player.getLifePercent()*(defaultPlayerLightLength-10)+10);
 				light.setLightLevel(defaultBrightness*player.getLifePercent()+defaultBrightnessMin);
+				SoundManager.BGM_GAME.setVolume(player.getLifePercent()*.6f);
 
 				boolean slowTemp = false;
 
@@ -271,10 +272,10 @@ public class EntityManager implements ContactListener{
 					if (p.isDashing()||p.hostile||!e.isEnemy) {
 						contact.setEnabled(false);
 						addToEnemiesKilledByDash(e);
-						if(!e.isEnemy){
+						if(!e.isEnemy)
 							p.orbGained();
-						}
-						p.hit(e);
+						else
+							p.hit(e);
 					}
 				}
 			}

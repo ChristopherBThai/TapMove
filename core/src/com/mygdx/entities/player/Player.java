@@ -110,8 +110,10 @@ public class Player extends Entity {
 	}
 
 	public void dashTo(float x, float y){
-		if(dash.fling(x,y)&&!stasis)
-			currentLife -= life*dash.getCostPercent();
+		if(dash.fling(x,y)&&!stasis){
+			currentLife -= life * dash.getCostPercent();
+			SoundManager.DASH.play();
+		}
 	}
 
 	public void push(float speed) {
@@ -243,7 +245,7 @@ public class Player extends Entity {
 
 	public void orbGained(){
 		giveLife(orbAmount);
-		//SoundManager.orb(1f);
+		SoundManager.WHITEORB.play();
 	}
 
 	public float getRadius(){

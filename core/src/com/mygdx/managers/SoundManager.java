@@ -1,49 +1,66 @@
 package com.mygdx.managers;
 
-import com.mygdx.audio.Sound;
+import com.mygdx.audio.Bgm;
+import com.mygdx.audio.Effects;
+import com.mygdx.audio.SoundLayout;
 
 
 public enum SoundManager{
     BGM_MENU("audios/bgm/title.wav",true),
-    BGM_GAME("audios/bgm/game.wav",true);
+    BGM_GAME("audios/bgm/game.wav",true),
 
-    private Sound sound;
-    private boolean loop;
+    ABILITY("audios/effects/ability.wav",false),
+    DASH("audios/effects/dash.wav",false),
+    TAP("audios/effects/tap.wav",false),
+    WHITEORB("audios/effects/whiteorb.wav",false),;
+
+    private Bgm bgm;
+    private Effects effect;
+    private SoundLayout soundControl;
 
     SoundManager(String loc, boolean loop){
-        sound = new Sound(loc,loop);
-        this.loop = loop;
+        if(loop){
+            bgm = new Bgm(loc);
+            soundControl = bgm;
+        }else{
+            effect = new Effects(loc);
+            soundControl = effect;
+        }
+
+        this.load();
     }
 
     public static void update(float delta){
-        Sound.updateAssets(delta);
-        for(SoundManager sound:SoundManager.values())
-            sound.sound.updateLoad(delta);
+        Bgm.updateAssets(delta);
+        for(SoundManager sound:SoundManager.values()){
+                sound.soundControl.updateLoad(delta);
+        }
     }
 
     public void load(){
-        sound.load();
+        soundControl.load();
     }
 
     public void play(){
-        sound.play();
+        soundControl.play();
     }
 
     public void stop(){
-        sound.stop();
+        if(bgm!=null)
+            bgm.stopBgm();
     }
 
     public void setVolume(float volume){
-        sound.setVolume(volume);
+        soundControl.setVolume(volume);
     }
 
     public void dispose() {
-        sound.dispose();
+        soundControl.dispose();
     }
 
     public static void disposeAll(){
         for(SoundManager sound:SoundManager.values())
             sound.dispose();
-        Sound.disposeAssetManager();
+        SoundLayout.disposeAssetManager();
     }
 }
