@@ -3,6 +3,14 @@ An android game created by Christopher Thai
 
 You can watch a test gameplay, as of November 12, 2016, [here](https://www.youtube.com/watch?v=4xtKRyK8Yzw)!
 
+OR
+
+You can beta test the game [here](https://play.google.com/apps/testing/com.christhai.tapmove)!
+
+OR 
+
+Check out the descriptions in the [Google Playstore](https://play.google.com/store/apps/details?id=com.christhai.tapmove&ah=vcedHQvhXCRO7ae8OMktHysZkDQ&pli=1)!
+
 ## Menu Screen
 
 The menu screen has three options: Play, Store, and Options.
