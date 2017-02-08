@@ -20,10 +20,13 @@ public abstract class SoundLayout implements Disposable{
 
 	protected boolean loading,isLoaded;
 
+	protected static boolean mute;
+
 	public SoundLayout(String loc, Class type){
 		volume = .7f;
 		this.loc = loc;
 		this.type = type;
+		mute = false;
 	}
 
 	public void load(){
@@ -61,8 +64,11 @@ public abstract class SoundLayout implements Disposable{
 		assetManager.unload(loc);
 	}
 
-
 	public static void disposeAssetManager(){
 		assetManager.dispose();
+	}
+
+	public static void mute(boolean mute){
+		SoundLayout.mute = mute;
 	}
 }

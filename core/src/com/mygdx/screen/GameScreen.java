@@ -166,7 +166,7 @@ public class GameScreen extends Screen implements GestureListener{
 
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		if(velocityX*velocityX+velocityY*velocityY>490000)
+		if(!pause&&velocityX*velocityX+velocityY*velocityY>490000)
 			if(!tutorial||(tutorial&&TutorialScreen.dash))
 				entMan.fling(velocityX, velocityY);
 			if(tutorial)

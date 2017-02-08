@@ -2,7 +2,9 @@ package com.mygdx.ui.menu.option;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.ButtonLayout;
 import com.mygdx.ui.menu.extra.actors.BackButton;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
@@ -11,85 +13,31 @@ import com.mygdx.utils.actors.BoxButton;
 /**
  * Created by Christopher Thai on 7/19/2016.
  */
-public class OptionsButtons {
-    private MenuScreen screen;
-    private Stage stage;
+public class OptionsButtons extends ButtonLayout{
 
-    private float width, height;
-    private float tutorialX,tutorialY;
-    private BoxButton tutorial;
-    private ActorAnimator tutorialClicked;
+    BoxButton tutorial;
 
-    private BackButton back;
-
-    public OptionsButtons(MenuScreen screen){
-        this.screen = screen;
-        this.stage = screen.stage;
-        this.setBounds();
-        this.setActors();
-        this.setActions();
+    public OptionsButtons(){
+        super("Options",false,2,false);
+        buttons.get(0).setText("Tutorial");
+        buttons.get(1).setText("Sound: On");
+        tutorial = buttons.get(0);
     }
 
+    @Override
     public void set(boolean withReset){
-        if(withReset) {
-            resetScreen();
-            back.doAnimation();
-            stage.addActor(back.getActor());
-            stage.addActor(tutorial);
-        }else{
-            stage.addActor(back.getActor());
-            stage.addActor(tutorial);
-        }
+        super.set(withReset);
+        updateMuteText();
     }
 
-    public void setBounds(){
-        width = Gdx.graphics.getWidth()*.47f;
-        height = Gdx.graphics.getHeight()*.08f;
-
-        tutorialX = Gdx.graphics.getWidth()*.5f-width*.5f;
-        tutorialY = Gdx.graphics.getHeight()*.5f+height*.5f;
-    }
-
-    public void setActors(){
-        back = new BackButton(){
-            @Override
-            public void back(){
-                stage.clear();
-                MenuScreen.menu.set();
-            }
-        };
-
-        tutorial = new BoxButton(tutorialX,tutorialY,width,height){
-            @Override
-            public void justTouched(){
-                tutorial.setAnimation(tutorialClicked);
-            }
-        };
-        tutorial.setThickness(.1f);
-        tutorial.setText("Enable Tutorial");
-    }
-
-    public void setActions(){
-        tutorialClicked = new ActorAnimator();
-        tutorialClicked.addCommand(new ActorAnimator.ActionCommand(){
-            @Override
-            public void command(ActorAnimator animator){
-                tutorial.removeTouch();
-                tutorial.setAnimateInsideOpacity(.3f);
-                tutorial.setAnimateOpacity(.3f);
-                Save.setTutorial(true);
-            }
-        });
-
-    }
-
+    @Override
     public void resetScreen(){
-        back.resetScreen();
+        super.resetScreen();
         if(Save.isTutorial()){
             tutorial.removeTouch();
             tutorial.setOpacity(0f);
-            tutorial.setAnimateOpacity(.3f);
-            tutorial.setAnimateInsideOpacity(.3f);
+            tutorial.setAnimateOpacity(.2f);
+            tutorial.setAnimateInsideOpacity(.2f);
         }else{
             tutorial.addTouch();
             tutorial.setOpacity(0f);
@@ -98,7 +46,38 @@ public class OptionsButtons {
         }
     }
 
-    public void dispose(){
-        back.dispose();
+    @Override
+    protected void buttonTouched(int index){
+
     }
+
+    @Override
+    protected void buttonActivated(int index){
+        switch(index){
+            case 0:
+                tutorial.removeTouch();
+                tutorial.setAnimateOpacity(.2f);
+                tutorial.setAnimateInsideOpacity(.2f);
+                Save.setTutorial(true);
+                break;
+            case 1:
+                SoundManager.toggleMute();
+                SoundManager.BGM_MENU.play();
+                updateMuteText();
+                break;
+        }
+    }
+
+    @Override
+    protected void backClicked(){
+        MenuScreen.menu.set(false);
+    }
+
+    private void updateMuteText(){
+        if(SoundManager.isMute())
+            buttons.get(1).setText("Sound: Off");
+        else
+            buttons.get(1).setText("Sound: On");
+    }
+
 }

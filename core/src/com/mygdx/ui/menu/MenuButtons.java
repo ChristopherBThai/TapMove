@@ -114,7 +114,6 @@ public class MenuButtons {
             @Override
             public void command(ActorAnimator animator){
                 play.addTouch();
-                stage.clear();
                 screen.play.set(true);
                 play.setAnimateInsideOpacity(1f);
                 options.moveTo(optionsX,optionsY,width,height,.1f);
@@ -147,7 +146,6 @@ public class MenuButtons {
             @Override
             public void command(ActorAnimator animator){
                 store.addTouch();
-                stage.clear();
                 screen.shop.set(true);
                 store.setAnimateInsideOpacity(1f);
                 play.moveTo(playX,playY,width,height,.1f);
@@ -180,7 +178,6 @@ public class MenuButtons {
             @Override
             public void command(ActorAnimator animator){
                 options.addTouch();
-                stage.clear();
                 screen.options.set(true);
                 options.setAnimateInsideOpacity(1f);
                 play.moveTo(playX,playY,width,height,.1f);
@@ -193,13 +190,16 @@ public class MenuButtons {
         optionsClicked.animateTo(optionsX,optionsY,width,height,.1f);
     }
 
-    public void set(){
+    public void set(boolean withReset){
+        stage.clear();
         stage.addActor(title);
         stage.addActor(play);
         stage.addActor(store);
         stage.addActor(options);
         money.addToStage(stage);
         signInButton.addActor(stage);
+        if(withReset)
+            resetScreen();
     }
 
     public void resetScreen(){
@@ -222,8 +222,6 @@ public class MenuButtons {
 
         money.resetScreen();
         signInButton.resetScreen();
-
-        this.set();
     }
 
     public void dispose(){

@@ -7,6 +7,7 @@ import com.mygdx.managers.ScreenManager;
 import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.screen.MenuScreen;
+import com.mygdx.ui.menu.ButtonLayout;
 import com.mygdx.ui.menu.extra.actors.BackButton;
 import com.mygdx.utils.Save;
 import com.mygdx.utils.actors.ActorAnimator;
@@ -16,135 +17,18 @@ import com.mygdx.utils.actors.BoxButton;
  * Created by Christopher Thai on 10/22/2016.
  */
 
-public class PlayButtons{
-	private MenuScreen screen;
-	private Stage stage;
+public class PlayButtons extends ButtonLayout{
 
-	private BackButton back;
-
-	private float width, height;
-	private float classicX,classicY,darkX,darkY;
-	private BoxButton classic,dark;
-	private ActorAnimator classicClicked,darkClicked;
-
-	public PlayButtons(MenuScreen screen){
-		this.screen = screen;
-		this.stage = screen.stage;
-		this.setBounds();
-		this.setActors();
-		this.setActions();
+	public PlayButtons(){
+		super("Play",false,2,true);
+		buttons.get(0).setText("Classic");
+		buttons.get(1).setText("Dark");
 	}
 
-	public void set(boolean withReset){
-		if(withReset) {
-			resetScreen();
-			back.doAnimation();
-			stage.addActor(back.getActor());
-			stage.addActor(classic);
-			classic.setOpacity(0f);
-			classic.setAnimateOpacity(1f);
-			classic.setAnimateInsideOpacity(1f);
-			stage.addActor(dark);
-		}else{
-			stage.addActor(back.getActor());
-			stage.addActor(classic);
-			stage.addActor(dark);
-		}
-	}
-
-	public void setBounds(){
-		width = Gdx.graphics.getWidth()*.47f;
-		height = Gdx.graphics.getHeight()*.08f;
-
-		classicX = Gdx.graphics.getWidth()*.5f-width*.5f;
-		classicY = Gdx.graphics.getHeight()*.5f+height*.5f;
-		darkX = classicX;
-		darkY = Gdx.graphics.getHeight()*.5f-height*1.5f;
-	}
-
-	public void setActors(){
-		back = new BackButton(){
-			@Override
-			public void back(){
-				stage.clear();
-				MenuScreen.menu.set();
-			}
-		};
-
-		classic = new BoxButton(classicX,classicY,width,height){
-			@Override
-			public void justTouched(){
-				classic.setAnimation(classicClicked);
-			}
-		};
-		classic.setThickness(.1f);
-		classic.setText("Classic");
-
-		dark = new BoxButton(darkX,darkY,width,height){
-			@Override
-			public void justTouched(){
-				dark.setAnimation(darkClicked);
-			}
-		};
-		dark.setThickness(.1f);
-		dark.setText("Dark");
-
-	}
-
-	public void setActions(){
-
-		classicClicked = new ActorAnimator();
-		classicClicked.addCommand(new ActorAnimator.ActionCommand(){
-			@Override
-			public void command(ActorAnimator animator){
-				classic.removeTouch();
-				classic.lockText(true);
-				dark.lockText(false);
-				classic.setAnimateInsideOpacity(0f);
-				dark.moveTo(dark.getX(),-dark.getHeight(),.1f);
-				back.moveToHide();
-			}
-		});
-		classicClicked.animateTo(-classic.getThickness()*1.2f,-classic.getThickness()*1.2f,Gdx.graphics.getWidth()+classic.getThickness()*1.2f,Gdx.graphics.getHeight()+classic.getThickness()*1.2f,.1f);
-		classicClicked.addCommand(new ActorAnimator.ActionCommand(){
-			@Override
-			public void command(ActorAnimator animator){
-				MyGame.gameScreen.setMode(GameScreen.CLASSIC);
-				ScreenManager.setScreen(MyGame.gameScreen,false,false);
-				stage.clear();
-			}
-		});
-
-		darkClicked = new ActorAnimator();
-		darkClicked.addCommand(new ActorAnimator.ActionCommand(){
-			@Override
-			public void command(ActorAnimator animator){
-				dark.removeTouch();
-				dark.lockText(true);
-				classic.lockText(false);
-				dark.setAnimateInsideOpacity(0f);
-				classic.moveTo(classic.getX(),Gdx.graphics.getHeight()+classic.getHeight(),.1f);
-				back.moveToHide();
-			}
-		});
-		darkClicked.animateTo(-dark.getThickness()*1.2f,-dark.getThickness()*1.2f,Gdx.graphics.getWidth()+dark.getThickness()*1.2f,Gdx.graphics.getHeight()+dark.getThickness()*1.2f,.1f);
-		darkClicked.addCommand(new ActorAnimator.ActionCommand(){
-			@Override
-			public void command(ActorAnimator animator){
-				MyGame.gameScreen.setMode(GameScreen.DARK);
-				ScreenManager.setScreen(MyGame.gameScreen,false,false);
-				stage.clear();
-			}
-		});
-	}
-
+	@Override
 	public void resetScreen(){
-		back.resetScreen();
-		classic.setBounds(classicX,classicY,width,height);
-		classic.lockText(false);
-		classic.addTouch();
-		dark.setBounds(darkX,darkY,width,height);
-		dark.lockText(false);
+		super.resetScreen();
+		BoxButton dark = buttons.get(1);
 		if(Save.isTutorial()){
 			dark.removeTouch();
 			dark.setOpacity(0f);
@@ -158,7 +42,29 @@ public class PlayButtons{
 		}
 	}
 
-	public void dispose(){
-		back.dispose();
+	@Override
+	protected void buttonTouched(int index){
+
+	}
+
+	@Override
+	protected void buttonActivated(int index){
+		switch(index){
+			case 0:
+				MyGame.gameScreen.setMode(GameScreen.CLASSIC);
+				ScreenManager.setScreen(MyGame.gameScreen,false,false);
+				stage.clear();
+				break;
+			case 1:
+				MyGame.gameScreen.setMode(GameScreen.DARK);
+				ScreenManager.setScreen(MyGame.gameScreen,false,false);
+				stage.clear();
+				break;
+		}
+	}
+
+	@Override
+	protected void backClicked(){
+		MenuScreen.menu.set(false);
 	}
 }

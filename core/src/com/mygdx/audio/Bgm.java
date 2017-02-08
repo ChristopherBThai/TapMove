@@ -16,9 +16,10 @@ public class Bgm extends SoundLayout{
 	}
 
 	public void play(){
-		if(isLoaded)
+		if(isLoaded&&!mute)
 			bgm.play();
-		isPlaying = true;
+		if(!mute)
+			isPlaying = true;
 	}
 
 	public void stopBgm(){

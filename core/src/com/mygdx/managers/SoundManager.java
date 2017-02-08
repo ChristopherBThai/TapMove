@@ -18,6 +18,8 @@ public enum SoundManager{
     private Effects effect;
     private SoundLayout soundControl;
 
+    private static boolean mute = false;
+
     SoundManager(String loc, boolean loop){
         if(loop){
             bgm = new Bgm(loc);
@@ -28,13 +30,6 @@ public enum SoundManager{
         }
 
         this.load();
-    }
-
-    public static void update(float delta){
-        Bgm.updateAssets(delta);
-        for(SoundManager sound:SoundManager.values()){
-                sound.soundControl.updateLoad(delta);
-        }
     }
 
     public void load(){
@@ -62,5 +57,27 @@ public enum SoundManager{
         for(SoundManager sound:SoundManager.values())
             sound.dispose();
         SoundLayout.disposeAssetManager();
+    }
+
+    public static void mute(boolean mute){
+        SoundLayout.mute(mute);
+        BGM_GAME.stop();
+        BGM_MENU.stop();
+        SoundManager.mute = mute;
+    }
+
+    public static void toggleMute(){
+        SoundManager.mute(!mute);
+    }
+
+    public static boolean isMute(){
+        return mute;
+    }
+
+    public static void update(float delta){
+        Bgm.updateAssets(delta);
+        for(SoundManager sound:SoundManager.values()){
+            sound.soundControl.updateLoad(delta);
+        }
     }
 }

@@ -14,7 +14,7 @@ public class Effects extends SoundLayout{
 	}
 
 	public void play(){
-		if(isLoaded){
+		if(isLoaded&&!mute){
 			long id = sound.play(volume);
 		}
 	}

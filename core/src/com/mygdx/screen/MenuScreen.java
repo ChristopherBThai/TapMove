@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.managers.SoundManager;
+import com.mygdx.ui.menu.ButtonLayout;
 import com.mygdx.ui.menu.MenuButtons;
 import com.mygdx.ui.menu.background.Background;
 import com.mygdx.ui.menu.option.OptionsButtons;
@@ -17,7 +18,7 @@ import com.mygdx.ui.menu.shop.ShopButtons;
 
 public class MenuScreen extends Screen {
 	
-	public Stage stage;
+	public static Stage stage;
 
 	public static PlayButtons play;
 	public static MenuButtons menu;
@@ -31,17 +32,18 @@ public class MenuScreen extends Screen {
 	@Override
 	public void create() {
 		stage = new Stage(new ScreenViewport());
+		ButtonLayout.bind(this);
 		Gdx.input.setInputProcessor(stage);
 		SoundManager.BGM_MENU.load();
 		SoundManager.BGM_GAME.load();
 		SoundManager.BGM_MENU.play();
-		play = new PlayButtons(this);
+		play = new PlayButtons();
 		menu = new MenuButtons(this);
-		shop = new ShopButtons(this);
-		options = new OptionsButtons(this);
-		cosmetics = new CosmeticsMenu(this);
-		abilities = new AbilitiesMenu(this);
-		other = new OtherMenu(this);
+		shop = new ShopButtons();
+		options = new OptionsButtons();
+		cosmetics = new CosmeticsMenu();
+		abilities = new AbilitiesMenu();
+		other = new OtherMenu();
 		background = new Background();
 	}
 
@@ -81,10 +83,7 @@ public class MenuScreen extends Screen {
 	public void resetScreen(){
 		Gdx.input.setInputProcessor(stage);
 		stage.clear();
-		play.resetScreen();
-		menu.resetScreen();
-		shop.resetScreen();
-		options.resetScreen();
+		menu.set(true);
 	}
 
 	@Override

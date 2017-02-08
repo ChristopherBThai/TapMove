@@ -77,6 +77,10 @@ public class Text extends AnimatableActor{
 		this.fontSize = size;
 		updateLayout();
 	}
+
+	public String getText(){
+		return string;
+	}
 	
 	public float getFontSize(){
 		return fontSize;

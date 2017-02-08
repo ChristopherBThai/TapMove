@@ -63,7 +63,7 @@ public class BoxButton extends AnimatableActor {
         });
         line = SpriteManager.BOX;
         corner = SpriteManager.CORNER;
-        lineThickness = .2f;
+        lineThickness = .1f;
         insideScale = .8f;
         textScale = 1f;
     }
@@ -335,6 +335,13 @@ public class BoxButton extends AnimatableActor {
 
     public float getThickness(){
         return lineThickness;
+    }
+
+    public String getText(){
+        if(text!=null)
+            return text.getText();
+        else
+            return "";
     }
 
     @Override

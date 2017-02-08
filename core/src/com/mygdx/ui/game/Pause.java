@@ -2,6 +2,7 @@ package com.mygdx.ui.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.managers.SoundManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.actors.ActorAnimator;
 import com.mygdx.utils.actors.BoxButton;
@@ -12,7 +13,7 @@ public class Pause {
 
     private Stage stage;
 
-    private BoxButton button,menu,option,resume;
+    private BoxButton button,menu,mute,resume;
     private ActorAnimator pause,unpause;
 
     private boolean prevPause;
@@ -39,30 +40,48 @@ public class Pause {
         button.setInsideScale(.7f);
         stage.addActor(button);
 
+        float buttonWidth = pwidth*.8f;
+        float buttonHeight = pwidth*.2f;
+        float buttonX =  Gdx.app.getGraphics().getWidth()*.5f-buttonWidth/2f;
+        float buttonY = Gdx.app.getGraphics().getHeight()/2f-buttonHeight/2f;
+
+        mute = new BoxButton(buttonX,buttonY,buttonWidth,buttonHeight);
+
         pause = new ActorAnimator();
         pause.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
                 GameScreen.entMan.light.animateTo(0f,.1f);
-                //GameScreen.hudMan.ability.hideButton();
-                button.setInside(null);
+                button.setLockInside(true);
+                button.setAnimateInsideOpacity(0f);
             }
         });
         pause.animateTo(px,py,pwidth,pheight,.1f);
+        pause.addCommand(new ActorAnimator.ActionCommand(){
+            @Override
+            public void command(ActorAnimator animator){
+                mute.animateToVisible();
+                mute.addTouch();
+                updateMuteText();
+            }
+        });
 
         unpause = new ActorAnimator();
         unpause.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
                 GameScreen.entMan.light.resetLights();
-                //GameScreen.hudMan.ability.showButton();
+                mute.setAnimateOpacity(0f);
+                mute.setAnimateInsideOpacity(0f);
+                mute.removeTouch();
             }
         });
         unpause.animateTo(x,y,width,height,.1f);
         unpause.addCommand(new ActorAnimator.ActionCommand(){
             @Override
             public void command(ActorAnimator animator){
-                button.setInside(SpriteManager.PAUSE);
+                button.setLockInside(false);
+                button.setAnimateInsideOpacity(1f);
             }
         });
     }
@@ -72,12 +91,17 @@ public class Pause {
 
     public boolean tap(float x, float y){
        // if(!GameScreen.pause) {
-            if(button.tap(x, y)){
+            if(mute.tap(x,y)){
+                SoundManager.toggleMute();
+                updateMuteText();
+            }else if(button.tap(x, y)){
                 GameScreen.pause = !GameScreen.pause;
-                if(GameScreen.pause)           //Just paused
+                if(GameScreen.pause){           //Just paused
                     button.setAnimation(pause);
-                else                          //Just unpaused
+                }else{                         //Just unpaused
                     button.setAnimation(unpause);
+
+                }
 
                 return true;
             }
@@ -86,7 +110,19 @@ public class Pause {
        // return false;
     }
 
+    private void updateMuteText(){
+        if(SoundManager.isMute())
+            mute.setText("Sound: Off");
+        else{
+            mute.setText("Sound: On");
+            SoundManager.BGM_GAME.play();
+        }
+    }
+
     public void reset(){
         stage.addActor(button);
+        stage.addActor(mute);
+        mute.setOpacity(0f);
+        mute.removeTouch();
     }
 }
