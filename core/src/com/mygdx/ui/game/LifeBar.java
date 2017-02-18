@@ -55,8 +55,19 @@ public class LifeBar {
             lifebar.setWidth(0);
     }
 
+    public void hide(){
+        lifebar.moveTo(barX,-barY-barHeight,.1f);
+        border.moveTo(x,-y-height,.1f);
+    }
+
+    public void show(){
+        lifebar.moveTo(barX,barY,.1f);
+        border.moveTo(x,y,.1f);
+    }
+
     public void reset(){
         lifebar.setBounds(barX,barY,barWidth,barHeight);
+        border.setPosition(x,y);
         stage.addActor(border);
         stage.addActor(lifebar);
     }
