@@ -43,6 +43,7 @@ public class GameScreen extends Screen implements GestureListener{
 		tutorialScreen = new TutorialScreen(this);
 
 		gesture = new GestureDetector(this);
+		gesture.setLongPressSeconds(.5f);
 		Gdx.input.setInputProcessor(gesture);
 		
 		running = true;
@@ -142,7 +143,7 @@ public class GameScreen extends Screen implements GestureListener{
 					effect.setPosition(pos.x,pos.y);
 				}
 				if(tutorial)
-					tutorialScreen.tap(x,y);
+					tutorialScreen.tap(x,Gdx.app.getGraphics().getHeight()-y);
 			}
 		}
 

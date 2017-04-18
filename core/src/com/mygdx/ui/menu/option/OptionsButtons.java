@@ -21,6 +21,7 @@ public class OptionsButtons extends ButtonLayout{
         super("Options",false,2,false);
         buttons.get(0).setText("Tutorial");
         buttons.get(1).setText("Sound: On");
+        buttons.get(1).setTextScale(.85f);
         tutorial = buttons.get(0);
     }
 

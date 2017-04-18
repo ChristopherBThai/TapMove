@@ -15,6 +15,7 @@ import com.mygdx.managers.ColorManager;
 import com.mygdx.managers.SpriteManager;
 import com.mygdx.screen.GameScreen;
 import com.mygdx.utils.Save;
+import com.mygdx.utils.actors.BoxButton;
 import com.mygdx.utils.actors.Image;
 import com.mygdx.utils.actors.Text;
 
@@ -39,6 +40,8 @@ public class TutorialScreen{
 	private Text[] texts;
 	private float fontSize,largeFontSize;
 
+	private BoxButton skip;
+
 	public static boolean health,tap,dash,ability,score;
 
 	public TutorialScreen(GameScreen game){
@@ -59,6 +62,22 @@ public class TutorialScreen{
 				texts[i].setColor(ColorManager.NORMAL);
 			}
 		}
+		if(skip == null){
+			skip = new BoxButton(WIDTH * .025f, HEIGHT * .975f - (WIDTH * .1f), WIDTH * .15f, WIDTH * .1f){
+				@Override
+				public void justTouched(){
+					scene = 7;
+					step = 1;
+					skip.removeTouch();
+					skip.setAnimateOpacity(0f);
+					skip.setAnimateInsideOpacity(0f);
+				}
+			};
+			skip.setText("Skip");
+			skip.setTextScale(.75f);
+		}
+		skip.addTouch();
+		skip.animateToVisible();
 		stage.clear();
 		health = false;
 		tap = false;
@@ -69,6 +88,7 @@ public class TutorialScreen{
 		step = 1;
 		scene = 1;
 		stage.addActor(background);
+		stage.addActor(skip);
 		background.setOpacity(0f);
 		background.setAnimateOpacity(1f);
 	}
@@ -124,6 +144,7 @@ public class TutorialScreen{
 					step = 4;
 				}else if(step == 4 && background.getOpacity()<=0){
 					stage.clear();
+					stage.addActor(skip);
 					step = 1;
 					scene = 2;
 				}
@@ -200,6 +221,7 @@ public class TutorialScreen{
 					step++;
 				}else if(step == 7 && background.getOpacity()>=1f){
 					stage.clear();
+					stage.addActor(skip);
 					step = 1;
 					stage.addActor(background);
 					background.setAnimateOpacity(0f);
@@ -211,6 +233,7 @@ public class TutorialScreen{
 			case 3:
 				if(step == 1 && background.getOpacity()<=0f){
 					stage.clear();
+					stage.addActor(skip);
 					stage.addActor(texts[0]);
 					texts[0].setText("You can also dash");
 					texts[0].setOpacity(0f);
@@ -262,6 +285,7 @@ public class TutorialScreen{
 					step = 6;
 				}else if(step == 6 && background.getOpacity()>=1f){
 					stage.clear();
+					stage.addActor(skip);
 					step = 1;
 					stage.addActor(background);
 					background.setAnimateOpacity(0f);
@@ -273,6 +297,7 @@ public class TutorialScreen{
 			case 4:
 				if(step == 1 && background.getOpacity()<=0f){
 					stage.clear();
+					stage.addActor(skip);
 					stage.addActor(texts[0]);
 					texts[0].setText("You also have a health bar");
 					texts[0].setOpacity(0f);
@@ -337,6 +362,7 @@ public class TutorialScreen{
 					step = 7;
 				}else if(step == 7 && background.getOpacity()>=1f){
 					stage.clear();
+					stage.addActor(skip);
 					step = 1;
 					stage.addActor(background);
 					background.setAnimateOpacity(0f);
@@ -350,6 +376,7 @@ public class TutorialScreen{
 			case 5:
 				if(step == 1 && background.getOpacity()<=0f){
 					stage.clear();
+					stage.addActor(skip);
 					stage.addActor(texts[0]);
 					texts[0].setText("There are several abilities");
 					texts[0].setOpacity(0f);
@@ -447,6 +474,7 @@ public class TutorialScreen{
 					step = 7;
 				}else if(step == 7 && background.getOpacity()>=1f){
 					stage.clear();
+					stage.addActor(skip);
 					step = 1;
 					stage.addActor(background);
 					pause = false;
@@ -479,6 +507,33 @@ public class TutorialScreen{
 					step++;
 				}else if(step == 3 && background.getOpacity()<=0){
 					stage.clear();
+					stage.addActor(skip);
+					GameScreen.tutorial = false;
+					Save.setTutorial(false);
+					game.restart();
+				}
+				break;
+			case 7:
+				if(step ==1){
+					health = false;
+					tap = false;
+					dash = false;
+					ability = false;
+					score = false;
+					pause = false;
+					background.setAnimateOpacity(1f);
+					if(!stage.getActors().contains(background,true))
+						stage.addActor(background);
+					step++;
+				}else if(step == 2&&background.getOpacity()>=1f){
+					stage.clear();
+					game.partMan.reset();
+					game.entMan.reset();
+					stage.addActor(background);
+					background.setAnimateOpacity(0f);
+					step ++;
+				}else if(step == 3 && background.getOpacity()<=0){
+					stage.clear();
 					GameScreen.tutorial = false;
 					Save.setTutorial(false);
 					game.restart();
@@ -486,6 +541,7 @@ public class TutorialScreen{
 				break;
 			default:
 				GameScreen.tutorial = false;
+				break;
 		}
 
 		if(pause)
@@ -502,6 +558,7 @@ public class TutorialScreen{
 			game.entMan.tap(game.entMan.player.getPos().x+100,game.entMan.player.getPos().y);
 			pause = false;
 		}
+		skip.tap(x,y);
 	}
 
 	public void fling(float velx, float vely){

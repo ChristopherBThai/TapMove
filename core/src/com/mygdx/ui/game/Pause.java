@@ -27,7 +27,7 @@ public class Pause {
     public void initSizes(){
         width = Gdx.app.getGraphics().getWidth()*.1f;
         height = width;
-        x = Gdx.app.getGraphics().getWidth()*.95f-width;
+        x = Gdx.app.getGraphics().getWidth()*.975f-width;
         y = Gdx.app.getGraphics().getHeight()*.975f-height;
 
         float pwidth = Gdx.app.getGraphics().getWidth()*.85f;

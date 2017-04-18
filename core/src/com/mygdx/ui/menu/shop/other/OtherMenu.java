@@ -16,6 +16,7 @@ public class OtherMenu extends ButtonLayout{
     public OtherMenu(){
         super("Other",true,2,false);
         buttons.get(0).setText("Remove Ads");
+        buttons.get(0).setTextScale(.8f);
         buttons.get(1).setText("Buy 1000");
     }
 
