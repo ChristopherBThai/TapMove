@@ -14,8 +14,10 @@ import com.mygdx.utils.actors.Text;
 
 public class MoneyDisplay{
 
-	private static Text money;
-	private static Image moneyImage;
+	private Text money;
+	private Image moneyImage;
+
+	private static String moneyText;
 
 	private float moneyX,moneyY,moneyGap,moneyLength;
 
@@ -34,7 +36,14 @@ public class MoneyDisplay{
 	}
 
 	public void setActors(){
-		money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+ Save.getMoney());
+		money = new Text(Gdx.app.getGraphics().getWidth()/15, ""+ Save.getMoney()){
+			@Override
+			public void update(float delta){
+				if(!moneyText.equals(money.getText())){
+					money.setText(moneyText);
+				}
+			}
+		};
 		money.setFontSize(Gdx.app.getGraphics().getWidth()/24f);
 		money.setColor(ColorManager.NORMAL);
 		moneyImage = new Image(SpriteManager.CIRCLE);
@@ -72,11 +81,10 @@ public class MoneyDisplay{
 	}
 
 	public static void setMoneyText(String text){
-		money.setText(text);
+		moneyText = text;
 	}
 
 	public static void resetMoneyDisplayAmount(){
-		if(money!=null)
-			MoneyDisplay.setMoneyText(""+Save.getMoney());
+		moneyText = ""+Save.getMoney();
 	}
 }

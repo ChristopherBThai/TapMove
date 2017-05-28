@@ -44,7 +44,6 @@ public class Text extends AnimatableActor{
 
 	@Override
 	public void update(float delta){
-
 	}
 	
 	public static BitmapFont createFonts(BitmapFont font) {

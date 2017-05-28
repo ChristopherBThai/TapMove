@@ -49,17 +49,17 @@ public class CosmeticsMenu extends ButtonLayout{
     public void setActors(){
         super.setActors();
 
-        float textGap = Gdx.graphics.getWidth()*.14f;
+        float textGap = Gdx.graphics.getWidth()*.19f;
 
         playerColor = new YesNoButton(ColorList.getShopList(),0,0,stage);
-        playerColor.setPos(Gdx.graphics.getWidth()*.7f-playerColor.getWidth()/2,Gdx.graphics.getHeight()*.56f-playerColor.getHeight()/2);
+        playerColor.setPos(Gdx.graphics.getWidth()*.7f-playerColor.getWidth()/2,Gdx.graphics.getHeight()*.64f-playerColor.getHeight()/2);
         colorText = new Text(Gdx.graphics.getWidth()*.06f,"Color");
         colorText.setPosition(playerColor.getX()-textGap-colorText.getWidth(),playerColor.getY()+playerColor.getHeight()/2+colorText.getHeight()/2);
 
         playerDesign = new YesNoButton(DesignList.getShopList(),0,0,stage);
-        playerDesign.setPos(Gdx.graphics.getWidth()*.3f-playerDesign.getWidth()/2,playerColor.getY()-playerDesign.getHeight()-textGap);
+        playerDesign.setPos(Gdx.graphics.getWidth()*.7f-playerDesign.getWidth()/2,playerColor.getY()-playerDesign.getHeight()-textGap);
         designText = new Text(Gdx.graphics.getWidth()*.06f,"Design");
-        designText.setPosition(playerDesign.getX()+playerDesign.getWidth()*2f+textGap,playerDesign.getY()+playerDesign.getHeight()/2+designText.getHeight()/2);
+        designText.setPosition(playerDesign.getX()-textGap-designText.getWidth(),playerDesign.getY()+playerDesign.getHeight()/2+designText.getHeight()/2);
 
         playerTrail = new YesNoButton(ParticleList.getShopList(),0,0,stage);
         playerTrail.setPos(Gdx.graphics.getWidth()*.7f-playerTrail.getWidth()/2,playerDesign.getY()-playerTrail.getHeight()-textGap);
